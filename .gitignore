@@ -1,0 +1,23 @@
+# Données brutes et volumineuses (non versionnées)
+data/raw/
+*.csv.gz
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Environnement et secrets
+.env
+
+# Systèmes
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Éditeurs
+.vscode/
+.idea/
