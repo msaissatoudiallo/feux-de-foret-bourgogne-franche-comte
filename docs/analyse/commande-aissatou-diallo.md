@@ -29,7 +29,16 @@ Les mots de la commande que vous ne savez pas définir précisément, ou qui peu
 
 | Terme | Ce que je crois qu'il veut dire | Ce qu'il faudrait vérifier |
 |---|---|---|
-| | | |
+| SDIS | Service départemental d'incendie et de secours : les pompiers d'un département (ici la Côte-d'Or, n° 21). | Le territoire couvert par le SDIS 21 correspond-il exactement au département de la Côte-d'Or ? |
+| Départ de feu | Le moment et l'endroit où un feu commence, qu'il soit grand ou petit. | Est-ce que chaque départ de feu devient un « feu de forêt » dans les données ? Compte-t-on aussi les feux éteints tout de suite ? |
+| Feu de forêt | Un feu qui brûle une zone de forêt. | À partir de quelle surface ou de quel type de végétation (forêt, broussailles, champs) on parle de feu de forêt ? La définition est-elle la même dans toutes les sources ? |
+| Météo des forêts | Un indice de Météo-France qui annonce chaque jour le niveau de danger de feu de forêt. | Qui le calcule, sur quelle zone (département ou plus petit), depuis quand il existe, et sur quelle période de l'année il est publié. |
+| Niveau / seuil de l'indice | Les différents niveaux de danger (par exemple faible, modéré, élevé, très élevé). | Combien de niveaux existent exactement, et quel est le seuil actuellement utilisé par le SDIS 21 ? |
+| Danger élevé | Un des niveaux de l'indice, qui signifie un risque important de feu. | De quel niveau précis parlent les chefs de centre quand ils disent « danger élevé » ? |
+| Dispositif renforcé | Les mesures supplémentaires prises quand le risque est fort : patrouilles, guet (surveillance), etc. | Que contient exactement ce dispositif, combien il coûte par jour, et sur quelle zone il est déclenché ? |
+| Moyens humains et financiers | Les pompiers, le matériel et le budget que le SDIS peut répartir. | Quel est le budget disponible pour l'été 2027, et combien de personnes peuvent être mobilisées ? |
+| Chef de centre | Le responsable d'une caserne de pompiers. | Combien de centres il y a en Côte-d'Or et quelle zone couvre chaque centre ? |
+| Été / saison feux | La période où il y a le plus de feux de forêt. | Quels mois exactement : juin à septembre ? La commande parle aussi du printemps. |
 
 ## 3. Les besoins
 
