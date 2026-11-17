@@ -7,17 +7,17 @@ Quatre questions dont la réponse aiderait la direction à trancher.
 > [!test] Test
 > Le test : si la réponse est X, la direction fait A ; si elle est Y, elle fait B. Si A et B sont identiques, ce n'est pas une question analytique pertinente.
 
-1. **Dans quelles zones de la Côte-d'Or les départs de feu sont-ils les plus nombreux, et où brûlent-ils le plus de surface ?**
-   - Si les feux sont concentrés sur quelques communes ou massifs : la direction y place en priorité ses moyens (guet, patrouilles, matériel).
-   - S'ils sont répartis sur tout le département : elle garde des moyens mobiles, capables d'intervenir partout.
+1. **Les communes de Côte-d'Or qui ont le plus de feux sont-elles aussi celles où la Météo des forêts annonce le plus souvent un danger élevé ?**
+   - Si oui : l'indice suffit pour savoir où envoyer les moyens, la direction renforce là où l'indice est élevé.
+   - Si non : certaines zones brûlent pour d'autres raisons (activité humaine, type de forêt), la direction doit les cibler en plus de l'indice.
 
-2. **À quelles périodes de l'année (mois, semaines) les départs de feu se produisent-ils en Côte-d'Or ?**
+2. **À quels mois de l'année les départs de feu se produisent-ils en Côte-d'Or ?**
    - S'ils se concentrent en juillet-août : la direction renforce le dispositif seulement sur ces semaines.
    - S'il y en a aussi au printemps : elle doit prévoir le renfort plus tôt et étaler son budget sur une période plus longue.
 
-3. **Pour chaque niveau de la Météo des forêts, à quelle fréquence observe-t-on au moins un départ de feu en Côte-d'Or ?**
-   - Si les feux augmentent nettement à partir d'un certain niveau : la direction fixe son seuil de déclenchement à ce niveau.
-   - Si les feux ne suivent pas l'indice : elle ne peut pas se fier à l'indice seul, et doit le combiner avec d'autres critères (période, zone…).
+3. **À partir de quel niveau de la Météo des forêts les feux deviennent-ils gros (en surface brûlée) ?**
+   - Si les gros feux n'arrivent qu'à partir d'un certain niveau : la direction fixe son seuil à ce niveau, quitte à laisser passer quelques petits feux faciles à éteindre.
+   - Si des gros feux arrivent à tous les niveaux : l'indice ne suffit pas pour éviter les gros feux, et la direction doit garder des moyens prêts même par indice bas.
 
 4. **L'indice se trompe-t-il autant en Côte-d'Or (danger annoncé sans feu, feux par indice bas) que dans les autres départements de la région et en France ?**
    - Si l'indice se trompe partout autant : c'est une limite de l'indice lui-même, la direction adapte son seuil en connaissance de cause.
@@ -61,9 +61,9 @@ Pour chaque question, la donnée qu'il vous faudrait idéalement pour répondre.
 
 | Question | Donnée idéale | Grain (une ligne = ?) | Période | Fraîcheur | Emprise géographique |
 |---|---|---|---|---|---|
-| 1 | Liste des départs de feu avec leur localisation (commune, et si possible coordonnées GPS) et la surface brûlée | Un départ de feu | Les 10 dernières années au moins, pour voir si les zones touchées sont toujours les mêmes | Une mise à jour par an suffit (on étudie le passé) | Côte-d'Or, au niveau de la commune |
+| 1 | Nombre de départs de feu par commune, et niveau de la Météo des forêts de chaque jour pour la zone où se trouve la commune | Une commune sur une année (nombre de feux + nombre de jours de danger élevé) | Les 10 dernières années au moins, sur la période où l'indice est disponible | Une mise à jour par an suffit (on étudie le passé) | Côte-d'Or, au niveau de la commune |
 | 2 | Liste des départs de feu avec leur date (et si possible l'heure) | Un départ de feu | Les 10 dernières années au moins, toute l'année (pas seulement l'été) | Une mise à jour par an suffit | Côte-d'Or |
-| 3 | Le niveau de la Météo des forêts de chaque jour, et le nombre de départs de feu observés ce même jour | Un jour dans une zone (niveau de l'indice + nombre de feux) | Toutes les années où l'indice est disponible, sur toute la saison | Historique pour l'analyse ; quotidienne si on veut ensuite suivre le seuil pendant l'été 2027 | Côte-d'Or, à la zone la plus fine où l'indice est publié |
+| 3 | Liste des feux avec leur surface brûlée, et le niveau de la Météo des forêts le jour et à l'endroit du feu | Un feu (surface brûlée + niveau de l'indice ce jour-là) | Toutes les années où l'indice est disponible, sur toute la saison | Une mise à jour par an suffit | Côte-d'Or |
 | 4 | Même donnée que la question 3, mais pour tous les départements | Un jour dans un département (niveau de l'indice + nombre de feux) | La même période pour tous les départements, pour pouvoir comparer | Une mise à jour par an suffit | Les 8 départements de Bourgogne-Franche-Comté et toute la France |
 
-Remarque : les questions 3 et 4 demandent de **croiser deux données** (l'indice et les feux). Il faudra pouvoir les relier par la **date** et par la **zone** (département ou commune) : ce seront nos clés de jointure.
+Remarque : les questions 1, 3 et 4 demandent de **croiser deux données** (l'indice et les feux). Il faudra pouvoir les relier par la **date** et par la **zone** (département ou commune) : ce seront nos clés de jointure.
