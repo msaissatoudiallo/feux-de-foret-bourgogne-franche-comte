@@ -10,18 +10,18 @@ La direction du SDIS 21 doit décider, pour l'été 2027, où placer ses moyens 
 
 ## 1. Les questions
 
-1. **Avec le nombre de jours de renforcement que le budget permet, quel niveau de l'indice couvre le plus de feux, surtout les plus gros ?**
-   - Si un niveau couvre l'essentiel des feux dans le budget, on fixe le seuil à ce niveau.
-   - Sinon, on combine l'indice avec d'autres critères (zones, périodes).
-2. **Les feux de forêt et les feux de champs réagissent-ils de la même façon à l'indice ?**
-   - Si non, on garde le seuil pour la forêt et on ajoute de la prévention agricole pendant les moissons.
-   - Si oui, un seul dispositif suffit.
-3. **Le seuil doit-il être le même dans toutes les zones de la Côte-d'Or ?**
-   - Si les zones réagissent différemment, on fixe un seuil par zone et on y concentre les moyens.
-   - Sinon, on garde un seuil unique pour le département.
-4. **Les données de feux sont-elles comparables entre départements et assez nombreuses ?**
-   - Si oui, la direction peut s'appuyer sur la comparaison régionale et nationale.
-   - Si non, on recommande un seuil propre à la Côte-d'Or, provisoire, à réévaluer après l'été 2027.
+1. **Pour décider sur quels créneaux renforcer patrouilles et guet**, la direction a besoin de savoir à quelles heures de la journée et quels jours de la semaine (semaine ou week-end) partent les feux en Côte-d'Or.
+   - Si les feux se concentrent sur quelques créneaux (par exemple l'après-midi ou le week-end), elle renforce seulement sur ces créneaux, ce qui coûte moins cher.
+   - S'ils partent à toute heure, elle garde un renforcement sur la journée entière.
+2. **Pour décider où prépositionner des moyens**, la direction a besoin de savoir si les feux qui deviennent gros sont ceux où les secours arrivent le plus tard.
+   - Si oui, elle place des moyens à l'avance près des zones éloignées des casernes.
+   - Si non, la taille du feu dépend surtout de la météo, et elle mise sur le seuil de déclenchement.
+3. **Pour décider où concentrer la prévention et la surveillance**, la direction a besoin de savoir où un feu ferait le plus de dégâts (forêts proches des habitations, des routes ou de zones sensibles).
+   - Si ces zones sont peu nombreuses, elle y concentre ses moyens en priorité.
+   - Si elles sont partout, elle répartit ses moyens selon la fréquence des feux.
+4. **Pour décider combien de jours de renforcement prévoir au budget 2027**, la direction a besoin de savoir si le nombre de jours de danger élevé augmente d'un été à l'autre en Côte-d'Or.
+   - Si oui, elle prévoit plus de jours que les années passées.
+   - Si non, elle se base sur la moyenne des étés passés.
 
 ## 2. Les termes inconnus
 
@@ -35,6 +35,8 @@ La direction du SDIS 21 doit décider, pour l'été 2027, où placer ses moyens 
 | Dispositif renforcé | Moyens ajoutés les jours à risque (patrouilles, guet) | Son contenu exact et son coût par jour |
 | Guet | Surveillance depuis des points hauts pour repérer les fumées | Où et combien de postes |
 | Moyens | Personnes, véhicules et budget | Ce qui est réellement déplaçable |
+| Délai d'intervention | Le temps entre l'alerte et l'arrivée des secours sur le feu | Si ce délai est enregistré, et à partir de quel moment il est compté |
+| Enjeux | Ce qu'un feu menace : habitations, routes, zones sensibles | Ce que le SDIS considère comme un enjeu prioritaire |
 
 ## 3. Les besoins
 
@@ -44,13 +46,14 @@ Ce qui manque dans la commande pour y répondre :
 - le budget disponible, ou le nombre de jours de renforcement qu'il permet ;
 - le seuil actuel utilisé par le SDIS ;
 - la période qui compte comme « l'été » (dates de début et de fin de la saison) ;
-- la définition d'un feu retenue par la direction (forêt seulement ou toute végétation).
+- la définition d'un feu retenue par la direction (forêt seulement ou toute végétation) ;
+- l'emplacement des casernes et des postes de guet.
 
 ## 4. Les données
 
 | Question | Donnée idéale | Grain (une ligne = ?) | Période | Fraîcheur | Emprise géographique |
 |---|---|---|---|---|---|
-| 1 | Feux (date, lieu, surface) croisés avec le niveau de l'indice du jour | Un feu, et un jour × une zone pour l'indice | Le plus d'étés possible | Saison 2026 incluse | Côte-d'Or |
-| 2 | Feux avec le type de végétation brûlée et la cause | Un feu | Le plus d'étés possible | Saison 2026 incluse | Côte-d'Or |
-| 3 | Feux et indice par zone du département | Un feu, et un jour × une zone pour l'indice | Le plus d'étés possible | Saison 2026 incluse | Côte-d'Or, par zone |
-| 4 | Feux et indice des autres départements, avec la définition utilisée | Un feu, et un jour × une zone pour l'indice | Les mêmes années partout | Saison 2026 incluse | Région Bourgogne-Franche-Comté et France |
+| 1 | Liste des feux avec la date et l'heure de l'alerte | Un feu | Au moins 10 saisons | Saison 2026 incluse | Côte-d'Or |
+| 2 | Liste des feux avec l'heure de l'alerte, l'heure d'arrivée des secours et la surface brûlée ; emplacement des casernes | Un feu | Au moins 10 saisons | Saison 2026 incluse | Côte-d'Or |
+| 3 | Occupation du sol (forêts, habitations, routes) et liste des feux avec leur lieu | Une parcelle ou une commune | Le millésime le plus récent | Le plus récent disponible | Côte-d'Or, par commune |
+| 4 | Niveau quotidien de la Météo des forêts, ou historique de l'indice IFM | Un jour × une zone de prévision | Le plus d'étés possible | Saison 2026 incluse | Côte-d'Or, et la région pour comparer la tendance |
