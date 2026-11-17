@@ -57,3 +57,46 @@ Ce qui manque dans la commande pour y répondre :
 | 2 | Liste des feux avec l'heure de l'alerte, l'heure d'arrivée des secours et la surface brûlée ; emplacement des casernes | Un feu | Au moins 10 saisons | Saison 2026 incluse | Côte-d'Or |
 | 3 | Occupation du sol (forêts, habitations, routes) et liste des feux avec leur lieu | Une parcelle ou une commune | Le millésime le plus récent | Le plus récent disponible | Côte-d'Or, par commune |
 | 4 | Niveau quotidien de la Météo des forêts, ou historique de l'indice IFM | Un jour × une zone de prévision | Le plus d'étés possible | Saison 2026 incluse | Côte-d'Or, et la région pour comparer la tendance |
+
+## 5. Confrontation aux sources
+
+Degrés : complet, partiel, absent, inconnu. Les raisons renvoient aux fiches de `docs/sources/`.
+
+### 5.1 Matrice
+
+| Question | BDIFF | Météo des forêts | EFFIS | SIM2 | BD Forêt V2 | Interventions SDIS | Stats SDIS |
+|---|---|---|---|---|---|---|---|
+| Q1 Heures et jours des feux | partiel (a) | absent | absent | absent | absent | absent | absent |
+| Q2 Gros feux et délai des secours | partiel (b) | absent | absent | absent | absent | absent | absent |
+| Q3 Où un feu ferait le plus de dégâts | partiel (c) | absent | inconnu (d) | absent | partiel (e) | absent | absent |
+| Q4 Jours de danger élevé d'un été à l'autre | absent | partiel (f) | partiel (g) | partiel (h) | absent | absent | absent |
+
+### 5.2 Raisons
+
+- (a) Fiche BDIFF, Grain : date et heure de première alerte. Mais Période : 2006 à 2025, pas l'été 2026 que je voulais. Et Volumétrie : seulement 120 feux en Côte-d'Or, peu pour les répartir par heure et par jour.
+- (b) Fiche BDIFF, Grain : heure d'alerte et surface, mais aucune colonne d'heure d'arrivée des secours.
+- (c) Fiche BDIFF, Clés : commune de chaque feu. Mais les colonnes de dégâts (bâtiments détruits) sont vides en Côte-d'Or.
+- (d) La liste du défi dit qu'EFFIS contient des zones habitées, mais la fiche EFFIS ne l'a pas vérifié.
+- (e) Fiche BD Forêt V2, Grain : où sont les forêts et de quel type, mais rien sur les habitations ni les routes. Période : état de 2017.
+- (f) Fiche Météo des forêts, colonne `niveau_j1` : c'est le bon indicateur, mais Période : seulement 3 étés (depuis juin 2024).
+- (g) Fiche EFFIS, Grain et Clés : le FWI existe sur plusieurs années, mais en images, sans code département, et les années anciennes sont sur demande.
+- (h) Fiche SIM2, colonnes `TSUP_H`, `PRELIQ`, `HU`, `SSWI_10J` : chaleur, pluie, humidité et sécheresse des sols depuis 1958, mais pas d'indice de danger.
+
+Les cases « absent » ont la même raison pour une même source (rubrique Grain de la fiche) :
+- Météo des forêts : un département pour un jour, aucun feu.
+- EFFIS : cartes et totaux par pays et par année, aucun feu daté à l'heure.
+- SIM2 : météo sur une grille, aucun feu.
+- BD Forêt V2 : zones de végétation, aucun feu.
+- Interventions SDIS et Stats SDIS : un département sur une année, donc pas de détail feu par feu (ni heure, ni délai, ni lieu).
+- BDIFF pour Q4 : des feux, pas de niveau de danger.
+
+### 5.3 Décisions
+
+Aucune de mes questions n'a de source « complet ».
+
+| Question | Décision | Ce qu'on fait | Ce que ça coûte |
+|---|---|---|---|
+| Q1 | renoncer (reformuler) | Garder la question sur 2006 à 2025, et l'élargir à la région (752 feux) si la Côte-d'Or seule n'a pas assez de feux | Pas d'information sur l'été 2026, et un résultat moins propre à la Côte-d'Or |
+| Q2 | collecter, sinon renoncer | Demander au SDIS 21 l'heure d'arrivée des secours sur chaque feu (donnée interne). Sans réponse, abandonner la question | Dépend d'une réponse du SDIS, peut-être pas avant le 11/12 |
+| Q3 | vérifier, puis collecter | Vérifier si EFFIS donne les zones habitées (sûrement à l'échelle européenne, trop large). Sinon, récupérer la BD TOPO de l'IGN (bâtiments, routes) et la croiser avec la BD Forêt V2 | Une source de plus, lourde, à croiser par carte |
+| Q4 | approximer | Compter chaque été les jours chauds et secs en Côte-d'Or avec la SIM2, de 2006 à 2026 | Ce n'est pas l'indice de Météo-France : il faut choisir nous-mêmes ce qu'est un jour « à danger ». À contrôler avec la Météo des forêts sur 2024 à 2026 |
