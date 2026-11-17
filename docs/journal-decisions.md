@@ -26,3 +26,15 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Rôles inchangés :** Jane (responsable sources) et Melvyn (responsable qualité et conformité).
 - **Ticket :** #3
 - **Validée par :** le groupe.
+
+---
+
+## D003 – Organisation des pull requests
+
+- **Date :** 2026-11-17
+- **Contexte :** chaque membre travaille sur ses propres branches (analyse de la commande, fiches d'identité des sources). Ouvrir et fusionner les pull requests au fil de l'eau risquait de créer des conflits entre les branches.
+- **Décision :** les pull requests vers `documentation` sont ouvertes **une fois toutes les fiches d'identité des sources terminées**.
+- **Relecture :** les pull requests sont relues par Aissatou Diallo, cheffe de projet.
+- **Exception :** la pull request de Jane (#2), ouverte avant cette décision, reste ouverte et sera traitée avec les autres.
+- **Ticket :** #7
+- **Validée par :** le groupe.
