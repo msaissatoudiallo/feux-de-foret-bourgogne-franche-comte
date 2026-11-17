@@ -39,4 +39,6 @@ docs/
 
 - Une branche par ticket, nommée `type/courte-description` (ex. `docs/analyse-commande-jane`).
 - Des commits atomiques : un commit = un changement cohérent, avec un message clair.
-- Tout passe par une pull request vers `main`, relue par le ou la responsable du domaine concerné.
+- Personne ne travaille directement sur `main`, `dev` ou `documentation` : chaque branche de tâche part de `documentation`.
+- Le travail remonte par pull requests : branche de tâche → `documentation` → `dev` (en fin de semaine) → `main` (aux checkpoints).
+- Les pull requests sont relues par la cheffe de projet, et par le ou la responsable du domaine concerné (voir [D003](docs/journal-decisions.md)).
