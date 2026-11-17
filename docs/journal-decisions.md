@@ -24,5 +24,5 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
   - Audrey : cheffe de projet → **responsable pipeline et modèle**.
 - **Raison :** Aissatou ayant créé le dépôt, il est plus simple qu'elle en garde la gestion (tickets, checkpoints, journal des décisions).
 - **Rôles inchangés :** Jane (responsable sources) et Melvyn (responsable qualité et conformité).
-- **Ticket :** #2
+- **Ticket :** #3
 - **Validée par :** le groupe.
