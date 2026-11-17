@@ -61,7 +61,9 @@ Pour chaque question, la donnée qu'il vous faudrait idéalement pour répondre.
 
 | Question | Donnée idéale | Grain (une ligne = ?) | Période | Fraîcheur | Emprise géographique |
 |---|---|---|---|---|---|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
+| 1 | Liste des départs de feu avec leur localisation (commune, et si possible coordonnées GPS) et la surface brûlée | Un départ de feu | Les 10 dernières années au moins, pour voir si les zones touchées sont toujours les mêmes | Une mise à jour par an suffit (on étudie le passé) | Côte-d'Or, au niveau de la commune |
+| 2 | Liste des départs de feu avec leur date (et si possible l'heure) | Un départ de feu | Les 10 dernières années au moins, toute l'année (pas seulement l'été) | Une mise à jour par an suffit | Côte-d'Or |
+| 3 | Le niveau de la Météo des forêts de chaque jour, et le nombre de départs de feu observés ce même jour | Un jour dans une zone (niveau de l'indice + nombre de feux) | Toutes les années où l'indice est disponible, sur toute la saison | Historique pour l'analyse ; quotidienne si on veut ensuite suivre le seuil pendant l'été 2027 | Côte-d'Or, à la zone la plus fine où l'indice est publié |
+| 4 | Même donnée que la question 3, mais pour tous les départements | Un jour dans un département (niveau de l'indice + nombre de feux) | La même période pour tous les départements, pour pouvoir comparer | Une mise à jour par an suffit | Les 8 départements de Bourgogne-Franche-Comté et toute la France |
+
+Remarque : les questions 3 et 4 demandent de **croiser deux données** (l'indice et les feux). Il faudra pouvoir les relier par la **date** et par la **zone** (département ou commune) : ce seront nos clés de jointure.
