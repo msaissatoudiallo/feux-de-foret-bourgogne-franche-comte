@@ -21,3 +21,50 @@
    - Si oui, on peut copier le seuil des voisins et s'organiser avec eux.
    - Si non, on fait un seuil rien que pour la Côte-d'Or, et on sait pourquoi.
 
+
+
+## 2. Les termes inconnus
+
+Les mots de la commande que vous ne savez pas définir précisément, ou qui peuvent se comprendre de plusieurs façons.
+
+| Terme | Ce que je crois qu'il veut dire | Ce qu'il faudrait vérifier |
+|---|---|---|
+| Météo des forêts | Une carte de Météo-France qui dit chaque jour si le risque de feu est faible ou fort | Qui la fait, depuis quand, est-ce qu'on peut voir les anciens jours, c'est par département ou par zone plus petite |
+| Niveau / indice | Le niveau de danger affiché sur la carte | Il y a combien de niveaux ? « Indice » et « niveau », c'est pareil ? |
+| Feu de forêt | Un feu dans une forêt | À partir de quelle taille ça compte ? Les feux de buissons ou de champs, ça compte aussi ? |
+| Départ de feu | Là où le feu commence, et quand | Les tout petits feux éteints direct, on les compte ? |
+| Dispositif renforcé | Les moyens en plus quand le risque est fort : patrouilles, surveillance… | Il y a quoi dedans exactement, et ça coûte combien par jour ? |
+| Seuil actuel | Le niveau à partir duquel les pompiers renforcent aujourd'hui | C'est quel niveau ? Partout dans le département ou juste à certains endroits ? |
+| Moyens humains et financiers | Les pompiers, les camions et l'argent | On compte comment : en nombre de personnes, en jours, en euros ? |
+| Été / saison des feux | De juin à septembre | Le mail parle aussi du printemps, donc c'est quelle période ? |
+| « Autant de feux que l'été 2026 » | Le nombre de feux de l'été 2026 | On parle du nombre de feux ou de la surface brûlée ? Le chiffre vient d'où ? |
+| Territoire national | La France métropolitaine | Avec l'outre-mer ou pas ? |
+| Guet | Surveiller depuis un endroit en hauteur pour voir les fumées | Il y a des tours de guet en Côte-d'Or ? |
+| Chef de centre | Le chef d'une caserne de pompiers | On peut découper le département par zone de caserne ? |
+
+## 3. Les besoins
+
+La décision à éclairer, en une phrase :
+
+**Où et à partir de quel niveau de la Météo des forêts les pompiers de Côte-d'Or doivent renforcer la surveillance l'été prochain, vu qu'ils n'ont pas assez d'argent pour le faire partout et tout le temps ?**
+
+Ce qui manque dans la commande pour y répondre (une information, une précision, une hypothèse à confirmer) :
+- Le seuil utilisé en ce moment.
+- Le budget : on peut payer le renfort combien de jours, et sur combien de zones.
+- Le prix d'une journée de renfort.
+- Ce qu'ils veulent dire par « où » : une commune, une forêt, la zone d'une caserne ?
+- Ce que les pompiers appellent un « feu de forêt » (les feux de champs, ça compte ?).
+- Si on peut avoir les données des interventions des pompiers de Côte-d'Or.
+- Ce qui les embête le plus : les alertes pour rien, ou les feux qui arrivent sans renfort ?
+- La période exacte à regarder (avec le printemps ou pas).
+
+## 4. Les données
+
+
+
+| Question | Donnée idéale | Grain (une ligne = ?) | Période | Fraîcheur | Emprise géographique |
+|---|---|---|---|---|---|
+| 1 | La liste des feux avec la date, la commune, la surface brûlée et la cause, plus les zones des casernes et la surface de forêt par commune | Un feu | Les 10 derniers étés à peu près, 2026 compris | Avec tout l'été 2026 | Côte-d'Or, par commune |
+| 2 | Le niveau de la météo des forêts de chaque jour, avec le nombre de feux ce jour-là | Un jour dans une zone | Tous les étés depuis que la météo des forêts existe | Avec tout l'été 2026 | Côte-d'Or, par zone de prévision |
+| 3 | La liste des feux de la question 1, avec la cause, l'heure, la surface et le niveau d'indice du jour | Un feu | Même période que la question 1 | Avec tout l'été 2026 | Côte-d'Or |
+| 4 | Le niveau de la météo des forêts de chaque jour et le nombre de feux de chaque jour, pour chaque département | Un jour dans un département | Même période que la question 2 | Avec tout l'été 2026 | Les 8 départements de Bourgogne-Franche-Comté et toute la France métropolitaine |
