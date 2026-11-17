@@ -19,10 +19,10 @@ Elle souhaite comprendre le comportement de l'indice en Côte-d'Or, dans les aut
 
 | Rôle | Membre | Responsable de |
 |---|---|---|
-| Cheffe de projet | Audrey | Dépôt, tickets, checkpoints, journal des décisions |
+| Cheffe de projet | Aissatou Diallo | Dépôt, tickets, checkpoints, journal des décisions |
 | Responsable sources | Jane | Inventaire, fiches d'identité, matrice questions × sources |
 | Responsable qualité et conformité | Melvyn | Règles de qualité, tests, données personnelles |
-| Responsable pipeline et modèle | Aissatou | Chargement, consolidation, entrepôt |
+| Responsable pipeline et modèle | Audrey | Chargement, consolidation, entrepôt |
 
 Un rôle confie la responsabilité d'un domaine : la personne relit ce qui le touche et valide les tickets qui en relèvent. Tout changement de rôle est consigné dans le [journal des décisions](docs/journal-decisions.md).
 
