@@ -35,6 +35,11 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Contexte :** chaque membre travaille sur ses propres branches (analyse de la commande, fiches d'identité des sources). Ouvrir et fusionner les pull requests au fil de l'eau risquait de créer des conflits entre les branches.
 - **Décision :** les pull requests vers `documentation` sont ouvertes **une fois toutes les fiches d'identité des sources terminées**.
 - **Relecture :** les pull requests sont relues par Aissatou Diallo, cheffe de projet.
-- **Exception :** la pull request de Jane (#2), ouverte avant cette décision, reste ouverte et sera traitée avec les autres.
+- **Exceptions :** la pull request de Jane (#2), ouverte avant cette décision, reste ouverte et sera traitée avec les autres. La pull request d'Audrey (#14, analyse de la commande) a été fusionnée dans `documentation` avant que la décision ne soit partagée.
+- **Ordre de fusion dans `documentation` :**
+  1. **Analyses de la commande** : #2 (Jane), #12 (Melvyn), puis l'analyse d'Aissatou (ticket #1).
+  2. **Organisation** : changement de rôles (ticket #3), **puis** cette décision D003 (ticket #7), car les deux modifient ce journal. La correction des règles du README (ticket #17) peut passer à n'importe quel moment de cette étape.
+  3. **Fiches d'identité** : #15 (Jane, Météo des forêts et EFFIS) **avant** les fiches d'Aissatou (tickets #4 et #6), qui contiennent un commit de la branche de Jane. Les fiches de Melvyn (#13) et d'Audrey (#16) peuvent passer à n'importe quel moment de cette étape.
+- **Ensuite :** `documentation` → `dev` en fin de semaine, puis `dev` → `main` au checkpoint.
 - **Ticket :** #7
 - **Validée par :** le groupe.
