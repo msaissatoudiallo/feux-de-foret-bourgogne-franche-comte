@@ -44,8 +44,16 @@ Les mots de la commande que vous ne savez pas définir précisément, ou qui peu
 
 La décision à éclairer, en une phrase :
 
+Pour l'été 2027, avec un budget limité, la direction du SDIS 21 doit décider où et quand renforcer son dispositif contre les feux de forêt, et à partir de quel niveau de la Météo des forêts le déclencher.
+
 Ce qui manque dans la commande pour y répondre (une information, une précision, une hypothèse à confirmer) :
--
+- **Le budget disponible** pour l'été 2027 et le **coût d'une journée** de dispositif renforcé : sans ces chiffres, on ne sait pas combien de jours ou de zones on peut renforcer.
+- **Le seuil actuel** de déclenchement : quel niveau de la Météo des forêts est utilisé aujourd'hui, et depuis quand.
+- **Le contenu du dispositif renforcé** : patrouilles, guet… mais combien de personnes, sur quelle zone, et peut-il être déclenché sur une partie du département seulement ?
+- **Les données internes du SDIS** : la direction a-t-elle ses propres données d'interventions, et peut-on y accéder ? Sinon, il faudra se baser uniquement sur des données ouvertes.
+- **Les chiffres de l'été 2026** : la direction dit s'attendre à « autant de feux que l'été 2026 », mais ne précise pas combien il y en a eu.
+- **Les remarques des chefs de centre** : il faudrait des exemples précis (dates, lieux) des fausses alertes et des feux partis par indice bas, pour vérifier ces impressions avec les données.
+- **Hypothèse à confirmer** : on suppose que ce qui s'est passé les années précédentes (où et quand partent les feux) se reproduira en 2027.
 
 ## 4. Les données
 
