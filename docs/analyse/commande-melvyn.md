@@ -57,3 +57,32 @@ Ce qui manque dans la commande pour y répondre :
 | 2 | Liste des feux avec l'heure de l'alerte, l'heure d'arrivée des secours et la surface brûlée ; emplacement des casernes | Un feu | Au moins 10 saisons | Saison 2026 incluse | Côte-d'Or |
 | 3 | Occupation du sol (forêts, habitations, routes) et liste des feux avec leur lieu | Une parcelle ou une commune | Le millésime le plus récent | Le plus récent disponible | Côte-d'Or, par commune |
 | 4 | Niveau quotidien de la Météo des forêts, ou historique de l'indice IFM | Un jour × une zone de prévision | Le plus d'étés possible | Saison 2026 incluse | Côte-d'Or, et la région pour comparer la tendance |
+
+## 5. Confrontation aux sources
+
+### Matrice
+
+| Question | BDIFF | Météo des forêts | EFFIS | SIM2 | BD Forêt V2 | Interventions SDIS | Stats SDIS |
+|---|---|---|---|---|---|---|---|
+| 1 | partiel : heure d'alerte présente, mais pas l'été 2026 et seulement 120 feux en Côte-d'Or (Grain, Période, Volumétrie) | absent : un département par jour, aucun feu (Grain) | absent : cartes et totaux par an, aucun feu à l'heure (Grain) | absent : météo seulement (Grain) | absent : zones de végétation (Grain) | absent : un département par an (Grain) | absent : un département par an (Grain) |
+| 2 | partiel : heure d'alerte et surface, mais pas d'heure d'arrivée des secours (Grain) | absent : un département par jour, aucun feu (Grain) | absent : aucune intervention (Grain) | absent : météo seulement (Grain) | absent : zones de végétation (Grain) | absent : totaux par an, pas de délai (Grain) | absent : un département par an, pas de délai par feu (Grain) |
+| 3 | partiel : commune de chaque feu, mais colonnes de dégâts vides en Côte-d'Or (Clés, Grain) | absent : rien de plus fin que le département (Grain) | inconnu : zones habitées citées par la liste du défi, non vérifiées dans la fiche | absent : météo seulement (Grain) | partiel : forêts et leur type, mais pas d'habitations ni de routes, état de 2017 (Grain, Période) | absent : un département par an (Grain) | absent : un département par an (Grain) |
+| 4 | absent : des feux, pas de niveau de danger (Grain) | partiel : le bon indicateur, mais seulement 3 étés (colonne `niveau_j1`, Période) | partiel : FWI en images, sans département, années anciennes sur demande (Grain, Clés) | partiel : chaleur et sécheresse depuis 1958, mais pas d'indice de danger (colonnes `TSUP_H`, `PRELIQ`, `HU`, `SSWI_10J`) | absent : zones de végétation (Grain) | absent : interventions par an (Grain) | absent : interventions et moyens par an (Grain) |
+
+### Écarts avec la section 4
+
+| Question | Meilleure source | Grain | Période | Fraîcheur | Emprise |
+| -------- | ---------------- | ----- | ------- | --------- | ------- |
+| 1 | BDIFF | = | au moins 10 saisons → 2006 à 2025, peu de feux avant 2015 | saison 2026 incluse → jusqu'à 2025 | = |
+| 2 | BDIFF | un feu avec l'heure d'arrivée des secours → un feu sans heure d'arrivée | au moins 10 saisons → 2006 à 2025 | saison 2026 incluse → jusqu'à 2025 | = |
+| 3 | BD Forêt V2 | parcelle ou commune, avec habitations et routes → zone de végétation, sans habitations ni routes | millésime le plus récent → 2017 | le plus récent disponible → 2017 | Côte-d'Or par commune → Côte-d'Or sans code commune |
+| 4 | SIM2 | niveau de danger par jour et par zone → météo par jour et par point de 8 km | = | = | = |
+
+### Décisions
+
+| Question | Ce qui manque | Décision | Pourquoi | Ce que la décision coûte |
+|---|---|---|---|---|
+| 1 | L'été 2026, et assez de feux en Côte-d'Or | renoncer | On reformule : la question est étudiée sur 2006 à 2025, et sur la région (752 feux) si la Côte-d'Or n'a pas assez de feux | Pas d'information sur l'été 2026, et un résultat moins propre à la Côte-d'Or |
+| 2 | L'heure d'arrivée des secours sur chaque feu | collecter | C'est une donnée interne du SDIS 21, aucune source ouverte ne l'a. Sans réponse du SDIS, on renonce à la question | Dépend d'une réponse du SDIS, peut-être pas avant le 11/12 |
+| 3 | Les habitations et les routes | collecter | Récupérer la BD TOPO (IGN, dans la liste du défi) et la croiser avec la BD Forêt V2, après avoir vérifié EFFIS (inconnu) | Une source lourde de plus, à croiser par carte |
+| 4 | Un indice de danger sur beaucoup d'étés | approximer | La SIM2 permet de compter les jours chauds et secs de chaque été, de 2006 à 2026 | Ce n'est pas l'indice officiel : il faut choisir nous-mêmes ce qu'est un jour « à danger », et le contrôler avec la Météo des forêts sur 2024 à 2026 |
