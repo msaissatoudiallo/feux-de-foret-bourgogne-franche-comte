@@ -77,7 +77,7 @@ Sources de l'inventaire du groupe (`docs/sources/inventaire.md`) : BDIFF, Mété
 | Question | Meilleure source | Grain | Période | Fraîcheur | Emprise |
 | -------- | ---------------- | ----- | ------- | --------- | ------- |
 | 1 | Météo des forêts croisée avec la BDIFF | un jour × une zone de prévision → un jour × un département | au moins 10 saisons feux → 2 saisons croisables (juin 2024 à octobre 2025), été seulement | jusqu'à la saison 2026 → 2025 pour la BDIFF (2026 n'est pas publiée) | = (Côte-d'Or), mais seulement 2 feux sur la période |
-| 2 | Météo des forêts croisée avec la BDIFF | = (un jour × un département, comme en question 1) | au moins 10 saisons feux → 2 saisons | saison 2026 et coûts 2027 → feux jusqu'à 2025, aucun coût | = (Côte-d'Or) |
+| 2 | Météo des forêts croisée avec la BDIFF | un jour × une zone de prévision → un jour × un département | au moins 10 saisons feux → 2 saisons | saison 2026 et coûts 2027 → feux jusqu'à 2025, aucun coût | = (Côte-d'Or) |
 | 3 | BDIFF, avec la BD Forêt V2 | un départ de feu → un feu classé « forêt » seulement, localisé à la commune et sans coordonnées | au moins 10 ans → 2006-2025, mais le premier feu date de 2012 et les données sont faibles avant 2015 | jusqu'à la saison 2026 → 2025 ; la forêt dans son état de 2017 | = (communes de Côte-d'Or) ; pas de découpage en massifs |
 | 4 | Météo des forêts croisée avec la BDIFF | = (un jour × un département) | même période pour tous → = (les mêmes dates pour tous), mais seulement 2 saisons | jusqu'à la saison 2026 → 2025 pour la BDIFF | = (8 départements de BFC et France métropolitaine) |
 
