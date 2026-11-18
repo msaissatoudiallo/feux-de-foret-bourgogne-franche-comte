@@ -43,3 +43,23 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ensuite :** `documentation` → `dev` en fin de semaine, puis `dev` → `main` au checkpoint.
 - **Ticket :** #7
 - **Validée par :** le groupe.
+
+---
+
+## D004 – Organisation en deux équipes et validation des pull requests
+
+- **Date :** 2026-11-18
+- **Contexte :** la professeure recommande de diviser le groupe en deux équipes qui travaillent en parallèle, et précise les rôles : la cheffe de projet définit les milestones et attribue les tickets ; le responsable qualité et conformité valide les nouvelles sources, vérifie les tests et valide les pull requests.
+- **Décision 1 – Deux équipes :**
+  - **Équipe 1 – Schéma et architecture** (tables, clés primaires et étrangères, couches bronze / silver / gold) : Audrey et Aissatou. Ticket parent #35.
+  - **Équipe 2 – Qualité des données** (complétude, exactitude, cohérence, validité, unicité, actualité) : Melvyn et Jane. Ticket parent #36.
+  - Les tâches communes (inventaire, matrice, glossaire, spec, journal) sont regroupées dans le ticket parent #37.
+- **Décision 2 – Validation des pull requests :** les pull requests sont relues et validées par **Melvyn**, responsable qualité et conformité. Cette décision **remplace la règle de relecture de D003** (« relues par la cheffe de projet »). Une pull request de Melvyn est validée par un autre membre du groupe.
+- **Décision 3 – Milestones :** le travail est découpé en trois versions : **V0 – Socle** (20/11/2026), **V1 – Version enrichie** (02/12/2026), **V2 – Version finale** (11/12/2026). Chaque ticket est rattaché à un milestone et suivi dans le tableau du projet GitHub (colonnes Backlog, In progress, In review, Done).
+- **Décision 4 – Inventaire et matrice :** l'ordinateur de Jane, responsable sources, étant en panne le 18/11 :
+  - la mise à jour de l'inventaire (#45) est assignée à Aissatou ;
+  - la matrice du groupe (#46) est une tâche de groupe, assignée aux quatre membres : Aissatou la rédige et la coordonne, les autres membres complètent et relisent.
+- **Raison :** travailler en parallèle pour tenir les livrables de fin de semaine (spec V1, journal, couche brute), et suivre les rôles définis par la professeure.
+- **Ce que la décision coûte :** Aissatou coordonne plus de tâches communes cette semaine ; la relecture repose en grande partie sur une seule personne (Melvyn).
+- **Ticket :** #50
+- **Validée par :** le groupe.
