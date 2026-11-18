@@ -67,3 +67,34 @@ Pour chaque question, la donnée qu'il vous faudrait idéalement pour répondre.
 | 4 | Même donnée que la question 3, mais pour tous les départements | Un jour dans un département (niveau de l'indice + nombre de feux) | La même période pour tous les départements, pour pouvoir comparer | Une mise à jour par an suffit | Les 8 départements de Bourgogne-Franche-Comté et toute la France |
 
 Remarque : les questions 1, 3 et 4 demandent de **croiser deux données** (l'indice et les feux). Il faudra pouvoir les relier par la **date** et par la **zone** (département ou commune) : ce seront nos clés de jointure.
+
+## 5. Confrontation aux sources
+
+Degrés : **complet**, **partiel**, **absent**, **inconnu**. Chaque raison renvoie à une rubrique d'une fiche de `docs/sources/` ou à une colonne de fichier.
+
+### Matrice
+
+| Question | BDIFF | Météo des forêts | EFFIS | SIM2 | BD Forêt V2 | Interventions SDIS | Stats nationales SDIS |
+|---|---|---|---|---|---|---|---|
+| 1. Communes avec le plus de feux et indice élevé | partiel : chaque feu a son code INSEE de commune (rubrique Grain), mais pas de niveau d'indice | partiel : un seul niveau par département et par jour, colonne `num_dep` (rubrique Grain) : impossible de comparer les communes | partiel : FWI sur une grille de 8 km, mais en images, sans code commune ni département (rubriques Grain et Clés) | absent : météo sur une grille, aucun feu ni indice (rubrique Grain) | absent : zones de végétation, aucun feu ni indice (rubrique Grain) | absent : un département sur une année, pas de commune (rubrique Grain) | absent : un département sur une année, pas de commune (rubrique Grain) |
+| 2. Mois des départs de feu | **complet** : colonne date et heure de première alerte pour chaque feu (rubrique Grain), 2006 à 2025 (rubrique Période), Côte-d'Or par commune (rubrique Emprise) | absent : des niveaux de danger, aucun feu (rubrique Grain) | inconnu : la carte des zones brûlées 2018-2025 n'a pas été vérifiée (date de chaque zone, petits feux visibles ?) | absent : météo sur une grille, aucun feu (rubrique Grain) | absent : zones de végétation, aucun feu (rubrique Grain) | absent : un seul total par an, pas de mois (rubrique Grain) | absent : un seul total par an, pas de mois (rubrique Grain) |
+| 3. Niveau de l'indice et taille des feux | partiel : colonnes de surfaces parcourues pour chaque feu (rubrique Grain), mais pas de niveau d'indice ; 63 surfaces sur 120 estimées | partiel : colonne `niveau_j1`, mais seulement depuis juin 2024 et de fin mai à début octobre (rubrique Période) : 2 feux en Côte-d'Or sur la période commune | partiel : FWI sur plusieurs années, mais en images et sans département (rubriques Grain et Clés) | partiel : température, pluie, vent et sécheresse des sols depuis 1958 (rubrique Questions) : conditions du jour, mais pas le niveau de l'indice | absent : zones de végétation, aucun feu (rubrique Grain) | absent : pas de surface, pas d'indice (rubrique Grain) | absent : pas de surface par feu, pas d'indice (rubrique Grain) |
+| 4. Erreurs de l'indice en Côte-d'Or et ailleurs | partiel : France entière avec la date de chaque feu (rubrique Emprise), mais seulement 2 feux en Côte-d'Or, 43 dans la région et 2 632 en France sur la période commune avec l'indice | partiel : les 96 départements de métropole, jour par jour (rubrique Emprise), mais trois saisons seulement, sans le printemps (rubrique Période) | partiel : FWI sur plusieurs années, mais en images et sans département (rubriques Grain et Clés) | absent : pas de niveau d'indice ni de feu (rubrique Grain) | absent : aucun feu ni indice (rubrique Grain) | partiel : colonne « Feux de végétations » par département et par an (rubrique Grain), mais sans jour ni indice, et pas seulement des feux de forêt | absent : les annexes donnent interventions, effectifs et budgets, mais aucun nombre de feux par département (rubrique Grain) |
+
+### Écarts avec la section 4
+
+| Question | Meilleure source | Grain | Période | Fraîcheur | Emprise |
+| -------- | ---------------- | ----- | ------- | --------- | ------- |
+| 1 | BDIFF + Météo des forêts | indice par zone fine → **indice par département seulement** | 10 ans au moins → feux 2006-2025 (peu avant 2015), indice **depuis juin 2024** | = | Côte-d'Or par commune → feux par commune, mais indice **par département** |
+| 2 | BDIFF | = | 10 ans au moins, toute l'année → 2006-2025, toute l'année (mais peu de feux saisis avant 2015) | = (publication annuelle après validation) | = |
+| 3 | BDIFF + Météo des forêts | = (un feu, relié au niveau du jour par la date et le département) | toutes les années de l'indice, toute la saison → **étés 2024 et 2025 seulement** (2026 pas encore publié dans la BDIFF) | = | Côte-d'Or → **2 feux seulement** sur la période commune : il faut passer à la région ou à la France |
+| 4 | BDIFF + Météo des forêts | = (un jour dans un département) | même période partout → = , mais **étés 2024 et 2025 seulement** | = | 8 départements de la région et toute la France → = pour la métropole (la Météo des forêts ne couvre pas l'outre-mer) |
+
+### Décisions
+
+| Question | Ce qui manque | Décision | Pourquoi | Ce que la décision coûte |
+|---|---|---|---|---|
+| 1 | Un niveau d'indice plus fin que le département | **renoncer** (reformuler) | La Météo des forêts n'existe que par département. Je reformule : les **départements** de la région qui ont le plus de feux sont-ils ceux où l'indice est le plus souvent élevé ? | On perd le détail à l'intérieur de la Côte-d'Or, qui était le cœur de la question. La comparaison ne porte que sur les étés 2024 et 2025, seule période commune à la BDIFF (qui s'arrête en 2025) et à la Météo des forêts |
+| 2 | Rien : la BDIFF est « complet » | — | La colonne date de première alerte répond à la question | Prudence sur les années avant 2015, où peu de feux sont saisis |
+| 3 | Assez de feux en Côte-d'Or sur la période où l'indice existe | **approximer** | Utiliser les feux de la **région, voire de la France**, à la place de ceux de la Côte-d'Or, sur les étés 2024 et 2025 | La région ou la France ne réagissent peut-être pas comme la Côte-d'Or. Les feux de printemps restent hors de l'analyse |
+| 4 | Un historique de l'indice plus long que trois saisons | **approximer** | Comparer la Côte-d'Or, la région et la France sur les **seuls étés 2024 et 2025**, période où les deux sources se recouvrent | Deux saisons seulement : le résultat sera fragile. Les feux de printemps ne peuvent pas être comparés à l'indice |
