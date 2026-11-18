@@ -68,3 +68,32 @@ Ce qui manque dans la commande pour y répondre (une information, une précision
 | 2 | Le niveau de la météo des forêts de chaque jour, avec le nombre de feux ce jour-là | Un jour dans une zone | Tous les étés depuis que la météo des forêts existe | Avec tout l'été 2026 | Côte-d'Or, par zone de prévision |
 | 3 | La liste des feux de la question 1, avec la cause, l'heure, la surface et le niveau d'indice du jour | Un feu | Même période que la question 1 | Avec tout l'été 2026 | Côte-d'Or |
 | 4 | Le niveau de la météo des forêts de chaque jour et le nombre de feux de chaque jour, pour chaque département | Un jour dans un département | Même période que la question 2 | Avec tout l'été 2026 | Les 8 départements de Bourgogne-Franche-Comté et toute la France métropolitaine |
+
+## 5. Confrontation aux sources
+
+### Matrice
+
+| Question | BDIFF | Météo des forêts | EFFIS | SIM2 | BD Forêt V2 | Interventions SDIS | Stats SDIS |
+|---|---|---|---|---|---|---|---|
+| 1 | partiel : la commune, la date et la surface de chaque feu, mais pas l'été 2026 et la cause est vide pour 100 feux sur 120 (Grain, Période) | absent : un niveau par département, aucun feu (Grain) | inconnu : la carte des zones brûlées 2018-2025 n'a pas été vérifiée, les petits feux ne sont peut-être pas vus | absent : de la météo, aucun feu (Grain) | partiel : où sont les forêts, mais état de 2017 et pas de code commune (Période, Clés) | absent : un total par département et par an (Grain) | absent : un total par département et par an (Grain) |
+| 2 | partiel : la date de chaque feu, mais pas de niveau d'indice (Grain) | partiel : colonne `niveau_j1`, mais seulement depuis juin 2024 et pendant la saison (Période) | partiel : le FWI sur plusieurs années, mais en images et sans département (Grain, Clés) | partiel : la météo de chaque jour, mais pas le niveau de l'indice (Grain) | absent : des zones de végétation, aucun feu (Grain) | absent : un total par an, pas de jour (Grain) | absent : un total par an, pas de jour (Grain) |
+| 3 | partiel : l'heure, la commune et la surface de chaque feu, mais la cause est vide pour 100 feux sur 120 (colonne « Nature ») | partiel : colonne `niveau_j1`, mais pas au printemps, alors que 32 feux sur 120 sont en mars-avril (Période) | partiel : le FWI en images, sans département (Grain, Clés) | partiel : la météo de chaque jour, printemps compris, mais pas le niveau de l'indice (Grain) | absent : des zones de végétation, aucun feu (Grain) | absent : un total par an (Grain) | absent : un total par an (Grain) |
+| 4 | partiel : toute la France avec la date de chaque feu, mais seulement 2 feux en Côte-d'Or sur la période de l'indice (Emprise, Période) | partiel : les 96 départements jour par jour, mais 3 saisons seulement (Emprise, Période) | partiel : le FWI en images, sans département (Grain, Clés) | absent : pas de niveau d'indice ni de feu (Grain) | absent : aucun feu ni indice (Grain) | partiel : colonne « Feux de végétations » par département et par an, mais sans jour ni indice (Grain) | absent : pas de nombre de feux par département (Grain) |
+
+### Écarts avec la section 4
+
+| Question | Meilleure source | Grain | Période | Fraîcheur | Emprise |
+| -------- | ---------------- | ----- | ------- | --------- | ------- |
+| 1 | BDIFF | = | les 10 derniers étés → 2006 à 2025, presque rien avant 2015 | avec l'été 2026 → jusqu'à 2025 | = |
+| 2 | BDIFF + Météo des forêts | un jour dans une zone → un jour dans un département | tous les étés de l'indice → étés 2024 et 2025 seulement | avec l'été 2026 → jusqu'à 2025 pour les feux | Côte-d'Or par zone → 2 feux seulement en Côte-d'Or |
+| 3 | BDIFF + Météo des forêts | = | même période que la question 1 → étés 2024 et 2025 seulement, sans le printemps | avec l'été 2026 → jusqu'à 2025 | Côte-d'Or → 2 feux seulement |
+| 4 | BDIFF + Météo des forêts | = | même période que la question 2 → étés 2024 et 2025 seulement | avec l'été 2026 → jusqu'à 2025 pour les feux | = |
+
+### Décisions
+
+| Question | Ce qui manque | Décision | Pourquoi | Ce que la décision coûte |
+|---|---|---|---|---|
+| 1 | L'été 2026 et les zones des casernes | renoncer | On reformule : où il y a le plus de feux par commune, de 2015 à 2025. Les zones des casernes ne sont dans aucune source ouverte | Pas d'info sur 2026, et pas de découpage par caserne |
+| 2 | Assez de feux en Côte-d'Or quand l'indice existe | approximer | On prend les feux de la région (43) et de la France (2 632) sur les étés 2024 et 2025 | Deux étés seulement, et la région ne réagit peut-être pas comme la Côte-d'Or |
+| 3 | La cause des feux, et l'indice au printemps | approximer | On compare le moment (mois, heure), la commune et la taille des feux, à la place de la cause | On ne saura pas pourquoi les feux partent, et les feux de printemps restent sans niveau d'indice |
+| 4 | Plus de 2 feux en Côte-d'Or sur la période de l'indice | approximer | On compare la région et la France sur les étés 2024 et 2025, et la Côte-d'Or seulement en nombre de feux | Résultat fragile, et pas de seuil propre à la Côte-d'Or |
