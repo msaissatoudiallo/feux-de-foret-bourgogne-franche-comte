@@ -187,3 +187,21 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** les sections 5 et la matrice ne comptent pas le même nombre de sources ; c'est expliqué dans la matrice.
 - **Auteurs :** décision du groupe.
 - **Ticket :** #52
+
+---
+
+## D015 – Validation des pull requests par le responsable du domaine concerné
+
+- **Date :** 2026-11-19
+- **Contexte :** la professeure a précisé que chaque pull request est validée par le ou la responsable du domaine qu'elle touche. La décision 2 de D004 confiait toutes les validations à Melvyn.
+- **Décision :** cette règle **remplace la décision 2 de D004** :
+  - les pull requests sur les sources (fiches, inventaire, matrice) sont validées par **Jane** ;
+  - celles sur le pipeline, le chargement et le schéma de l'entrepôt par **Audrey** ;
+  - celles sur la qualité (profils, tests, données personnelles) par **Melvyn** ;
+  - celles sur la gestion du projet (journal, README, spec, planning) par **Aissatou** ;
+  - Melvyn valide en plus chaque nouvelle source et vérifie que les tests ont tourné ;
+  - personne ne valide sa propre pull request : un autre membre la relit.
+- **Raison :** suivre la consigne de la professeure, et faire relire chaque travail par la personne qui connaît le mieux son domaine.
+- **Ce que la décision coûte :** chaque membre doit relire les pull requests de son domaine ; une pull request peut attendre si son responsable est absent.
+- **Auteurs :** décision du groupe, sur consigne de la professeure.
+- **Ticket :** #71
