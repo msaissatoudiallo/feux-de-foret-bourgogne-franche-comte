@@ -26,7 +26,7 @@ Elle souhaite comprendre le comportement de l'indice en Côte-d'Or, dans les aut
 
 Un rôle confie la responsabilité d'un domaine : la personne relit ce qui le touche et valide les tickets et les pull requests qui en relèvent. Tout changement de rôle est consigné dans le [journal des décisions](docs/journal-decisions.md).
 
-Le groupe travaille en deux équipes (D004) : **Modélisation** (Audrey, Aissatou) et **Qualité** (Melvyn, Jane).
+Le groupe travaille en deux équipes (D004) : **Modélisation** (Audrey, Aissatou) et **Qualité** (Melvyn, Jane), chacune avec sa branche (D016).
 
 ## Organisation du dépôt
 
@@ -43,10 +43,13 @@ Pour comprendre le projet, commencer par la [spécification](docs/spec.md).
 
 ## Règles de travail
 
-- Une branche par ticket, nommée `type/courte-description` (ex. `docs/analyse-commande-jane`).
+- Une branche par ticket, nommée `type/courte-description` (ex. `docs/analyse-commande-jane`, `feat/chargement-bdiff`).
 - Des commits atomiques : un commit = un changement cohérent, avec un message clair.
-- Personne ne travaille directement sur `main`, `dev` ou `documentation` : chaque branche de tâche part de `documentation`.
-- Le travail remonte par pull requests : branche de tâche → `documentation` → `dev` (en fin de semaine) → `main` (aux checkpoints).
+- Personne ne travaille directement sur `main`, `dev`, `documentation`, `modelisation` ou `qualite`. Chaque branche de tâche part de la branche de son domaine (voir D016) :
+  - `documentation` pour les documents (journal, README, glossaire, fiches, inventaire, matrice) ;
+  - `modelisation` pour le schéma de l'entrepôt et le chargement de la BDIFF (équipe Modélisation) ;
+  - `qualite` pour les profils qualité et le chargement de la Météo des forêts (équipe Qualité).
+- Le travail remonte par pull requests : branche de tâche → branche de domaine → `dev` (en fin de semaine) → `main` (aux checkpoints).
 - Chaque pull request est relue et validée par le ou la **responsable du domaine concerné** : Jane pour les sources, Audrey pour le pipeline et le modèle, Melvyn pour la qualité, Aissatou pour la gestion du projet (journal, README, spec). Melvyn valide en plus chaque nouvelle source et vérifie que les tests ont tourné. Personne ne valide sa propre pull request (voir D015 dans le [journal des décisions](docs/journal-decisions.md)).
 - Chaque tâche a un ticket, rattaché à un ticket parent et à un milestone (V0, V1, V2), et suivi dans le tableau du projet GitHub (Backlog, In progress, In review, Done).
-- Après la fusion d'une pull request vers `documentation`, le ticket est fermé à la main (GitHub ne le fait que pour la branche par défaut).
+- Après la fusion d'une pull request vers `documentation`, `modelisation` ou `qualite`, le ticket est fermé à la main (GitHub ne le fait que pour la branche par défaut, `dev`).
