@@ -46,9 +46,9 @@ Pour comprendre le projet, commencer par la [spécification](docs/spec.md).
 - Une branche par ticket, nommée `type/courte-description` (ex. `docs/analyse-commande-jane`, `feat/chargement-bdiff`).
 - Des commits atomiques : un commit = un changement cohérent, avec un message clair.
 - Personne ne travaille directement sur `main`, `dev`, `documentation`, `modelisation` ou `qualite`. Chaque branche de tâche part de la branche de son domaine (voir D016) :
-  - `documentation` pour les documents (journal, README, glossaire, fiches, inventaire, matrice) ;
-  - `modelisation` pour le schéma de l'entrepôt et le chargement de la BDIFF (équipe Modélisation) ;
-  - `qualite` pour les profils qualité et le chargement de la Météo des forêts (équipe Qualité).
+  - `documentation` pour les documents (journal, README, glossaire, fiches, inventaire, matrice, et la spec sauf ses parties 6 et 7) ;
+  - `modelisation` pour le schéma de l'entrepôt, le chargement de la BDIFF et la partie 6 de la spec (équipe Modélisation) ;
+  - `qualite` pour les profils qualité, le chargement de la Météo des forêts et la partie 7 de la spec (équipe Qualité).
 - Le travail remonte par pull requests : branche de tâche → branche de domaine → `dev` (en fin de semaine) → `main` (aux checkpoints).
 - Chaque pull request est relue et validée par le ou la **responsable du domaine concerné** : Jane pour les sources, Audrey pour le pipeline et le modèle, Melvyn pour la qualité, Aissatou pour la gestion du projet (journal, README, spec). Melvyn valide en plus chaque nouvelle source et vérifie que les tests ont tourné. Personne ne valide sa propre pull request (voir D015 dans le [journal des décisions](docs/journal-decisions.md)).
 - Chaque tâche a un ticket, rattaché à un ticket parent et à un milestone (V0, V1, V2), et suivi dans le tableau du projet GitHub (Backlog, In progress, In review, Done).
