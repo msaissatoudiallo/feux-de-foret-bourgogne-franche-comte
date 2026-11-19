@@ -216,7 +216,7 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
     - documents de gestion et de sources (journal, README, glossaire, fiches, inventaire, matrice) → `documentation` ;
     - schéma de l'entrepôt et chargement de la BDIFF → `modelisation` ;
     - profils qualité et chargement de la Météo des forêts → `qualite` ;
-  - dans la spec, la partie 6 (architecture) est modifiée par l'équipe Modélisation, la partie 7 (qualité) par l'équipe Qualité, le reste par la cheffe de projet ;
+  - dans la spec, la partie 6 (architecture) est modifiée par l'équipe Modélisation sur `modelisation`, la partie 7 (qualité) par l'équipe Qualité sur `qualite`, et le reste par la cheffe de projet sur `documentation` ;
   - chaque branche de domaine est fusionnée dans `dev` par pull request en fin de semaine, puis `dev` dans `main` aux checkpoints ;
   - la validation des pull requests reste celle de D015.
 - **Raison :** les deux équipes avancent en même temps sans toucher au travail de l'autre. Chaque fichier, et chaque partie de la spec, n'a qu'un seul chemin vers `dev`, ce qui évite les conflits. L'environnement est ajouté à `dev` avant la création des branches, pour que les deux équipes travaillent avec le même.
