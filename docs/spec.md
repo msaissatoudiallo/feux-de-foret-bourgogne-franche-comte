@@ -190,7 +190,7 @@ Autres échéances annoncées par la professeure : rendu modélisation et pipeli
 |---|---|---|
 | Coût du dispositif et heure d'arrivée des secours : données internes du SDIS 21 | G5 sans coût en euros ; G9 peut être abandonnée | Demande à la direction (D009, D010) |
 | Pas de table officielle entre l'IFM et les niveaux de la Météo des forêts | Niveaux approchés pour 2012-2023 | Classes EFFIS vérifiées sur 2024-2026 (D008) |
-| Licence de la BDIFF | Données brutes non partagées dans le dépôt | Règle la plus stricte, question au producteur (D005) |
+| Licence de la BDIFF | Données brutes non partagées dans le dépôt ; chaque membre télécharge lui-même le fichier | Règle la plus stricte appliquée (D005) |
 | Export de la BDIFF par formulaire | Le chargement automatique n'est peut-être pas possible | À vérifier dans le ticket #39 ; sinon, étape manuelle documentée et consignée dans le journal |
 | SIM2 et Données climatologiques en partie redondantes | Double travail | Choisir une seule source (décision à prendre) |
 | Peu de feux en Côte-d'Or (120 en vingt ans) | Résultats fragiles à l'échelle du département | Comparaison avec la région et la France (D007, D008) |
