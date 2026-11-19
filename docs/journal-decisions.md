@@ -203,3 +203,38 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** chaque membre doit relire les pull requests de son domaine ; une pull request peut attendre si son responsable est absent.
 - **Auteurs :** décision du groupe, sur consigne de la professeure.
 - **Ticket :** #71
+
+---
+
+## D016 – Branches d'équipe `modelisation` et `qualite`
+
+- **Date :** 2026-11-19
+- **Contexte :** depuis D004, le groupe travaille en deux équipes : Modélisation (Audrey, Aissatou) et Qualité (Melvyn, Jane). Jusqu'ici, toutes les branches de tâches partent de `documentation`, ce qui convient aux documents. À partir du milestone V0, les équipes vont aussi écrire du code (chargement des données, profils qualité) et travailler en parallèle.
+- **Décision :**
+  - deux branches d'équipe sont créées depuis `dev` : `modelisation` (Audrey, Aissatou) et `qualite` (Melvyn, Jane), après la fusion de `documentation` dans `dev` et l'ajout de l'environnement Python (#38) ;
+  - chaque branche de tâche part de la branche de son domaine et y revient par pull request :
+    - documents de gestion et de sources (journal, README, glossaire, fiches, inventaire, matrice) → `documentation` ;
+    - schéma de l'entrepôt et chargement de la BDIFF → `modelisation` ;
+    - profils qualité et chargement de la Météo des forêts → `qualite` ;
+  - dans la spec, la partie 6 (architecture) est modifiée par l'équipe Modélisation sur `modelisation`, la partie 7 (qualité) par l'équipe Qualité sur `qualite`, et le reste par la cheffe de projet sur `documentation` ;
+  - chaque branche de domaine est fusionnée dans `dev` par pull request en fin de semaine, puis `dev` dans `main` aux checkpoints ;
+  - la validation des pull requests reste celle de D015.
+- **Raison :** les deux équipes avancent en même temps sans toucher au travail de l'autre. Chaque fichier, et chaque partie de la spec, n'a qu'un seul chemin vers `dev`, ce qui évite les conflits. L'environnement est ajouté à `dev` avant la création des branches, pour que les deux équipes travaillent avec le même.
+- **Ce que la décision coûte :** plus de branches à suivre. Chaque branche d'équipe doit récupérer régulièrement les nouveautés de `dev`, et chaque équipe ouvre une pull request de plus par semaine.
+- **Auteurs :** décision du groupe.
+- **Ticket :** #76
+
+---
+
+## D017 – Validation des nouvelles sources rendue à Jane
+
+- **Date :** 2026-11-19
+- **Contexte :** la validation des nouvelles sources relève du domaine de Jane, responsable sources. Pendant la panne de son ordinateur, elle était assurée par Melvyn (D004, D015). Jane a maintenant un nouvel ordinateur.
+- **Décision :** cette règle **remplace ce point de D015** :
+  - Jane valide chaque nouvelle source ;
+  - Melvyn vérifie que les tests ont tourné ;
+  - le reste de D015 est inchangé.
+- **Raison :** rendre à chaque membre la validation de son domaine, dès que la cause de la répartition provisoire a disparu.
+- **Ce que la décision coûte :** Jane relit davantage de pull requests ; Melvyn n'est plus le deuxième regard sur les nouvelles sources.
+- **Auteurs :** décision du groupe.
+- **Ticket :** #86
