@@ -66,7 +66,26 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 
 ---
 
-> **Décisions D006 à D014 : issues de la matrice questions × sources** (`docs/sources/matrice.md`, exercice 3, partie B, PR #63). Chaque décision porte sur une question du groupe (G1 à G11) ou sur une source. Le numéro D005 est réservé à la décision sur la licence de la BDIFF (ticket #51).
+## D005 – Licence de la BDIFF : appliquer la règle la plus stricte
+
+- **Date :** 2026-11-19
+- **Source :** BDIFF
+- **Constat :** divergence entre la Licence Ouverte 2.0 (data.gouv.fr) et les mentions légales du portail (« sans modification »)
+- **Décision :** on applique la règle la plus stricte :
+  1. le fichier BDIFF est conservé brut, jamais modifié (couche des données brutes) ;
+  2. toutes les transformations (nettoyage, jointures, calculs) se font dans des tables dérivées, présentées comme « calculées à partir de la BDIFF » ;
+  3. la source est citée partout où ses données sont utilisées ;
+  4. le fichier BDIFF n'est pas publié dans le dépôt, qui est public (`data/raw/` est exclu de Git).
+
+  En parallèle, on écrit au ministère de l'Agriculture (contact du portail BDIFF) pour savoir quel texte s'applique. Si la réponse confirme la Licence Ouverte 2.0, on le note ici, sans autre changement.
+- **Raison :** cette option respecte les deux textes à la fois, alors que n'appliquer que la Licence Ouverte reviendrait à ignorer un texte du producteur. Elle correspond aussi à l'architecture en couches prévue, où la couche brute n'est jamais modifiée.
+- **Ce que la décision coûte :** presque rien, car c'est ce qu'on aurait fait de toute façon. Seule contrainte : le fichier BDIFF ne peut pas être partagé par le dépôt, chaque membre doit le télécharger lui-même sur le portail. La réponse du producteur peut ne pas arriver avant le 11/12.
+- **Auteurs :** Jane (responsable sources), avec le groupe
+- **Ticket :** #51
+
+---
+
+> **Décisions D006 à D014 : issues de la matrice questions × sources** (`docs/sources/matrice.md`, exercice 3, partie B, PR #63). Chaque décision porte sur une question du groupe (G1 à G11) ou sur une source.
 
 ## D006 – G1 : localiser les feux à la commune
 
