@@ -63,3 +63,107 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** Aissatou coordonne plus de tâches communes cette semaine ; la relecture repose en grande partie sur une seule personne (Melvyn).
 - **Ticket :** #50
 - **Validée par :** le groupe.
+
+---
+
+> **Décisions D006 à D014 : issues de la matrice questions × sources** (`docs/sources/matrice.md`, exercice 3, partie B, PR #63). Chaque décision porte sur une question du groupe (G1 à G11) ou sur une source. Le numéro D005 est réservé à la décision sur la licence de la BDIFF (ticket #51).
+
+## D006 – G1 : localiser les feux à la commune
+
+- **Date :** 2026-11-19
+- **Question :** G1 – Où se concentrent les départs de feu et les surfaces brûlées en Côte-d'Or ?
+- **Manque :** la localisation précise des feux. La BDIFF s'arrête à la commune (pas de coordonnées) et aucune source ne donne de massifs forestiers.
+- **Décision :** **approximer**. La zone d'étude est la commune ; le nombre de feux de chaque commune est rapporté à sa surface de forêt (BD Forêt V2 croisée avec les contours des communes d'Admin Express).
+- **Raison :** c'est le grain le plus fin disponible dans la BDIFF, et Admin Express permet de relier les deux sources.
+- **Ce que la décision coûte :** une grande commune peut regrouper des feux éloignés ; la forêt est dans son état de 2017 ; avec 120 feux, beaucoup de communes n'en ont qu'un seul.
+- **Auteurs :** Jane (Q1), Audrey (Q3), décision du groupe.
+- **Ticket :** #52
+
+## D007 – G3 : élargir l'étude des heures et des jours à la région
+
+- **Date :** 2026-11-19
+- **Question :** G3 – À quelles heures et quels jours de la semaine partent les feux ?
+- **Manque :** assez de feux (120 en Côte-d'Or) pour les répartir par heure et par jour, et l'été 2026, absent de la BDIFF.
+- **Décision :** **approximer**. Étudier les heures et les jours sur les feux de Bourgogne-Franche-Comté (752 feux de 2006 à 2025), en plus de la Côte-d'Or.
+- **Raison :** la région a six fois plus de feux, avec la même colonne d'heure de première alerte.
+- **Ce que la décision coûte :** le résultat ne sera pas propre à la Côte-d'Or, et l'été 2026 reste absent.
+- **Auteurs :** Melvyn (Q1), décision du groupe.
+- **Ticket :** #52
+
+## D008 – G4, G6, G7, G8 : utiliser l'IFM de Copernicus EWDS à la place du niveau de la Météo des forêts
+
+- **Date :** 2026-11-19
+- **Questions :** G4 (part des jours avec feu par niveau), G6 (taille des feux selon le niveau), G7 (feux par indice bas), G8 (Côte-d'Or, région et France).
+- **Manque :** un indice sur une longue période. La Météo des forêts n'existe que depuis juin 2024, l'été seulement : 2 feux en Côte-d'Or sur la période commune avec la BDIFF.
+- **Décision :** **approximer**. Utiliser l'Indice Forêt Météo (IFM) de Copernicus EWDS pour chaque jour de 2012 à 2025, ramené au département (ou à la commune) avec Admin Express, puis le traduire en classes de danger :
+  - **première traduction : les classes de danger officielles d'EFFIS** pour l'IFM (faible < 11,2 ; modéré 11,2 à 21,3 ; élevé 21,3 à 38,0 ; très élevé 38,0 à 50,0 ; extrême 50,0 à 70,0 ; très extrême > 70,0), identiques pour tous les pays d'Europe (page technique d'EFFIS « Fire danger forecast ») ;
+  - **vérification** : comparer ces classes aux niveaux de la Météo des forêts en Côte-d'Or sur 2024-2026, et les ajuster si l'écart est important. Pour un jour J, le niveau de la Météo des forêts à comparer est la colonne `niveau_j1` du bulletin publié la veille (J-1), puisque `niveau_j1` donne le niveau du lendemain (PDF de présentation de la Météo des forêts, Météo-France).
+- **Raison :** l'IFM est la base de l'indice utilisé par Météo-France ; Copernicus EWDS le donne toute l'année depuis 1940, pour chacun des 120 feux de Côte-d'Or. Il n'existe pas de table publique de passage de l'IFM aux niveaux de la Météo des forêts : d'après le PDF de présentation de Météo-France, ces niveaux sont calculés à partir d'un « Indice de danger intégré » (IFM complété par l'état de sécheresse de la végétation), de la surface de forêts et des interfaces forêt-habitat du département, des zones sensibles aux feux (climatologie sur 30 ans) et de l'analyse des prévisionnistes.
+- **Ce que la décision coûte :** ce n'est pas le niveau officiel utilisé par la direction ; les classes EFFIS sont européennes (6 classes, non adaptées à la France) et la traduction vers les 4 niveaux de la Météo des forêts restera approximative ; il faut un traitement géographique (mailles d'environ 19 × 28 km) et un format technique (NetCDF).
+- **Auteurs :** Audrey (Q1, Q4), Jane (Q2, Q3, Q4), Aissatou (Q1, Q3, Q4), décision du groupe.
+- **Ticket :** #52
+
+## D009 – G5 : demander le coût du dispositif renforcé au SDIS 21
+
+- **Date :** 2026-11-19
+- **Question :** G5 – Pour chaque seuil possible, combien de jours de dispositif renforcé par saison, et quelle part des feux couverts ?
+- **Manque :** le coût d'une journée de dispositif renforcé et le budget 2027 : ce sont des données internes du SDIS 21.
+- **Décision :** **collecter** : les demander à la direction du SDIS 21, notre commanditaire. Sans réponse, exprimer le coût en **nombre de jours** de dispositif, et non en euros.
+- **Raison :** aucune source ouverte ne contient ces données.
+- **Ce que la décision coûte :** dépend du délai de réponse du SDIS 21 ; sans réponse, la recommandation ne pourra pas être chiffrée en euros.
+- **Auteurs :** Audrey (Q2), Jane (Q2), décision du groupe.
+- **Ticket :** #52
+
+## D010 – G9 : demander l'heure d'arrivée des secours au SDIS 21, sinon renoncer
+
+- **Date :** 2026-11-19
+- **Question :** G9 – Les feux qui deviennent gros sont-ils ceux où les secours arrivent le plus tard ?
+- **Manque :** l'heure d'arrivée des secours sur chaque feu : aucune source ouverte ne la contient.
+- **Décision :** **collecter** auprès du SDIS 21. Sans réponse avant le milestone V1 (02/12/2026), **renoncer** à la question.
+- **Raison :** c'est une donnée interne du SDIS ; la question n'est pas centrale pour les deux décisions de la commande.
+- **Ce que la décision coûte :** la question risque d'être abandonnée ; elle dépend d'une réponse extérieure.
+- **Auteurs :** Melvyn (Q2), décision du groupe.
+- **Ticket :** #52
+
+## D011 – G10 : approcher les enjeux par la population des communes
+
+- **Date :** 2026-11-19
+- **Question :** G10 – Où un feu ferait-il le plus de dégâts (forêts proches des habitations, des routes) ?
+- **Manque :** la localisation des habitations et des routes. La BD TOPO, qui les contient, n'a pas été explorée.
+- **Décision :** **approximer** pour le milestone V0 : utiliser la population de chaque commune (colonne `population` d'Admin Express) et la surface de forêt (BD Forêt V2). L'exploration de la BD TOPO est reportée au milestone V1, s'il reste du temps.
+- **Raison :** la BD TOPO est une source lourde, à croiser par la carte ; le temps est limité avant le 11/12.
+- **Ce que la décision coûte :** la population d'une commune ne dit pas si les habitations sont proches de la forêt ; les routes ne sont pas prises en compte.
+- **Auteurs :** Melvyn (Q3), décision du groupe.
+- **Ticket :** #52
+
+## D012 – G11 : utiliser Copernicus EWDS pour suivre les jours de danger d'un été à l'autre
+
+- **Date :** 2026-11-19
+- **Question :** G11 – Le nombre de jours de danger élevé augmente-t-il d'un été à l'autre ?
+- **Manque :** aucun : Copernicus EWDS est « complet » pour cette question (IFM chaque jour de 1940 à 2026, colonne `fwinx`).
+- **Décision :** **collecter** les données de Copernicus EWDS. Cette décision **remplace** celle de la section 5 de Melvyn (« approximer avec SIM2 »), prise avant l'ajout de Copernicus EWDS.
+- **Raison :** Copernicus EWDS donne directement l'indice, alors que SIM2 ne donne que la météo (donnée indirecte).
+- **Ce que la décision coûte :** il faut fixer la valeur d'IFM qui correspond à un « danger élevé » (voir D008) ; compte gratuit et format NetCDF nécessaires.
+- **Auteurs :** Melvyn (Q4), décision du groupe.
+- **Ticket :** #52
+
+## D013 – EFFIS écartée pour l'indice
+
+- **Date :** 2026-11-19
+- **Source :** EFFIS.
+- **Constat :** EFFIS donne le même indice (FWI) que Copernicus EWDS, mais seulement sous forme d'images, sans département. Ses zones brûlées n'ont pas été vérifiées.
+- **Décision :** **écarter** EFFIS pour l'indice, au profit de Copernicus EWDS. Ses zones brûlées ne seront vérifiées que si elles deviennent nécessaires.
+- **Raison :** Copernicus EWDS donne les mêmes valeurs sous une forme exploitable (fiche Copernicus EWDS, « Ce que j'ai découvert »).
+- **Ce que la décision coûte :** rien pour l'indice ; l'éventuel apport des zones brûlées reste inconnu.
+- **Auteurs :** décision du groupe.
+- **Ticket :** #52
+
+## D014 – Sources ajoutées après les sections 5 individuelles
+
+- **Date :** 2026-11-19
+- **Constat :** trois sources (Données climatologiques quotidiennes, Copernicus EWDS, Admin Express) ont été ajoutées à l'inventaire après que certains membres ont écrit leur section 5 : les sections 5 n'ont donc pas toutes le même nombre de sources (7 ou 8).
+- **Décision :** les sections 5 individuelles ne sont **pas modifiées**. Les nouvelles sources sont prises en compte **seulement dans la matrice du groupe**, où leurs degrés sont établis à partir de leurs fiches.
+- **Raison :** les sections 5 gardent la trace de ce que chacun savait au moment de l'écrire, comme le demande l'exercice 3 (« l'écart entre vos prédictions et la réalité »).
+- **Ce que la décision coûte :** les sections 5 et la matrice ne comptent pas le même nombre de sources ; c'est expliqué dans la matrice.
+- **Auteurs :** décision du groupe.
+- **Ticket :** #52
