@@ -20,8 +20,8 @@ Elle souhaite comprendre le comportement de l'indice en Côte-d'Or, dans les aut
 | Rôle | Membre | Responsable de |
 |---|---|---|
 | Cheffe de projet | Aissatou Diallo | Dépôt, milestones, attribution et suivi des tickets, checkpoints, journal des décisions, validation du glossaire |
-| Responsable sources | Jane | Inventaire, fiches d'identité, matrice questions × sources |
-| Responsable qualité et conformité | Melvyn | Règles de qualité, tests, données personnelles, validation des nouvelles sources |
+| Responsable sources | Jane | Inventaire, fiches d'identité, matrice questions × sources, validation des nouvelles sources |
+| Responsable qualité et conformité | Melvyn | Règles de qualité, tests, données personnelles |
 | Responsable pipeline et modèle | Audrey | Chargement, consolidation, entrepôt |
 
 Un rôle confie la responsabilité d'un domaine : la personne relit ce qui le touche et valide les tickets et les pull requests qui en relèvent. Tout changement de rôle est consigné dans le [journal des décisions](docs/journal-decisions.md).
@@ -50,6 +50,6 @@ Pour comprendre le projet, commencer par la [spécification](docs/spec.md).
   - `modelisation` pour le schéma de l'entrepôt, le chargement de la BDIFF et la partie 6 de la spec (équipe Modélisation) ;
   - `qualite` pour les profils qualité, le chargement de la Météo des forêts et la partie 7 de la spec (équipe Qualité).
 - Le travail remonte par pull requests : branche de tâche → branche de domaine → `dev` (en fin de semaine) → `main` (aux checkpoints).
-- Chaque pull request est relue et validée par le ou la **responsable du domaine concerné** : Jane pour les sources, Audrey pour le pipeline et le modèle, Melvyn pour la qualité, Aissatou pour la gestion du projet (journal, README, spec). Melvyn valide en plus chaque nouvelle source et vérifie que les tests ont tourné. Personne ne valide sa propre pull request (voir D015 dans le [journal des décisions](docs/journal-decisions.md)).
+- Chaque pull request est relue et validée par le ou la **responsable du domaine concerné** : Jane pour les sources, Audrey pour le pipeline et le modèle, Melvyn pour la qualité, Aissatou pour la gestion du projet (journal, README, spec). Jane valide en plus chaque nouvelle source, et Melvyn vérifie que les tests ont tourné. Personne ne valide sa propre pull request (voir D015 et D017 dans le [journal des décisions](docs/journal-decisions.md)).
 - Chaque tâche a un ticket, rattaché à un ticket parent et à un milestone (V0, V1, V2), et suivi dans le tableau du projet GitHub (Backlog, In progress, In review, Done).
 - Après la fusion d'une pull request vers `documentation`, `modelisation` ou `qualite`, le ticket est fermé à la main (GitHub ne le fait que pour la branche par défaut, `dev`).
