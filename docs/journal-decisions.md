@@ -223,3 +223,18 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** plus de branches à suivre. Chaque branche d'équipe doit récupérer régulièrement les nouveautés de `dev`, et chaque équipe ouvre une pull request de plus par semaine.
 - **Auteurs :** décision du groupe.
 - **Ticket :** #76
+
+---
+
+## D017 – Validation des nouvelles sources rendue à Jane
+
+- **Date :** 2026-11-19
+- **Contexte :** la validation des nouvelles sources relève du domaine de Jane, responsable sources. Pendant la panne de son ordinateur, elle était assurée par Melvyn (D004, D015). Jane a maintenant un nouvel ordinateur.
+- **Décision :** cette règle **remplace ce point de D015** :
+  - Jane valide chaque nouvelle source ;
+  - Melvyn vérifie que les tests ont tourné ;
+  - le reste de D015 est inchangé.
+- **Raison :** rendre à chaque membre la validation de son domaine, dès que la cause de la répartition provisoire a disparu.
+- **Ce que la décision coûte :** Jane relit davantage de pull requests ; Melvyn n'est plus le deuxième regard sur les nouvelles sources.
+- **Auteurs :** décision du groupe.
+- **Ticket :** #86
