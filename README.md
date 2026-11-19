@@ -19,21 +19,27 @@ Elle souhaite comprendre le comportement de l'indice en Côte-d'Or, dans les aut
 
 | Rôle | Membre | Responsable de |
 |---|---|---|
-| Cheffe de projet | Aissatou Diallo | Dépôt, tickets, checkpoints, journal des décisions |
+| Cheffe de projet | Aissatou Diallo | Dépôt, milestones, attribution et suivi des tickets, checkpoints, journal des décisions, validation du glossaire |
 | Responsable sources | Jane | Inventaire, fiches d'identité, matrice questions × sources |
-| Responsable qualité et conformité | Melvyn | Règles de qualité, tests, données personnelles |
+| Responsable qualité et conformité | Melvyn | Règles de qualité, tests, données personnelles, validation des nouvelles sources |
 | Responsable pipeline et modèle | Audrey | Chargement, consolidation, entrepôt |
 
-Un rôle confie la responsabilité d'un domaine : la personne relit ce qui le touche et valide les tickets qui en relèvent. Tout changement de rôle est consigné dans le [journal des décisions](docs/journal-decisions.md).
+Un rôle confie la responsabilité d'un domaine : la personne relit ce qui le touche et valide les tickets et les pull requests qui en relèvent. Tout changement de rôle est consigné dans le [journal des décisions](docs/journal-decisions.md).
+
+Le groupe travaille en deux équipes (D004) : **Modélisation** (Audrey, Aissatou) et **Qualité** (Melvyn, Jane).
 
 ## Organisation du dépôt
 
 ```
 docs/
 ├── analyse/                 # Analyses individuelles de la commande (commande-prenom-nom.md)
-├── glossaire.md             # Glossaire du projet (à venir)
-└── journal-decisions.md     # Journal des décisions du groupe
+├── sources/                 # Fiches d'identité des sources (fiche-*.md), inventaire.md, matrice.md
+├── glossaire.md             # Glossaire du projet
+├── journal-decisions.md     # Journal des décisions du groupe
+└── spec.md                  # Spécification du projet (point d'entrée pour comprendre le projet)
 ```
+
+Pour comprendre le projet, commencer par la [spécification](docs/spec.md).
 
 ## Règles de travail
 
@@ -41,4 +47,6 @@ docs/
 - Des commits atomiques : un commit = un changement cohérent, avec un message clair.
 - Personne ne travaille directement sur `main`, `dev` ou `documentation` : chaque branche de tâche part de `documentation`.
 - Le travail remonte par pull requests : branche de tâche → `documentation` → `dev` (en fin de semaine) → `main` (aux checkpoints).
-- Les pull requests sont relues par la cheffe de projet, et par le ou la responsable du domaine concerné (voir [D003](docs/journal-decisions.md)).
+- Chaque pull request est relue et validée par le ou la **responsable du domaine concerné** : Jane pour les sources, Audrey pour le pipeline et le modèle, Melvyn pour la qualité, Aissatou pour la gestion du projet (journal, README, spec). Melvyn valide en plus chaque nouvelle source et vérifie que les tests ont tourné. Personne ne valide sa propre pull request (voir D015 dans le [journal des décisions](docs/journal-decisions.md)).
+- Chaque tâche a un ticket, rattaché à un ticket parent et à un milestone (V0, V1, V2), et suivi dans le tableau du projet GitHub (Backlog, In progress, In review, Done).
+- Après la fusion d'une pull request vers `documentation`, le ticket est fermé à la main (GitHub ne le fait que pour la branche par défaut).
