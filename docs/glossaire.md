@@ -2,7 +2,7 @@
 
 Dernière mise à jour : 2026-11-19
 
-Version 0. Les termes viennent des termes inconnus des quatre analyses de la commande (`docs/analyse/`) et des termes rencontrés en ouvrant les sources (`docs/sources/`). Les entrées sont classées par ordre alphabétique. Un terme écarté est listé à la fin, avec la raison.
+Version 0. Les termes viennent des termes inconnus des quatre analyses de la commande (`docs/analyse/`), des termes rencontrés en ouvrant les sources (`docs/sources/`) et du cours sur les KPI (19/11/2026). Les entrées sont classées par ordre alphabétique. Un terme écarté est listé à la fin, avec la raison.
 
 Statuts : **validé** (définition confirmée par la documentation d'un producteur ou par une décision du groupe consignée dans le journal), **proposé** (définition du groupe, non encore confirmée), **à vérifier** (une information manque), **obsolète**.
 
@@ -203,7 +203,7 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Définition :** indicateur clé (*Key Performance Indicator*), directement lié à un objectif, dont la valeur peut faire changer une décision. Un KPI primaire par question analytique, et des KPI secondaires si besoin.
 - **Sources et colonnes :** calculé à partir des données des sources.
 - **Divergences :** voir « Donnée ».
-- **Règle retenue :** chaque KPI est vérifié avec la grille RACER (pertinent, accepté, compréhensible, facile, robuste) et documenté dans une fiche indicateur.
+- **Règle retenue :** chaque KPI est vérifié avec la grille RACER (pertinent, accepté, crédible [clair même pour un non-spécialiste], facile, robuste) et documenté dans une fiche indicateur.
 - **Unité ou granularité :** selon le calcul.
 - **Exemple :** la part des feux partis le week-end ou un jour férié, KPI primaire de H7 (spec, section 3).
 - **Statut :** proposé.
