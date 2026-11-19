@@ -76,10 +76,8 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
   2. toutes les transformations (nettoyage, jointures, calculs) se font dans des tables dérivées, présentées comme « calculées à partir de la BDIFF » ;
   3. la source est citée partout où ses données sont utilisées ;
   4. le fichier BDIFF n'est pas publié dans le dépôt, qui est public (`data/raw/` est exclu de Git).
-
-  En parallèle, on écrit au ministère de l'Agriculture (contact du portail BDIFF) pour savoir quel texte s'applique. Si la réponse confirme la Licence Ouverte 2.0, on le note ici, sans autre changement.
-- **Raison :** cette option respecte les deux textes à la fois, alors que n'appliquer que la Licence Ouverte reviendrait à ignorer un texte du producteur. Elle correspond aussi à l'architecture en couches prévue, où la couche brute n'est jamais modifiée.
-- **Ce que la décision coûte :** presque rien, car c'est ce qu'on aurait fait de toute façon. Seule contrainte : le fichier BDIFF ne peut pas être partagé par le dépôt, chaque membre doit le télécharger lui-même sur le portail. La réponse du producteur peut ne pas arriver avant le 11/12.
+- **Raison :** cette option respecte les deux textes à la fois, alors que n'appliquer que la Licence Ouverte reviendrait à ignorer un texte du producteur. Elle correspond aussi à l'architecture en couches prévue, où la couche brute n'est jamais modifiée. On ne contacte pas le producteur pour savoir quel texte s'applique : l'option retenue respecte déjà les deux textes, et une réponse n'arriverait sans doute pas avant le 11/12.
+- **Ce que la décision coûte :** presque rien, car c'est ce qu'on aurait fait de toute façon. Seule contrainte : le fichier BDIFF ne peut pas être partagé par le dépôt, chaque membre doit le télécharger lui-même sur le portail.
 - **Auteurs :** Jane (responsable sources), avec le groupe
 - **Ticket :** #51
 
