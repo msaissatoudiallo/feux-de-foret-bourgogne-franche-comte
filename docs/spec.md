@@ -56,6 +56,7 @@ Chaque hypothèse est testée par une ou plusieurs questions du groupe (partie 4
 | H4 | Une part importante des feux a lieu hors de la période où la Météo des forêts est publiée. | G2 | BDIFF | Part des feux hors juin-septembre |
 | H5 | Les feux partent par temps chaud et sec, même quand l'indice est bas. | G7 | BDIFF, Données climatologiques, Copernicus EWDS | Nombre de jours sans pluie avant un feu ; température maximale des jours de feu comparée aux jours sans feu |
 | H6 | La Côte-d'Or réagit à l'indice comme la région et la France. | G8 | BDIFF, Copernicus EWDS, Admin Express | Taux de jours avec feu par classe de danger : Côte-d'Or, région, France |
+| H7 | Les feux partent surtout à des moments liés à l'activité humaine : le week-end, les jours fériés et certaines heures de la journée. | G3 | BDIFF (date et heure de première alerte) ; jours fériés calculés par règle, sans source externe : 8 dates fixes (1er janvier, 1er mai, 8 mai, 14 juillet, 15 août, 1er novembre, 11 novembre, 25 décembre) et 3 dates liées à Pâques (lundi de Pâques, Ascension, lundi de Pentecôte) | Part des feux partis le week-end ou un jour férié ; part des feux dans le créneau horaire qui en concentre le plus |
 
 ### Objectifs SMART définis
 
@@ -63,6 +64,7 @@ Chaque hypothèse est testée par une ou plusieurs questions du groupe (partie 4
 |---|---|---|
 | H4 | D'ici le 27/11/2026, mesurer sur 2012-2025 la part des feux de Côte-d'Or survenus hors juin-septembre. Si elle dépasse 25 %, recommander d'étendre la surveillance au printemps. | Part des feux hors juin-septembre ; hypothèse confirmée si > 25 %. Première estimation d'après la fiche BDIFF : environ 30 % (à vérifier dans le fichier). |
 | H2 et H3 | D'ici le 04/12/2026, déterminer pour la Bourgogne-Franche-Comté, sur 2012-2025, le seuil d'IFM qui couvre au moins 70 % des jours de feu tout en déclenchant le dispositif moins de 30 jours par saison en Côte-d'Or. | Taux de couverture des jours de feu ; nombre de jours de dispositif par saison ; taux de fausses alertes. Les valeurs de 70 % et 30 jours sont des propositions, à ajuster quand le coût du dispositif sera connu (D009). |
+| H7 | D'ici le 27/11/2026, mesurer sur 2006-2025 la part des feux de Bourgogne-Franche-Comté (752 feux, D007) et de Côte-d'Or partis un samedi, un dimanche ou un jour férié, et la comparer à la part attendue si les feux étaient répartis au hasard sur la semaine (environ 30 %). Si elle est nettement plus élevée, recommander de renforcer la surveillance ces jours-là, en plus de l'indice. | Part des feux partis le week-end ou un jour férié ; hypothèse confirmée si elle est nettement supérieure à la part attendue (test binomial, seuil de 5 %, convention usuelle en statistique). KPI secondaire : part des feux dans le créneau horaire qui en concentre le plus (durée du créneau : paramètre à tester). Limite : l'heure de la BDIFF est celle de l'alerte, pas celle du départ du feu. |
 
 Les objectifs SMART des hypothèses H1, H5 et H6 seront définis pour le milestone V1.
 
