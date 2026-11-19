@@ -33,6 +33,7 @@ Le groupe travaille en deux équipes (D004) : **Modélisation** (Audrey, Aissato
 ```
 docs/
 ├── analyse/                 # Analyses individuelles de la commande (commande-prenom-nom.md)
+├── indicateurs/             # Fiches indicateur, une par KPI (fiche-kpi-*.md)
 ├── sources/                 # Fiches d'identité des sources (fiche-*.md), inventaire.md, matrice.md
 ├── glossaire.md             # Glossaire du projet
 ├── journal-decisions.md     # Journal des décisions du groupe

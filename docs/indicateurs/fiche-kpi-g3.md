@@ -1,0 +1,15 @@
+# Fiche indicateur - KPI de G3 : part des feux partis le week-end ou un jour férié
+
+- **Rédigée par :** Melvyn, le 2026-11-19
+- **Statut :** formule provisoire, à confirmer avec les données (couche gold)
+
+| Élément | Contenu |
+|---|---|
+| Rattachement | **Question G3** : à quelles heures et quels jours de la semaine partent les feux ? (matrice, question 1 de Melvyn). **Hypothèse H7** : les feux partent surtout à des moments liés à l'activité humaine (week-end, jours fériés, certaines heures). **Objectif SMART H7** : spec, section 3. |
+| Calcul | **KPI primaire** : part des feux partis le week-end ou un jour férié = nombre de feux dont la date de première alerte tombe un samedi, un dimanche ou un jour férié / nombre total de feux. On la compare à la **part attendue** si les feux étaient répartis au hasard : nombre de samedis, dimanches et jours fériés de la période / nombre total de jours de la période (environ 30 %). L'hypothèse est confirmée si la part observée est nettement plus élevée : test binomial, seuil de 5 % (convention usuelle en statistique). **KPI secondaire** : part des feux partis dans le créneau horaire qui en concentre le plus. |
+| Paramètres | Emprise : Côte-d'Or ou Bourgogne-Franche-Comté. Durée du créneau horaire du KPI secondaire (par exemple 4, 6 ou 8 heures). Période : 2006-2025, ou 2015-2025 pour écarter les années de saisie incomplète. Chaque valeur testée est notée avec son résultat. |
+| Périmètre, période, granularité | Côte-d'Or (120 feux) et Bourgogne-Franche-Comté (752 feux, D007). Période 2006-2025 (la BDIFF n'est pas publiée pour 2026). Granularité : un feu ; le résultat est une part par emprise. |
+| Source précise | BDIFF, export CSV du portail (`Incendies.csv`, filtre « Type de feu : F »), Bourgogne-Franche-Comté, 2006-2025, toutes les lignes. Colonne utilisée : date et heure de première alerte (nom exact à relever dans l'export lors du chargement, ticket #39). Jours fériés calculés par règle, sans source externe : 8 dates fixes et 3 dates liées à Pâques (spec, H7). |
+| Proxys et biais | **Proxy** : l'heure de première alerte remplace l'heure de départ du feu, qui n'est dans aucune source. **Biais** : peu de feux saisis avant 2015, et prudence demandée par le producteur avant 2020 (fiche BDIFF) ; seuls les feux classés « forêt » sont comptés (pas les autres feux de végétation) ; fuseau horaire de l'heure d'alerte non vérifié (glossaire, « Jour de feu »). |
+| Robustesse | Une part ne dépend pas de la taille des feux, donc pas des valeurs aberrantes de surface. Un feu sans heure d'alerte reste compté dans le KPI primaire (la date suffit) et est retiré du KPI secondaire ; le nombre de feux retirés est indiqué. |
+| Décision éclairée | **Si l'hypothèse est confirmée** : le SDIS renforce les patrouilles et le guet le week-end et les jours fériés (et sur le créneau horaire repéré), en plus de l'indice. **Sinon** : le calendrier n'apporte rien de plus que l'indice ; la direction s'appuie sur l'indice et sur la période des feux de printemps (H4). |
