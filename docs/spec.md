@@ -56,7 +56,7 @@ Chaque hypothèse est testée par une ou plusieurs questions du groupe (partie 4
 | H4 | Une part importante des feux a lieu hors de la période où la Météo des forêts est publiée. | G2 | BDIFF | Part des feux hors juin-septembre |
 | H5 | Les feux partent par temps chaud et sec, même quand l'indice est bas. | G7 | BDIFF, Données climatologiques, Copernicus EWDS | Nombre de jours sans pluie avant un feu ; température maximale des jours de feu comparée aux jours sans feu |
 | H6 | La Côte-d'Or réagit à l'indice comme la région et la France. | G8 | BDIFF, Copernicus EWDS, Admin Express | Taux de jours avec feu par classe de danger : Côte-d'Or, région, France |
-| H7 | Les feux partent surtout à des moments liés à l'activité humaine : le week-end, les jours fériés et certaines heures de la journée. | G3 | BDIFF | Part des feux partis le week-end ou un jour férié ; part des feux dans le créneau horaire qui en concentre le plus |
+| H7 | Les feux partent surtout à des moments liés à l'activité humaine : le week-end, les jours fériés et certaines heures de la journée. | G3 | BDIFF (date et heure de première alerte) ; jours fériés calculés par règle, sans source externe : 8 dates fixes (1er janvier, 1er mai, 8 mai, 14 juillet, 15 août, 1er novembre, 11 novembre, 25 décembre) et 3 dates liées à Pâques (lundi de Pâques, Ascension, lundi de Pentecôte) | Part des feux partis le week-end ou un jour férié ; part des feux dans le créneau horaire qui en concentre le plus |
 
 ### Objectifs SMART définis
 
