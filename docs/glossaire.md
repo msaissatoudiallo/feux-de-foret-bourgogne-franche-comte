@@ -90,6 +90,18 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Origine de la définition :** commande.
 - **Ajouté par :** Aissatou Diallo, Audrey, Jane, Melvyn, 2026-11-17
 
+## Donnée
+
+- **Définition :** information brute, telle qu'elle est enregistrée dans une source : une case ou une ligne d'un fichier.
+- **Sources et colonnes :** toutes les sources (ex. date et heure de première alerte de la BDIFF, `fwinx` de Copernicus EWDS).
+- **Divergences :** pendant la semaine, la professeure a employé « donnée », « métrique », « indicateur » et « KPI » comme des synonymes. Le groupe les distingue comme dans ce glossaire.
+- **Règle retenue :** une donnée n'est jamais modifiée dans la couche bronze (D005).
+- **Unité ou granularité :** celle de la source (un feu, un jour, une maille…).
+- **Exemple :** la date et l'heure de première alerte d'un feu dans la BDIFF.
+- **Statut :** proposé.
+- **Origine de la définition :** cours du 19/11/2026 (KPI, indicateurs et critères RACER).
+- **Ajouté par :** Melvyn, 2026-11-19
+
 ## Enjeux
 
 - **Définition :** ce qu'un feu menace : habitations, routes, zones sensibles.
@@ -150,6 +162,18 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Origine de la définition :** PDF de présentation de la Météo des forêts (Météo-France).
 - **Ajouté par :** Melvyn, 2026-11-17
 
+## Indicateur
+
+- **Définition :** métrique utilisée pour juger une situation ou un objectif. Dès qu'on mesure un objectif SMART (le « M »), on manipule des indicateurs.
+- **Sources et colonnes :** calculé à partir des données des sources.
+- **Divergences :** voir « Donnée ».
+- **Règle retenue :** chaque indicateur est rattaché à une hypothèse et à un objectif SMART (spec, section 3).
+- **Unité ou granularité :** selon le calcul (pourcentage, nombre de jours…).
+- **Exemple :** la part des feux de Côte-d'Or hors juin-septembre, comparée au seuil de 25 % de l'objectif SMART de H4 (spec, section 3).
+- **Statut :** proposé.
+- **Origine de la définition :** cours du 19/11/2026 (KPI, indicateurs et critères RACER).
+- **Ajouté par :** Melvyn, 2026-11-19
+
 ## Indice de danger intégré
 
 - **Définition :** indice calculé chaque jour par Météo-France à partir de l'IFM, complété par une analyse de l'état de sécheresse de la végétation. Il sert à établir le niveau de la Météo des forêts.
@@ -174,6 +198,18 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Origine de la définition :** décision du groupe (matrice).
 - **Ajouté par :** Aissatou Diallo, Audrey, Jane, Melvyn, 2026-11-19
 
+## KPI (indicateur clé)
+
+- **Définition :** indicateur clé (*Key Performance Indicator*), directement lié à un objectif, dont la valeur peut faire changer une décision. Un KPI primaire par question analytique, et des KPI secondaires si besoin.
+- **Sources et colonnes :** calculé à partir des données des sources.
+- **Divergences :** voir « Donnée ».
+- **Règle retenue :** chaque KPI est vérifié avec la grille RACER (pertinent, accepté, compréhensible, facile, robuste) et documenté dans une fiche indicateur.
+- **Unité ou granularité :** selon le calcul.
+- **Exemple :** la part des feux partis le week-end ou un jour férié, KPI primaire de H7 (spec, section 3).
+- **Statut :** proposé.
+- **Origine de la définition :** cours du 19/11/2026 (KPI, indicateurs et critères RACER).
+- **Ajouté par :** Melvyn, 2026-11-19
+
 ## Massif forestier
 
 - **Définition :** ensemble de forêts d'un seul tenant.
@@ -197,6 +233,18 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Statut :** validé.
 - **Origine de la définition :** PDF de présentation de la Météo des forêts (Météo-France).
 - **Ajouté par :** Aissatou Diallo, Audrey, Jane, Melvyn, 2026-11-17
+
+## Métrique
+
+- **Définition :** valeur calculée à partir d'une ou de plusieurs données.
+- **Sources et colonnes :** calculée à partir des données des sources.
+- **Divergences :** voir « Donnée ».
+- **Règle retenue :** chaque métrique a une formule écrite.
+- **Unité ou granularité :** selon le calcul (pourcentage, nombre de jours…).
+- **Exemple :** le nombre de feux partis le week-end, divisé par le nombre total de feux (BDIFF).
+- **Statut :** proposé.
+- **Origine de la définition :** cours du 19/11/2026 (KPI, indicateurs et critères RACER).
+- **Ajouté par :** Melvyn, 2026-11-19
 
 ## Moyens humains et financiers
 
@@ -233,6 +281,30 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Statut :** validé.
 - **Origine de la définition :** PDF de présentation de la Météo des forêts (Météo-France).
 - **Ajouté par :** Jane, Aissatou Diallo, 2026-11-19
+
+## Paramètre
+
+- **Définition :** valeur qu'on peut faire varier dans le calcul d'un KPI, pour observer son effet sur le résultat.
+- **Sources et colonnes :** choisi par le groupe, pas lu dans une source.
+- **Divergences :** aucune.
+- **Règle retenue :** chaque paramètre est testé sur plusieurs valeurs, et l'effet de chaque choix est noté dans la fiche indicateur.
+- **Unité ou granularité :** selon le paramètre.
+- **Exemple :** le seuil d'IFM qui définit un jour de danger élevé : 21,3 pour EFFIS ou 30 pour le guide de Copernicus EWDS (D008).
+- **Statut :** proposé.
+- **Origine de la définition :** cours du 19/11/2026 (KPI, indicateurs et critères RACER).
+- **Ajouté par :** Melvyn, 2026-11-19
+
+## Proxy
+
+- **Définition :** mesure indirecte, utilisée quand ce qu'on veut mesurer n'est dans aucune colonne ou ne se mesure pas directement. Chaque proxy a ses propres biais, à documenter.
+- **Sources et colonnes :** selon le proxy.
+- **Divergences :** les décisions « approximer » du journal (D006 à D012) reposent souvent sur un proxy.
+- **Règle retenue :** chaque proxy est signalé, avec ses biais, dans la fiche indicateur.
+- **Unité ou granularité :** selon le proxy.
+- **Exemple :** la population de chaque commune (Admin Express) pour approcher les enjeux menacés par un feu (D011).
+- **Statut :** proposé.
+- **Origine de la définition :** cours du 19/11/2026 (KPI, indicateurs et critères RACER).
+- **Ajouté par :** Melvyn, 2026-11-19
 
 ## Saison des feux
 
