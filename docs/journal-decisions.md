@@ -289,6 +289,26 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Auteurs :** réduction proposée par Aissatou, validée par le groupe.
 - **Ticket :** #104
 
+## D021 – Les 7 indicateurs du tableau de bord et la règle commune des périodes
+
+- **Date :** 2026-11-20
+- **Contexte :** le kit projet demande 5 à 7 indicateurs, chacun comparé à une référence. Après la réduction (D020), plusieurs KPI de la spec posaient problème : celui de H1 confirmait l'hypothèse quoi qu'il arrive (les 120 feux sont dans 85 communes sur 698), celui de H3 serait proche de 100 % en Côte-d'Or faute de feux, celui de H5 n'avait pas de définition de l'« indice bas », et les périodes changeaient d'un KPI à l'autre.
+- **Décision :** le tableau de bord suit la fiche de cadrage (`docs/fiche-cadrage.md`) :
+  - **7 indicateurs**, chacun rattaché à une des 3 questions du tableau de bord, comparé à une référence et affiché avec le nombre de feux sur lequel il est calculé :
+    1. part des feux hors juin-septembre (R2, H4) ;
+    2. jours de danger élevé du dernier été (R6, H9) ;
+    3. taux de jours avec au moins un feu, par classe d'indice, en Côte-d'Or comparée à la région et à la France (R3, H2) ;
+    4. part des feux partis par indice bas, IFM < 11,2 (R4, H5) ;
+    5. feux par 100 km² de forêt, par commune (R1, H1) ;
+    6. pour chaque seuil d'indice, part des jours de feu couverts et jours de dispositif par saison (R5, H2 et H3) ;
+    7. part des communes à fort enjeu (R1, H8) ;
+  - **règle commune des périodes** : 2015-2025 pour les indicateurs qui comptent des feux (les feux d'avant 2015 sont mal saisis, d'après la fiche BDIFF) ; 1997-2026 pour l'indicateur qui n'utilise que l'indice (30 étés, une normale climatique) ;
+  - les tests statistiques restent dans les fiches indicateur ; le tableau de bord montre une valeur simple et sa référence ;
+  - H7 reste une analyse secondaire.
+- **Raison :** des indicateurs qui peuvent vraiment confirmer ou infirmer les hypothèses, lisibles par le SDIS, et comparables entre eux parce qu'ils portent sur la même période.
+- **Ce que la décision coûte :** les années 2006-2014 ne sont plus utilisées pour les indicateurs principaux ; les fiches indicateur et la spec doivent être mises à jour ; le téléchargement de l'IFM doit couvrir toute l'année et la France (#114).
+- **Auteurs :** liste proposée par Jane dans la fiche de cadrage (PR #123), relue par Melvyn et Aissatou.
+- **Ticket :** #126
 ---
 
 ## D022 – Périmètre de l'entrepôt : la France métropolitaine, sans l'outre-mer
@@ -334,3 +354,4 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** le silver est plus volumineux (environ 5 millions de lignes pour l'IFM en métropole sur 2012-2025). Il faut une étape gold de plus avant le dashboard. C'est un écart avec la première proposition de la spec, qui a été mise à jour (partie 6).
 - **Auteurs :** proposée par Audrey, validée par Audrey et Aissatou (équipe Modélisation).
 - **Ticket :** #41
+
