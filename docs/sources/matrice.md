@@ -2,7 +2,7 @@
 
 Exercice 3, partie B. Construite à partir des sections 5 des quatre analyses (`docs/analyse/commande-*.md`) et des fiches d'identité de `docs/sources/`.
 
-Dernière mise à jour : 2026-11-18
+Dernière mise à jour : 2026-11-20
 
 ## 1. Les questions retenues par le groupe
 
@@ -85,3 +85,7 @@ Seules **G2** (BDIFF) et **G11** (Copernicus EWDS) ont une source « complet ».
 - Chaque décision de la partie 4 est à consigner dans le journal des décisions, une entrée par décision (ticket #52).
 - **G11 change de décision :** dans la section 5 de Melvyn, la décision était « approximer avec SIM2 ». Avec Copernicus EWDS, G11 a une source « complet » : la décision devient **collecter Copernicus EWDS** (à consigner aussi dans le journal, ticket #52).
 - Termes à ajouter ou préciser dans le glossaire (ticket #47) : « départ de feu », « feu de forêt » et « feu de végétation » (BDIFF et Interventions SDIS ne comptent pas la même chose), « IFM » et « niveau de danger » (valeur continue et niveau de 1 à 4), « jour de feu ».
+
+## 6. Mise à jour du 20/11 : réduction des questions (D020)
+
+Les 11 questions ont été réduites à 6 par une analyse SWOT (`docs/perimetre-retenu.md`) : G1 et G10 fusionnées (Où), G2 et G3 fusionnées (Quand), G4, G6 et G8 fusionnées (l'indice face aux feux, avec la région et la France comme référence), G5, G7 et G11 gardées, G9 écartée (données absentes, D010). Sources retenues : BDIFF, Copernicus EWDS, Météo des forêts, Admin Express, BD Forêt V2, Données climatologiques. Écartées : SIM2 (redondante avec les Données climatologiques), Statistiques nationales des SDIS, EFFIS (D013). Interventions SDIS : contrôle de la complétude de la BDIFF seulement. Les degrés de la matrice ci-dessus ne sont pas modifiés : ils sont la base de cette réduction.
