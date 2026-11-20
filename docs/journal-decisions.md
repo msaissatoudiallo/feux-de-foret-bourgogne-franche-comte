@@ -291,7 +291,7 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 
 ---
 
-## D021 – Périmètre de l'entrepôt : la France métropolitaine, sans l'outre-mer
+## D022 – Périmètre de l'entrepôt : la France métropolitaine, sans l'outre-mer
 
 - **Date :** 2026-11-20
 - **Contexte :** l'export de la BDIFF couvre toute la France, outre-mer compris : départements `971`, `972`, `974` et `976`, avec des codes de 3 caractères. La Météo des forêts ne couvre que les 96 départements de métropole, et la spec fixe le code département à 2 caractères. Il fallait décider si l'outre-mer entre dans l'entrepôt (schéma v0, ticket #41).
@@ -306,7 +306,7 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 
 ---
 
-## D022 – La dimension des communes couvre toute la métropole
+## D023 – La dimension des communes couvre toute la métropole
 
 - **Date :** 2026-11-20
 - **Contexte :** la table `dim_commune` décrit les communes (code INSEE, population, surface, forêt). La BDIFF contient des feux dans toute la France, mais la BD Forêt V2 n'a été téléchargée que pour la Côte-d'Or. Il fallait choisir entre la Côte-d'Or seule, la région ou toute la métropole.
@@ -321,7 +321,7 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 
 ---
 
-## D023 – La couche silver garde le grain le plus fin de chaque source
+## D024 – La couche silver garde le grain le plus fin de chaque source
 
 - **Date :** 2026-11-20
 - **Contexte :** la première proposition de la spec (partie 6) ramenait l'IFM et la météo à un département pour un jour dès la couche silver (`fait_danger_jour`, `fait_meteo_jour`). Mais les KPI dépendent de réglages à faire varier pour tester leur solidité : seuil d'IFM (21,3 ou 30), moyenne ou maximum des mailles, période (2006, 2015 ou 2020 à 2025).
