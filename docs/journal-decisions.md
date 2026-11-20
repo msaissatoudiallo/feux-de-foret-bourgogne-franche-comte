@@ -238,3 +238,22 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** Jane relit davantage de pull requests ; Melvyn n'est plus le deuxième regard sur les nouvelles sources.
 - **Auteurs :** décision du groupe.
 - **Ticket :** #86
+
+---
+
+## D018 – DuckDB pour l'entrepôt plutôt que PostgreSQL
+
+- **Date :** 2026-11-20
+- **Contexte :** l'environnement Python du projet (ticket #38, PR #99) doit fournir un outil pour l'entrepôt, c'est-à-dire les couches silver et gold. Les deux options envisagées étaient PostgreSQL (une base de données avec un serveur) et DuckDB (une base SQL dans un seul fichier, sans serveur).
+- **Décision :** l'entrepôt est une base **DuckDB** :
+  - les couches silver et gold sont des tables DuckDB, construites par les scripts de `src/` à partir des fichiers bruts de `data/raw/` (couche bronze) ;
+  - le fichier de l'entrepôt (`*.duckdb`) est exclu de Git : chaque membre le reconstruit sur son ordinateur en relançant les scripts ;
+  - la version est fixée dans `requirements.txt` (`duckdb==2.0.0`).
+- **Raison :**
+  - pas de serveur à installer ni de mot de passe à gérer sur les quatre ordinateurs ;
+  - DuckDB lit directement les fichiers des sources, y compris les `.csv.gz` de la Météo des forêts ;
+  - les données brutes et l'entrepôt restent hors du dépôt public, ce qui respecte la licence de la BDIFF (D005) ;
+  - tout le monde obtient les mêmes tables à partir des mêmes scripts, ce qui oblige à rendre le pipeline reproductible.
+- **Ce que la décision coûte :** il n'y a pas de base partagée entre les membres : chacun a sa propre copie de l'entrepôt et doit relancer les scripts après chaque changement ; DuckDB est fait pour l'analyse sur un seul ordinateur, pas pour plusieurs utilisateurs qui écrivent en même temps (ce dont le projet n'a pas besoin).
+- **Auteurs :** proposée par Audrey (PR #99), décision du groupe.
+- **Ticket :** #100
