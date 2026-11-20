@@ -97,7 +97,8 @@ python -c "import pandas, duckdb, geopandas, xarray; print('ok')"
 | DuckDB | L'entrepôt : une base SQL dans un seul fichier, sans serveur, pour les couches silver et gold |
 | geopandas | Les cartes (Admin Express, BD Forêt V2) et les jointures par la position (stations, mailles → communes) |
 | xarray, netCDF4 | Lire les fichiers NetCDF de l'IFM (Copernicus EWDS) |
-| requests | Télécharger les fichiers publiés (data.gouv.fr, Météo-France) |
+| requests | Télécharger les fichiers publiés (data.gouv.fr, Météo-France, BDIFF) |
+| truststore | Vérifier les certificats des sites avec ceux du système (le portail de la BDIFF a une chaîne de certificats incomplète) |
 | pytest | Les tests de qualité |
 | ipykernel | Les notebooks d'exploration dans VS Code |
 
@@ -108,6 +109,23 @@ Quand une bibliothèque est ajoutée, l'écrire dans `requirements.txt` avec sa 
 - `src/` : le code du pipeline, un script par étape (chargement de la couche bronze, nettoyage et jointures en silver, tables des KPI en gold).
 - `data/raw/` : la couche **bronze**, avec les fichiers des sources tels qu'ils ont été téléchargés, jamais modifiés. Ce dossier est **hors de Git**. Chaque membre télécharge lui-même les fichiers bruts (D005 pour la BDIFF).
 - L'entrepôt DuckDB (`*.duckdb`) est aussi hors de Git : les scripts le reconstruisent depuis `data/raw/`.
+
+## Charger les données (couche bronze)
+
+Les scripts de chargement déposent les fichiers des sources **tels quels** dans `data/raw/`, hors de Git. Chaque membre les lance sur son ordinateur, environnement activé, depuis la racine du dépôt.
+
+### BDIFF
+
+```
+python src/charger_bdiff.py
+```
+
+- **Ce que fait le script :** il refait la recherche du portail [bdiff.agriculture.gouv.fr](https://bdiff.agriculture.gouv.fr/incendies) pour la **France entière, une année à la fois, de 2006 à 2025**, et enregistre chaque export dans `data/raw/bdiff/bdiff_AAAA.zip`.
+- **Les fichiers ne sont jamais modifiés** : chaque zip garde `Incendies.csv`, les définitions et les mentions légales du producteur (licence, D005).
+- **Une année par fichier**, car le portail refuse l'export de la France entière sur toute la période en une seule fois.
+- **Relancer le script ne crée pas de doublons** : une année déjà présente est ignorée. Pour retélécharger : `python src/charger_bdiff.py --force`.
+- **Choisir les années :** `python src/charger_bdiff.py --debut 2024 --fin 2025`.
+- **Résultat attendu :** 20 fichiers (environ 12 Mo), soit **52 811 incendies**, dont 120 en Côte-d'Or.
 
 ## Règles de travail
 
