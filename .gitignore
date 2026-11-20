@@ -3,6 +3,10 @@ data/raw/
 *.csv.gz
 *.zip
 
+# Entrepôt DuckDB (reconstruit par les scripts depuis data/raw/)
+*.duckdb
+*.duckdb.wal
+
 # Python
 __pycache__/
 *.pyc
