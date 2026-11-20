@@ -28,7 +28,7 @@ Chaque indicateur est comparé à une référence et affiché **avec le nombre d
 |---|---|---|---|---|---|
 | 1 | Où en est-on ? | **Part des feux hors juin-septembre** | R2, H4 | Seuil de 25 % (objectif SMART de H4) | Côte-d'Or |
 | 2 | Où en est-on ? | **Jours de danger élevé du dernier été** (IFM ≥ 21,3, D008) | R6, H9 | Moyenne des 30 étés 1997-2026 ; tendance en jours gagnés ou perdus par été | Côte-d'Or |
-| 3 | Pourquoi ? | **Taux de jours avec au moins un feu, par classe d'indice** | R3, H2 (H6 intégrée) | Le même taux pour la région ; pour la France seulement si le téléchargement de l'IFM (#114) est élargi à la France | Côte-d'Or et région (France : voir #114) |
+| 3 | Pourquoi ? | **Taux de jours avec au moins un feu, par classe d'indice** | R3, H2 (H6 intégrée) | Le même taux pour la région et pour la France (IFM téléchargé sur la France, #114) | Côte-d'Or, région, France |
 | 4 | Pourquoi ? | **Part des feux partis par indice bas** (IFM < 11,2, classe « faible » d'EFFIS, D008) | R4, H5 | Part des jours à indice bas sur la même période | Côte-d'Or et région |
 | 5 | Pourquoi ? | **Feux par 100 km² de forêt**, par commune. Calculé seulement pour les communes qui ont au moins 1 km² de forêt (paramètre à tester : 1 ou 5 km²) ; les autres sont regroupées en une seule ligne « petites surfaces de forêt ». Sinon, une commune avec 0,5 km² de forêt et un seul feu atteindrait 200 feux pour 100 km² | R1, H1 | Moyenne de la Côte-d'Or | Côte-d'Or |
 | 6 | Que fait-on ? | **Pour chaque seuil d'indice : part des jours de feu couverts et jours de dispositif par saison**. Un jour de feu est un jour avec au moins un feu (un jour avec 3 feux compte pour 1) ; il est couvert si l'indice atteint le seuil ce jour-là | R5, H2 et H3 | Objectif SMART : au moins 70 % des jours de feu couverts, moins de 30 jours de dispositif par saison (valeurs à ajuster, D009) | Couverture : région ; jours de dispositif : Côte-d'Or |
@@ -55,7 +55,7 @@ Cette règle modifie l'objectif SMART de H4 (2012-2025 dans la spec) et celui de
 | Source | Fichier | Période utilisée | Territoire | Indicateurs |
 |---|---|---|---|---|
 | BDIFF | Export CSV du portail (`Incendies.csv`, « Type de feu : F ») | 2015-2025 | Côte-d'Or, Bourgogne-Franche-Comté, France | 1, 3, 4, 5, 6 |
-| Copernicus EWDS | `cems-fire-historical-v1`, variable *Fire weather index* | 1997-2026, étés seulement (indicateur 2) ; 2015-2025, **toute l'année** pour tenir compte des feux de printemps (3, 4, 6). À préciser dans le ticket #114 | Côte-d'Or et région (France si #114 est élargi) | 2, 3, 4, 6 |
+| Copernicus EWDS | `cems-fire-historical-v1`, variable *Fire weather index* | 1997-2026, étés seulement (indicateur 2) ; 2015-2025, **toute l'année** pour tenir compte des feux de printemps (3, 4, 6) (ticket #114) | Côte-d'Or et région ; France métropolitaine sur 2015-2025 (#114) | 2, 3, 4, 6 |
 | Météo des forêts | `mdf.2024`, `mdf.2025`, `mdf.2026` | 2024-2026 | Côte-d'Or | Contrôle de la traduction de l'IFM en niveaux (D008) |
 | Admin Express | Communes, édition la plus récente ; contours des départements ; édition 2017 des communes (table de passage des communes fusionnées), comme prévu dans le ticket #116 | Édition récente ; édition 2017 | Côte-d'Or (communes) ; région et France (départements) | 3, 4, 5, 6, 7 |
 | BD Forêt V2 | Côte-d'Or | État 2017 | Côte-d'Or | 5, 7 |
