@@ -273,3 +273,18 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** Streamlit demande plus de temps de prise en main que Power BI, car chaque graphique est codé ; des captures doivent être ajoutées pour que la dataviz soit visible sans lancer le code.
 - **Auteurs :** dossier `dataviz/` proposé par Audrey, décision du groupe.
 - **Ticket :** #103
+
+---
+
+## D020 – Réduction des questions, des hypothèses et des sources
+
+- **Date :** 2026-11-20
+- **Contexte :** les 11 questions du groupe (G1 à G11) sont trop nombreuses pour un tableau de bord, qui doit répondre à 3 questions avec 5 à 7 indicateurs (kit projet HETIC). En cours, il a été conseillé de les réduire par une analyse SWOT.
+- **Décision :** à partir de l'analyse SWOT de `docs/perimetre-retenu.md` :
+  - les 11 questions sont réduites à **6 questions retenues** (R1 à R6) : G1 et G10 fusionnées, G2 et G3 fusionnées, G4, G6 et G8 fusionnées, G5, G7 et G11 gardées, **G9 écartée** faute de données (D010) ;
+  - **H6 est intégrée à H2** (la région et la France deviennent la référence) ; **H7 devient secondaire** ; les autres hypothèses sont gardées ;
+  - **6 sources retenues** : BDIFF, Copernicus EWDS, Météo des forêts, Admin Express, BD Forêt V2, Données climatologiques ; **SIM2 et les Statistiques nationales des SDIS sont écartées** ; les Interventions SDIS servent seulement au contrôle de la complétude de la BDIFF.
+- **Raison :** garder les questions dont les données sont solides et qui éclairent directement les deux décisions de la commande (où concentrer les moyens, à quel seuil déclencher) ; un tableau de bord efficace répond à peu de questions.
+- **Ce que la décision coûte :** les créneaux horaires (G3) et la taille des feux (G6) ne sont plus que des éléments secondaires ; la question du délai des secours (G9) est abandonnée.
+- **Auteurs :** réduction proposée par Aissatou, validée par le groupe.
+- **Ticket :** #104
