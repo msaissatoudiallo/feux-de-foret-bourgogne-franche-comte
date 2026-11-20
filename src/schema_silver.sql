@@ -4,7 +4,7 @@
 -- Les tables sont créées dans l'ordre des dépendances : d'abord les
 -- dimensions, puis les faits qui pointent vers elles. Les scripts de
 -- chargement remplissent ensuite ces tables depuis data/raw/ (couche bronze).
--- Périmètre : France métropolitaine (96 départements), outre-mer exclu (D021).
+-- Périmètre : France métropolitaine (96 départements), outre-mer exclu (D022).
 
 -- ---------------------------------------------------------------------------
 -- Dimensions
@@ -30,7 +30,7 @@ CREATE TABLE dim_departement (
     est_bfc          BOOLEAN NOT NULL            -- Bourgogne-Franche-Comté (code région 27)
 );
 
--- Une commune de France métropolitaine, édition la plus récente d'Admin Express (D022).
+-- Une commune de France métropolitaine, édition la plus récente d'Admin Express (D023).
 CREATE TABLE dim_commune (
     code_insee        VARCHAR PRIMARY KEY CHECK (length(code_insee) = 5),
     nom               VARCHAR NOT NULL,

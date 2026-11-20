@@ -12,9 +12,9 @@ Ce schéma part des **6 questions retenues** (R1 à R6) et des **6 sources reten
 | **Silver** | Les données nettoyées, au **grain le plus fin** de chaque source, reliées par les clés | Tables DuckDB `dim_*`, `fait_*`, `passage_commune` | Testées sur les six dimensions de qualité (équipe Qualité) |
 | **Gold** | Les tables prêtes pour les KPI et le dashboard | Tables DuckDB `gold_*` | Recalculées depuis le silver, avec les réglages des KPI (seuil, période, moyenne ou maximum) |
 
-**Pourquoi le grain le plus fin en silver (D023) :** les KPI dépendent de réglages qu'on doit pouvoir faire varier pour tester la solidité des résultats : seuil d'IFM (21,3 ou 30), moyenne ou maximum des mailles, période (2006, 2015 ou 2020 à 2025). Si le silver ne gardait que des moyennes par département, on ne pourrait plus refaire ces calculs. Les résumés par département et par jour sont donc calculés en gold.
+**Pourquoi le grain le plus fin en silver (D024) :** les KPI dépendent de réglages qu'on doit pouvoir faire varier pour tester la solidité des résultats : seuil d'IFM (21,3 ou 30), moyenne ou maximum des mailles, période (2006, 2015 ou 2020 à 2025). Si le silver ne gardait que des moyennes par département, on ne pourrait plus refaire ces calculs. Les résumés par département et par jour sont donc calculés en gold.
 
-**Périmètre :** France métropolitaine, 96 départements (D021). L'outre-mer (`971` à `976` dans la BDIFF) est écarté dès le silver, car la Météo des forêts ne couvre que la métropole : la « France » de référence est la France métropolitaine.
+**Périmètre :** France métropolitaine, 96 départements (D022). L'outre-mer (`971` à `976` dans la BDIFF) est écarté dès le silver, car la Météo des forêts ne couvre que la métropole : la « France » de référence est la France métropolitaine.
 
 ## 2. Vue d'ensemble
 
@@ -46,7 +46,7 @@ Une flèche va de la table qui porte la clé étrangère vers la table qu'elle d
 **Détails :**
 - **`dim_date`** : année, mois, jour de la semaine (1 = lundi), week-end, jour férié et son nom (11 jours calculés par règle, H7), été de juin à septembre (H4, H9). De 1997 pour les 30 étés de H9, à 2026.
 - **`dim_departement`** : nom, code région, `est_bfc` (région 27). Le code est du texte de 2 caractères : `01`, `21`, `2A`.
-- **`dim_commune`** : nom, population, surface calculée depuis le contour (en Lambert 93, car l'unité de la superficie cadastrale n'est pas vérifiée), surface de forêt et part de forêt. **Toutes les communes de métropole (D022)**, pour que chaque feu de la BDIFF ait sa commune ; la surface de forêt n'est remplie que pour la Côte-d'Or (la BD Forêt V2 est téléchargée par département).
+- **`dim_commune`** : nom, population, surface calculée depuis le contour (en Lambert 93, car l'unité de la superficie cadastrale n'est pas vérifiée), surface de forêt et part de forêt. **Toutes les communes de métropole (D023)**, pour que chaque feu de la BDIFF ait sa commune ; la surface de forêt n'est remplie que pour la Côte-d'Or (la BD Forêt V2 est téléchargée par département).
 - **`passage_commune`** : construite par la carte. Chaque commune de 2017 qui n'existe plus est rattachée à la commune actuelle qui contient un point de son ancien contour. En Côte-d'Or, 6 codes ont disparu, mais **aucun feu de Côte-d'Or n'en porte** (vérifié sur 2006-2025) ; la table sert pour la région et la France.
 - **`dim_maille`** : latitude et longitude du centre, et département qui contient le centre (vide si le centre est en mer ou hors de France). Une maille qui déborde sur un département voisin compte pour le département de son centre : c'est une limite à écrire.
 - **`dim_station`** : nom, coordonnées, altitude, département (les 2 premiers chiffres de `NUM_POSTE`) et commune qui contient la station.

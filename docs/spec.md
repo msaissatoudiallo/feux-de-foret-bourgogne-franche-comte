@@ -133,13 +133,13 @@ Points d'attention : codes de communes disparus après les fusions (6 en Côte-d
 
 ### Schéma de l'entrepôt v0
 
-Le schéma complet est dans [`docs/schema-entrepot.md`](schema-entrepot.md) (ticket #41), et le SQL des tables silver dans [`src/schema_silver.sql`](../src/schema_silver.sql). Périmètre : France métropolitaine (D021). Le silver garde le grain le plus fin de chaque source, pour pouvoir faire varier les réglages des KPI (D023).
+Le schéma complet est dans [`docs/schema-entrepot.md`](schema-entrepot.md) (ticket #41), et le SQL des tables silver dans [`src/schema_silver.sql`](../src/schema_silver.sql). Périmètre : France métropolitaine (D022). Le silver garde le grain le plus fin de chaque source, pour pouvoir faire varier les réglages des KPI (D024).
 
 | Table | Couche | Une ligne = | Clé primaire | Clés étrangères |
 |---|---|---|---|---|
 | `dim_date` | silver | un jour (1997-2026) | `date` | — |
 | `dim_departement` | silver | un département de métropole | `code_departement` | — |
-| `dim_commune` | silver | une commune de métropole, édition récente (D022) | `code_insee` | `code_departement` |
+| `dim_commune` | silver | une commune de métropole, édition récente (D023) | `code_insee` | `code_departement` |
 | `passage_commune` | silver | un ancien code de commune | `code_insee_ancien` | `code_insee_actuel` |
 | `dim_maille` | silver | une maille de l'IFM | `id_maille` | `code_departement` |
 | `dim_station` | silver | une station météo | `num_poste` | `code_departement`, `code_insee` |
