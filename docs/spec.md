@@ -163,7 +163,7 @@ Les règles de qualité (tests automatiques et seuils de décision) seront défi
 
 ## 8. Organisation du projet
 
-**Rôles :** Aissatou Diallo, cheffe de projet (milestones, tickets, suivi, journal) ; Jane, responsable sources (inventaire, fiches, matrice, validation des nouvelles sources) ; Melvyn, responsable qualité et conformité (règles de qualité, tests, données personnelles) ; Audrey, responsable pipeline et modèle (D002, D004, D017).
+**Rôles :** Aissatou Diallo, cheffe de projet (milestones, tickets, suivi, journal) ; Jane, responsable sources (inventaire, fiches, matrice, validation des nouvelles sources, D017) ; Melvyn, responsable qualité et conformité (règles de qualité, tests, données personnelles) ; Audrey, responsable pipeline et modèle (D002, D004).
 
 **Équipes :** Modélisation (Audrey, Aissatou) et Qualité (Melvyn, Jane) (D004), chacune avec sa branche (D016).
 
@@ -175,7 +175,7 @@ main ← dev ← documentation   (documentation)
            ← qualite         (équipe Qualité)
 ```
 
-Une branche par ticket, créée depuis la branche de domaine concernée (D016) : `documentation` pour les documents (journal, README, glossaire, fiches, inventaire, matrice, et la spec sauf ses parties 6 et 7) ; `modelisation` pour le schéma de l'entrepôt, le chargement de la BDIFF et la partie 6 de la spec ; `qualite` pour les profils qualité, le chargement de la Météo des forêts et la partie 7 de la spec. Le travail remonte par pull request, relue et validée par le ou la responsable du domaine concerné, jamais par son auteur (D015, D017). `documentation`, `modelisation` et `qualite` remontent vers `dev`, puis `dev` vers `main` aux checkpoints.
+Une branche par ticket, créée depuis la branche de domaine concernée (D016) : `documentation` pour les documents (journal, README, glossaire, fiches de sources, fiches indicateur, inventaire, matrice, et la spec sauf ses parties 6 et 7) ; `modelisation` pour le schéma de l'entrepôt, le chargement de la BDIFF et la partie 6 de la spec ; `qualite` pour les profils qualité, le chargement de la Météo des forêts et la partie 7 de la spec. Le travail remonte par pull request, relue et validée par le ou la responsable du domaine concerné, jamais par son auteur (D015, D017). `documentation`, `modelisation` et `qualite` remontent vers `dev`, puis `dev` vers `main` aux checkpoints.
 
 **Tickets :** un ticket par tâche, rattaché à un ticket parent (#35 Modélisation, #36 Qualité, #37 Commun) et à un milestone, suivi dans le tableau du projet GitHub (Backlog, In progress, In review, Done).
 
