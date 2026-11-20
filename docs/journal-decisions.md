@@ -257,3 +257,19 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** il n'y a pas de base partagée entre les membres : chacun a sa propre copie de l'entrepôt et doit relancer les scripts après chaque changement ; DuckDB est fait pour l'analyse sur un seul ordinateur, pas pour plusieurs utilisateurs qui écrivent en même temps (ce dont le projet n'a pas besoin).
 - **Auteurs :** proposée par Audrey (PR #99), décision du groupe.
 - **Ticket :** #100
+
+---
+
+## D019 – Streamlit pour la dataviz du projet, dans un dossier dataviz/
+
+- **Date :** 2026-11-20
+- **Contexte :** le module de datavisualisation évalue le pipeline, la dataviz et la proposition au client. La dataviz évaluée doit être disponible sur GitHub : l'enseignant clone le dépôt à partir du 6/12 (kit projet HETIC). Aucun outil n'est imposé ; Power BI est l'outil des exercices en cours.
+- **Décision :**
+  - le dashboard du projet est développé avec **Streamlit** (Python), avec **Plotly** pour les graphiques ;
+  - Power BI reste l'outil des exercices du cours : les captures Power BI du 20/11 viennent de ces exercices ;
+  - tout ce qui concerne la dataviz est rangé dans un dossier **`dataviz/`** à la racine du dépôt (code du dashboard, captures, export), comme le conseille le kit ;
+  - `streamlit` et `plotly` seront ajoutés à `requirements.txt` au démarrage de la dataviz.
+- **Raison :** Streamlit lit directement l'entrepôt DuckDB (D018) ; tout est du code dans le dépôt, donc vérifiable en le clonant, alors qu'un fichier Power BI ne s'affiche pas sur GitHub ; il fonctionne sous Windows et Mac ; le pipeline est déjà en Python. Un dossier unique permet à l'enseignant de trouver la dataviz tout de suite.
+- **Ce que la décision coûte :** Streamlit demande plus de temps de prise en main que Power BI, car chaque graphique est codé ; des captures doivent être ajoutées pour que la dataviz soit visible sans lancer le code.
+- **Auteurs :** dossier `dataviz/` proposé par Audrey, décision du groupe.
+- **Ticket :** #103
