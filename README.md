@@ -57,12 +57,18 @@ Le projet utilise **Python 3.13** et un environnement virtuel `.venv/`, exclu de
 python3.13 -m venv .venv
 ```
 
-Sous Windows : `py -3.13 -m venv .venv`. Pour connaître sa version : `python3 --version`.
+Sous Windows : `py -3.13 -m venv .venv`. Pour connaître sa version : `python3 --version` (Windows : `py --version`).
 
 **2. L'activer** (à refaire dans chaque nouveau terminal) :
 
 - macOS / Linux : `source .venv/bin/activate`
 - Windows (PowerShell) : `.venv\Scripts\Activate.ps1`
+
+  Si PowerShell bloque le script la première fois (« l'exécution de scripts est désactivée sur ce système »), autoriser les scripts pour son compte, une seule fois, puis relancer l'activation :
+
+  ```
+  Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+  ```
 
 Le nom `(.venv)` apparaît alors au début de la ligne du terminal. Pour quitter l'environnement : `deactivate`.
 
@@ -94,7 +100,7 @@ python -c "import pandas, duckdb, geopandas, xarray; print('ok')"
 | pytest | Les tests de qualité |
 | ipykernel | Les notebooks d'exploration dans VS Code |
 
-Quand une bibliothèque est ajoutée, l'écrire dans `requirements.txt` avec sa version (`pip freeze | grep nom`), puis relancer l'installation.
+Quand une bibliothèque est ajoutée, l'écrire dans `requirements.txt` avec sa version, puis relancer l'installation. Pour connaître la version installée : `pip show nom` (ligne `Version`), qui marche sur macOS, Linux et Windows.
 
 ### Les dossiers `src/` et `data/`
 
