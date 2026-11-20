@@ -4,7 +4,7 @@ Mise en commun des fiches d'identité de l'exercice 2. Chaque source a sa fiche 
 
 Les sources Données climatologiques quotidiennes, Copernicus EWDS et Admin Express ont été ajoutées le 18/11 pour combler des manques repérés dans ce bilan.
 
-Dernière mise à jour : 2026-11-18
+Dernière mise à jour : 2026-11-19
 
 ## Tableau
 

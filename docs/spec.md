@@ -2,7 +2,7 @@
 
 **Projet :** Feux de forêt – Bourgogne-Franche-Comté (Hetic 2026/2027, UE01 – Modélisation et pipeline de données)
 **Commanditaire :** direction du SDIS 21 (Côte-d'Or)
-**Version :** V1 – 2026-11-19
+**Version :** V1 – 2026-11-20
 **Rédaction :** Aissatou Diallo (cheffe de projet), avec Audrey, Jane et Melvyn
 
 Ce document décrit le projet de bout en bout : la demande, le raisonnement, les données, l'architecture, la qualité et l'organisation. Il doit permettre à quelqu'un de refaire le projet sans poser de questions. Il ne recopie pas les autres documents : il les résume et y renvoie. Il est mis à jour à chaque milestone ; tout changement passe par un ticket, une pull request et, si besoin, une décision du journal.
@@ -15,6 +15,7 @@ Ce document décrit le projet de bout en bout : la demande, le raisonnement, les
 | `docs/sources/matrice.md` | La matrice questions × sources |
 | `docs/journal-decisions.md` | Toutes les décisions du groupe (D001, D002…) |
 | `docs/glossaire.md` | Le sens précis des termes du projet |
+| `docs/indicateurs/fiche-kpi-*.md` | Une fiche indicateur par KPI (calcul, paramètres, source précise, biais, décision éclairée) |
 
 ## 1. Contexte et commande
 
@@ -162,9 +163,9 @@ Les règles de qualité (tests automatiques et seuils de décision) seront défi
 
 ## 8. Organisation du projet
 
-**Rôles :** Aissatou Diallo, cheffe de projet (milestones, tickets, suivi, journal) ; Jane, responsable sources ; Melvyn, responsable qualité et conformité (règles de qualité, tests, données personnelles) ; Audrey, responsable pipeline et modèle (D002, D004).
+**Rôles :** Aissatou Diallo, cheffe de projet (milestones, tickets, suivi, journal) ; Jane, responsable sources (inventaire, fiches, matrice, validation des nouvelles sources, D017) ; Melvyn, responsable qualité et conformité (règles de qualité, tests, données personnelles) ; Audrey, responsable pipeline et modèle (D002, D004).
 
-**Équipes :** Modélisation (Audrey, Aissatou) et Qualité (Melvyn, Jane) (D004).
+**Équipes :** Modélisation (Audrey, Aissatou) et Qualité (Melvyn, Jane) (D004), chacune avec sa branche (D016).
 
 **Branches :**
 
@@ -174,11 +175,11 @@ main ← dev ← documentation   (documentation)
            ← qualite         (équipe Qualité)
 ```
 
-Une branche par ticket, créée depuis la branche de rassemblement concernée. Le travail remonte par pull request, relue et validée par le ou la responsable du domaine concerné, jamais par son auteur (D015). `documentation`, `modelisation` et `qualite` remontent vers `dev`, puis `dev` vers `main` aux checkpoints.
+Une branche par ticket, créée depuis la branche de domaine concernée (D016) : `documentation` pour les documents (journal, README, glossaire, fiches de sources, fiches indicateur, inventaire, matrice, et la spec sauf ses parties 6 et 7) ; `modelisation` pour le schéma de l'entrepôt, le chargement de la BDIFF et la partie 6 de la spec ; `qualite` pour les profils qualité, le chargement de la Météo des forêts et la partie 7 de la spec. Le travail remonte par pull request, relue et validée par le ou la responsable du domaine concerné, jamais par son auteur (D015, D017). `documentation`, `modelisation` et `qualite` remontent vers `dev`, puis `dev` vers `main` aux checkpoints.
 
 **Tickets :** un ticket par tâche, rattaché à un ticket parent (#35 Modélisation, #36 Qualité, #37 Commun) et à un milestone, suivi dans le tableau du projet GitHub (Backlog, In progress, In review, Done).
 
-**Traçabilité :** chaque décision est consignée dans le journal ; chaque terme dans le glossaire ; chaque source dans une fiche d'identité.
+**Traçabilité :** chaque décision est consignée dans le journal ; chaque terme dans le glossaire ; chaque source dans une fiche d'identité ; chaque KPI dans une fiche indicateur.
 
 ## 9. Planning
 

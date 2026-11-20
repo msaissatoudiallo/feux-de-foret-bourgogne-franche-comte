@@ -47,7 +47,7 @@ Pour comprendre le projet, commencer par la [spécification](docs/spec.md).
 - Une branche par ticket, nommée `type/courte-description` (ex. `docs/analyse-commande-jane`, `feat/chargement-bdiff`).
 - Des commits atomiques : un commit = un changement cohérent, avec un message clair.
 - Personne ne travaille directement sur `main`, `dev`, `documentation`, `modelisation` ou `qualite`. Chaque branche de tâche part de la branche de son domaine (voir D016) :
-  - `documentation` pour les documents (journal, README, glossaire, fiches, inventaire, matrice, et la spec sauf ses parties 6 et 7) ;
+  - `documentation` pour les documents (journal, README, glossaire, fiches de sources, fiches indicateur, inventaire, matrice, et la spec sauf ses parties 6 et 7) ;
   - `modelisation` pour le schéma de l'entrepôt, le chargement de la BDIFF et la partie 6 de la spec (équipe Modélisation) ;
   - `qualite` pour les profils qualité, le chargement de la Météo des forêts et la partie 7 de la spec (équipe Qualité).
 - Le travail remonte par pull requests : branche de tâche → branche de domaine → `dev` (en fin de semaine) → `main` (aux checkpoints).
