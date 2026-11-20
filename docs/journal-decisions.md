@@ -288,3 +288,49 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** les créneaux horaires (G3) et la taille des feux (G6) ne sont plus que des éléments secondaires ; la question du délai des secours (G9) est abandonnée.
 - **Auteurs :** réduction proposée par Aissatou, validée par le groupe.
 - **Ticket :** #104
+
+---
+
+## D021 – Périmètre de l'entrepôt : la France métropolitaine, sans l'outre-mer
+
+- **Date :** 2026-11-20
+- **Contexte :** l'export de la BDIFF couvre toute la France, outre-mer compris : départements `971`, `972`, `974` et `976`, avec des codes de 3 caractères. La Météo des forêts ne couvre que les 96 départements de métropole, et la spec fixe le code département à 2 caractères. Il fallait décider si l'outre-mer entre dans l'entrepôt (schéma v0, ticket #41).
+- **Décision :**
+  - l'outre-mer est écarté dès la couche silver : il reste dans les fichiers bruts (bronze), mais aucune table silver ou gold ne le contient ;
+  - la « France » de référence des indicateurs (R3, H2) est la **France métropolitaine** (96 départements, Corse comprise) ;
+  - le code département reste du texte de 2 caractères (`01`, `21`, `2A`), et une contrainte de la base le vérifie.
+- **Raison :** la Météo des forêts, qui sert à vérifier la traduction de l'IFM en niveaux (D008), n'existe pas en outre-mer. Les climats tropicaux ne sont pas comparables à la Côte-d'Or. On garde ainsi une seule règle pour le code département.
+- **Ce que la décision coûte :** les feux d'outre-mer ne sont pas comptés dans la comparaison avec la France. Il faut toujours écrire « France métropolitaine » dans les indicateurs et le dashboard, et non « France ».
+- **Auteurs :** proposée par Audrey, validée par Audrey et Aissatou (équipe Modélisation).
+- **Ticket :** #41
+
+---
+
+## D022 – La dimension des communes couvre toute la métropole
+
+- **Date :** 2026-11-20
+- **Contexte :** la table `dim_commune` décrit les communes (code INSEE, population, surface, forêt). La BDIFF contient des feux dans toute la France, mais la BD Forêt V2 n'a été téléchargée que pour la Côte-d'Or. Il fallait choisir entre la Côte-d'Or seule, la région ou toute la métropole.
+- **Décision :**
+  - `dim_commune` contient **toutes les communes de France métropolitaine**, dans l'édition la plus récente d'Admin Express ;
+  - la surface de forêt (`surface_foret_km2`, `part_foret`) n'est remplie que pour la **Côte-d'Or**, et reste vide ailleurs ;
+  - les codes de communes disparus après une fusion passent par la table `passage_commune`, construite en comparant Admin Express 2017 et l'édition récente.
+- **Raison :** chaque feu de la BDIFF doit trouver sa commune, sinon la clé étrangère `code_insee` de `fait_feu` échoue pour la région et la France, alors que ces feux servent de référence (D007). Les questions sur la forêt (R1, H1, H8) ne portent que sur la Côte-d'Or.
+- **Ce que la décision coûte :** il faut télécharger Admin Express pour toute la métropole (environ 35 000 communes), et pas seulement pour la Côte-d'Or. Un indicateur de forêt calculé hors de la Côte-d'Or serait faux : la colonne vide doit l'empêcher.
+- **Auteurs :** proposée par Audrey, validée par Audrey et Aissatou (équipe Modélisation).
+- **Ticket :** #41
+
+---
+
+## D023 – La couche silver garde le grain le plus fin de chaque source
+
+- **Date :** 2026-11-20
+- **Contexte :** la première proposition de la spec (partie 6) ramenait l'IFM et la météo à un département pour un jour dès la couche silver (`fait_danger_jour`, `fait_meteo_jour`). Mais les KPI dépendent de réglages à faire varier pour tester leur solidité : seuil d'IFM (21,3 ou 30), moyenne ou maximum des mailles, période (2006, 2015 ou 2020 à 2025).
+- **Décision :**
+  - en silver, chaque source garde son grain d'origine : **une maille pour un jour** pour l'IFM (`fait_ifm_jour`), **une station pour un jour** pour la météo (`fait_meteo_jour`), **un feu** pour la BDIFF (`fait_feu`) ;
+  - les mailles et les stations sont rattachées aux départements et aux communes **par la carte, une seule fois**, dans les dimensions `dim_maille` et `dim_station` ;
+  - les résumés par département et par jour, et les classes de danger, sont calculés en **gold** (`gold_departement_jour`, `gold_ete_departement`) ;
+  - le décalage de la Météo des forêts (pour un feu du jour J, `niveau_j1` du bulletin de J-1, D008) est fait **une seule fois**, au chargement de `fait_mdf_jour`, et contrôlé par une contrainte de la base.
+- **Raison :** on peut refaire chaque KPI avec d'autres réglages sans recharger les sources, et vérifier que la conclusion tient. On peut aussi retrouver la station la plus proche d'un feu (H5). Faire le décalage de la Météo des forêts une seule fois évite l'erreur la plus facile à faire sur la question du seuil.
+- **Ce que la décision coûte :** le silver est plus volumineux (environ 5 millions de lignes pour l'IFM en métropole sur 2012-2025). Il faut une étape gold de plus avant le dashboard. C'est un écart avec la première proposition de la spec, qui a été mise à jour (partie 6).
+- **Auteurs :** proposée par Audrey, validée par Audrey et Aissatou (équipe Modélisation).
+- **Ticket :** #41
