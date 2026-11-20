@@ -289,6 +289,8 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Auteurs :** réduction proposée par Aissatou, validée par le groupe.
 - **Ticket :** #104
 
+---
+
 ## D021 – Les 7 indicateurs du tableau de bord et la règle commune des périodes
 
 - **Date :** 2026-11-20
@@ -309,6 +311,7 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** les années 2006-2014 ne sont plus utilisées pour les indicateurs principaux ; les fiches indicateur et la spec doivent être mises à jour ; le téléchargement de l'IFM doit couvrir toute l'année et la France (#114).
 - **Auteurs :** liste proposée par Jane dans la fiche de cadrage (PR #123), relue par Melvyn et Aissatou.
 - **Ticket :** #126
+
 ---
 
 ## D022 – Périmètre de l'entrepôt : la France métropolitaine, sans l'outre-mer
