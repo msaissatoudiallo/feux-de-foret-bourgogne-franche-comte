@@ -2,7 +2,7 @@
 
 **Projet :** Feux de forêt – Bourgogne-Franche-Comté (Hetic 2026/2027, UE01 – Modélisation et pipeline de données)
 **Commanditaire :** direction du SDIS 21 (Côte-d'Or)
-**Version :** V1 – 2026-11-19
+**Version :** V1 – 2026-11-20
 **Rédaction :** Aissatou Diallo (cheffe de projet), avec Audrey, Jane et Melvyn
 
 Ce document décrit le projet de bout en bout : la demande, le raisonnement, les données, l'architecture, la qualité et l'organisation. Il doit permettre à quelqu'un de refaire le projet sans poser de questions. Il ne recopie pas les autres documents : il les résume et y renvoie. Il est mis à jour à chaque milestone ; tout changement passe par un ticket, une pull request et, si besoin, une décision du journal.
@@ -15,6 +15,7 @@ Ce document décrit le projet de bout en bout : la demande, le raisonnement, les
 | `docs/sources/matrice.md` | La matrice questions × sources |
 | `docs/journal-decisions.md` | Toutes les décisions du groupe (D001, D002…) |
 | `docs/glossaire.md` | Le sens précis des termes du projet |
+| `docs/indicateurs/fiche-kpi-*.md` | Une fiche indicateur par KPI (calcul, paramètres, source précise, biais, décision éclairée) |
 
 ## 1. Contexte et commande
 
@@ -57,6 +58,8 @@ Chaque hypothèse est testée par une ou plusieurs questions du groupe (partie 4
 | H5 | Les feux partent par temps chaud et sec, même quand l'indice est bas. | G7 | BDIFF, Données climatologiques, Copernicus EWDS | Nombre de jours sans pluie avant un feu ; température maximale des jours de feu comparée aux jours sans feu |
 | H6 | La Côte-d'Or réagit à l'indice comme la région et la France. | G8 | BDIFF, Copernicus EWDS, Admin Express | Taux de jours avec feu par classe de danger : Côte-d'Or, région, France |
 | H7 | Les feux partent surtout à des moments liés à l'activité humaine : le week-end, les jours fériés et certaines heures de la journée. | G3 | BDIFF (date et heure de première alerte) ; jours fériés calculés par règle, sans source externe : 8 dates fixes (1er janvier, 1er mai, 8 mai, 14 juillet, 15 août, 1er novembre, 11 novembre, 25 décembre) et 3 dates liées à Pâques (lundi de Pâques, Ascension, lundi de Pentecôte) | Part des feux partis le week-end ou un jour férié ; part des feux dans le créneau horaire qui en concentre le plus |
+| H8 | Les communes où un feu ferait le plus de dégâts, c'est-à-dire à la fois boisées et habitées, sont peu nombreuses. | G10 | Admin Express (`population`, `code_insee`, contours des communes) ; BD Forêt V2 (`TFV_G11` : forêts fermées et ouvertes, sans les landes ni les formations herbacées ; libellés exacts à relever dans le fichier) ; BDIFF (code INSEE de la commune de chaque feu, relié aux 698 communes actuelles par une table de passage des communes fusionnées) | Part des communes à fort enjeu (à la fois très boisées et habitées) ; part des feux survenus dans ces communes |
+| H9 | Le nombre de jours de danger élevé par été augmente en Côte-d'Or. | G11 | Copernicus EWDS (`fwinx`, `valid_time`, `latitude`, `longitude`) ; Admin Express (contour de la Côte-d'Or, `code_insee_du_departement` = 21) ; Météo des forêts (`niveau_j1`, pour le contrôle sur 2024-2026) | Pente : nombre de jours de danger élevé gagnés ou perdus par été ; nombre moyen de jours de danger élevé des 5 derniers étés |
 
 ### Objectifs SMART définis
 
@@ -65,6 +68,8 @@ Chaque hypothèse est testée par une ou plusieurs questions du groupe (partie 4
 | H4 | D'ici le 27/11/2026, mesurer sur 2012-2025 la part des feux de Côte-d'Or survenus hors juin-septembre. Si elle dépasse 25 %, recommander d'étendre la surveillance au printemps. | Part des feux hors juin-septembre ; hypothèse confirmée si > 25 %. Première estimation d'après la fiche BDIFF : environ 30 % (à vérifier dans le fichier). |
 | H2 et H3 | D'ici le 04/12/2026, déterminer pour la Bourgogne-Franche-Comté, sur 2012-2025, le seuil d'IFM qui couvre au moins 70 % des jours de feu tout en déclenchant le dispositif moins de 30 jours par saison en Côte-d'Or. | Taux de couverture des jours de feu ; nombre de jours de dispositif par saison ; taux de fausses alertes. Les valeurs de 70 % et 30 jours sont des propositions, à ajuster quand le coût du dispositif sera connu (D009). |
 | H7 | D'ici le 27/11/2026, mesurer sur 2006-2025 la part des feux de Bourgogne-Franche-Comté (752 feux, D007) et de Côte-d'Or partis un samedi, un dimanche ou un jour férié, et la comparer à la part attendue si les feux étaient répartis au hasard sur la semaine (environ 30 %). Si elle est nettement plus élevée, recommander de renforcer la surveillance ces jours-là, en plus de l'indice. | Part des feux partis le week-end ou un jour férié ; hypothèse confirmée si elle est nettement supérieure à la part attendue (test binomial, seuil de 5 %, convention usuelle en statistique). KPI secondaire : part des feux dans le créneau horaire qui en concentre le plus (durée du créneau : paramètre à tester). Limite : l'heure de la BDIFF est celle de l'alerte, pas celle du départ du feu. |
+| H8 | D'ici le 04/12/2026, classer les 698 communes de Côte-d'Or selon deux critères séparés : part de la surface couverte de forêt et population. Une commune est « à fort enjeu » si elle est au-dessus de la médiane pour les deux. Si ces communes sont nettement moins nombreuses que la part attendue si forêt et population n'avaient aucun lien (25 %), recommander d'y concentrer la prévention et la surveillance ; sinon, répartir les moyens selon la fréquence des feux (H1). | Part des communes à fort enjeu ; hypothèse confirmée si elle est nettement inférieure à 25 % (test exact de Fisher unilatéral sur le tableau 2 × 2 « très boisée × habitée », seuil de 5 % ; voir la fiche indicateur de G10). Les deux critères restent séparés pour que les grandes communes ne dominent pas (une multiplication population × forêt donnerait toujours la même réponse) ; la médiane résiste aux valeurs extrêmes. KPI secondaire : part des feux de 2015-2025 survenus dans ces communes (2015-2025, car les feux d'avant 2015 sont mal saisis d'après la fiche BDIFF). Biais : la population est un proxy (D011), elle ne dit pas si les habitations sont proches de la forêt ; les routes ne sont pas prises en compte ; la forêt est dans son état de 2017. |
+| H9 | D'ici le 04/12/2026, compter pour chaque été (juin à septembre) de 1997 à 2026 les jours de danger élevé en Côte-d'Or : jours où l'IFM moyen des mailles du département atteint au moins 21,3 (D008). Si ce nombre augmente nettement, prévoir au budget 2027 le nombre de jours donné par la tendance ; sinon, se baser sur la moyenne des étés passés. | Pente de Sen (nombre de jours de danger élevé gagnés ou perdus par été) ; hypothèse confirmée si la tendance est à la hausse selon le test de Mann-Kendall unilatéral au seuil de 5 % (méthode standard pour les tendances climatiques, qui résiste aux étés exceptionnels) et si la pente représente un écart réel pour le budget. 30 étés, la durée d'une normale climatique (règle de l'Organisation météorologique mondiale), également utilisée par Météo-France pour évaluer ses zones sensibles aux feux (PDF de présentation de la Météo des forêts, data.gouv.fr) ; Copernicus EWDS couvre 1940-2026 (D012), alors que la période 2012-2025 de D008 concerne les questions qui croisent l'indice et les feux. KPI secondaire : nombre moyen de jours de danger élevé des 5 derniers étés. Contrôle : comparer avec les jours où la Météo des forêts était au niveau 3 ou plus sur 2024-2026 (pour un jour J, `niveau_j1` du bulletin de J-1, D008). Écart réel pour le budget : la valeur de la tendance pour 2027 dépasse la moyenne des 30 étés d'au moins 1 jour de dispositif, car le budget se compte en jours (D009 ; voir la fiche indicateur de G11). Paramètres : seuil (21,3 ou 30), moyenne ou maximum des mailles, définition de l'été. Biais : l'IFM n'est pas le niveau officiel (Météo-France y ajoute la sécheresse de la végétation) ; les classes d'EFFIS sont européennes ; les mailles débordent sur les départements voisins. |
 
 Les objectifs SMART des hypothèses H1, H5 et H6 seront définis pour le milestone V1.
 
@@ -158,9 +163,9 @@ Les règles de qualité (tests automatiques et seuils de décision) seront défi
 
 ## 8. Organisation du projet
 
-**Rôles :** Aissatou Diallo, cheffe de projet (milestones, tickets, suivi, journal) ; Jane, responsable sources ; Melvyn, responsable qualité et conformité (règles de qualité, tests, données personnelles) ; Audrey, responsable pipeline et modèle (D002, D004).
+**Rôles :** Aissatou Diallo, cheffe de projet (milestones, tickets, suivi, journal) ; Jane, responsable sources (inventaire, fiches, matrice, validation des nouvelles sources, D017) ; Melvyn, responsable qualité et conformité (règles de qualité, tests, données personnelles) ; Audrey, responsable pipeline et modèle (D002, D004).
 
-**Équipes :** Modélisation (Audrey, Aissatou) et Qualité (Melvyn, Jane) (D004).
+**Équipes :** Modélisation (Audrey, Aissatou) et Qualité (Melvyn, Jane) (D004), chacune avec sa branche (D016).
 
 **Branches :**
 
@@ -170,11 +175,11 @@ main ← dev ← documentation   (documentation)
            ← qualite         (équipe Qualité)
 ```
 
-Une branche par ticket, créée depuis la branche de rassemblement concernée. Le travail remonte par pull request, relue et validée par le ou la responsable du domaine concerné, jamais par son auteur (D015). `documentation`, `modelisation` et `qualite` remontent vers `dev`, puis `dev` vers `main` aux checkpoints.
+Une branche par ticket, créée depuis la branche de domaine concernée (D016) : `documentation` pour les documents (journal, README, glossaire, fiches de sources, fiches indicateur, inventaire, matrice, et la spec sauf ses parties 6 et 7) ; `modelisation` pour le schéma de l'entrepôt, le chargement de la BDIFF et la partie 6 de la spec ; `qualite` pour les profils qualité, le chargement de la Météo des forêts et la partie 7 de la spec. Le travail remonte par pull request, relue et validée par le ou la responsable du domaine concerné, jamais par son auteur (D015, D017). `documentation`, `modelisation` et `qualite` remontent vers `dev`, puis `dev` vers `main` aux checkpoints.
 
 **Tickets :** un ticket par tâche, rattaché à un ticket parent (#35 Modélisation, #36 Qualité, #37 Commun) et à un milestone, suivi dans le tableau du projet GitHub (Backlog, In progress, In review, Done).
 
-**Traçabilité :** chaque décision est consignée dans le journal ; chaque terme dans le glossaire ; chaque source dans une fiche d'identité.
+**Traçabilité :** chaque décision est consignée dans le journal ; chaque terme dans le glossaire ; chaque source dans une fiche d'identité ; chaque KPI dans une fiche indicateur.
 
 ## 9. Planning
 
