@@ -39,6 +39,7 @@ docs/
 ├── analyse/                 # Analyses individuelles de la commande (commande-prenom-nom.md)
 ├── indicateurs/             # Fiches indicateur, une par KPI (fiche-kpi-*.md)
 ├── sources/                 # Fiches d'identité des sources (fiche-*.md), inventaire.md, matrice.md
+├── cadrage_technique.md     # Rendu du cadrage technique : sources prévues, outils, risques (20/11)
 ├── glossaire.md             # Glossaire du projet
 ├── journal-decisions.md     # Journal des décisions du groupe
 └── spec.md                  # Spécification du projet (point d'entrée pour comprendre le projet)
@@ -97,7 +98,8 @@ python -c "import pandas, duckdb, geopandas, xarray; print('ok')"
 | DuckDB | L'entrepôt : une base SQL dans un seul fichier, sans serveur, pour les couches silver et gold |
 | geopandas | Les cartes (Admin Express, BD Forêt V2) et les jointures par la position (stations, mailles → communes) |
 | xarray, netCDF4 | Lire les fichiers NetCDF de l'IFM (Copernicus EWDS) |
-| requests | Télécharger les fichiers publiés (data.gouv.fr, Météo-France) |
+| requests | Télécharger les fichiers publiés (data.gouv.fr, Météo-France, BDIFF) |
+| truststore | Vérifier les certificats des sites avec ceux du système (le portail de la BDIFF a une chaîne de certificats incomplète) |
 | pytest | Les tests de qualité |
 | ipykernel | Les notebooks d'exploration dans VS Code |
 
@@ -112,6 +114,19 @@ Quand une bibliothèque est ajoutée, l'écrire dans `requirements.txt` avec sa 
 ## Charger les données (couche bronze)
 
 Les scripts de chargement déposent les fichiers des sources **tels quels** dans `data/raw/`, hors de Git. Chaque membre les lance sur son ordinateur, environnement activé, depuis la racine du dépôt.
+
+### BDIFF
+
+```
+python src/charger_bdiff.py
+```
+
+- **Ce que fait le script :** il refait la recherche du portail [bdiff.agriculture.gouv.fr](https://bdiff.agriculture.gouv.fr/incendies) pour la **France entière, une année à la fois, de 2006 à 2025**, et enregistre chaque export dans `data/raw/bdiff/bdiff_AAAA.zip`.
+- **Les fichiers ne sont jamais modifiés** : chaque zip garde `Incendies.csv`, les définitions et les mentions légales du producteur (licence, D005).
+- **Une année par fichier**, car le portail refuse l'export de la France entière sur toute la période en une seule fois.
+- **Relancer le script ne crée pas de doublons** : une année déjà présente est ignorée. Pour retélécharger : `python src/charger_bdiff.py --force`.
+- **Choisir les années :** `python src/charger_bdiff.py --debut 2024 --fin 2025`.
+- **Résultat attendu :** 20 fichiers (environ 12 Mo), soit **52 811 incendies**, dont 120 en Côte-d'Or.
 
 ### Météo des forêts
 
@@ -135,6 +150,8 @@ python src/charger_meteo_des_forets.py
   - `modelisation` pour le schéma de l'entrepôt, le chargement de la BDIFF et la partie 6 de la spec (équipe Modélisation) ;
   - `qualite` pour les profils qualité, le chargement de la Météo des forêts et la partie 7 de la spec (équipe Qualité).
 - Le travail remonte par pull requests : branche de tâche → branche de domaine → `dev` (en fin de semaine) → `main` (aux checkpoints).
+- Pour récupérer le travail arrivé dans `dev`, une branche d'équipe est mise à jour par une pull request `dev` → branche d'équipe (base : `modelisation` ou `qualite`, compare : `dev`). Chaque membre part ensuite de sa branche d'équipe à jour ; une branche de tâche en cours récupère la mise à jour avec `git pull origin <branche d'équipe>`.
+- Les parties techniques du README (environnement, chargement des données) et `requirements.txt` sont modifiées avec le code, sur la branche d'équipe. Pour éviter les conflits entre équipes : une bibliothèque par ligne, ajoutée dans sa rubrique de `requirements.txt`, et chaque équipe écrit dans sa propre partie du README.
 - Chaque pull request est relue et validée par le ou la **responsable du domaine concerné** : Jane pour les sources, Audrey pour le pipeline et le modèle, Melvyn pour la qualité, Aissatou pour la gestion du projet (journal, README, spec). Jane valide en plus chaque nouvelle source, et Melvyn vérifie que les tests ont tourné. Personne ne valide sa propre pull request (voir D015 et D017 dans le [journal des décisions](docs/journal-decisions.md)).
 - Chaque tâche a un ticket, rattaché à un ticket parent et à un milestone (V0, V1, V2), et suivi dans le tableau du projet GitHub (Backlog, In progress, In review, Done).
 - Après la fusion d'une pull request vers `documentation`, `modelisation` ou `qualite`, le ticket est fermé à la main (GitHub ne le fait que pour la branche par défaut, `dev`).
