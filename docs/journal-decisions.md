@@ -354,7 +354,7 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
   - les résumés par département et par jour, et les classes de danger, sont calculés en **gold** (`gold_departement_jour`, `gold_ete_departement`) ;
   - le décalage de la Météo des forêts (pour un feu du jour J, `niveau_j1` du bulletin de J-1, D008) est fait **une seule fois**, au chargement de `fait_mdf_jour`, et contrôlé par une contrainte de la base.
 - **Raison :** on peut refaire chaque KPI avec d'autres réglages sans recharger les sources, et vérifier que la conclusion tient. On peut aussi retrouver la station la plus proche d'un feu (H5). Faire le décalage de la Météo des forêts une seule fois évite l'erreur la plus facile à faire sur la question du seuil.
-- **Ce que la décision coûte :** le silver est plus volumineux (environ 5 millions de lignes pour l'IFM en métropole sur 2012-2025). Il faut une étape gold de plus avant le dashboard. C'est un écart avec la première proposition de la spec, qui a été mise à jour (partie 6).
+- **Ce que la décision coûte :** le silver est plus volumineux (environ 4 millions de lignes pour l'IFM en métropole sur 2015-2025, période fixée par D021). Il faut une étape gold de plus avant le dashboard. C'est un écart avec la première proposition de la spec, qui a été mise à jour (partie 6).
 - **Auteurs :** proposée par Audrey, validée par Audrey et Aissatou (équipe Modélisation).
 - **Ticket :** #41
 
