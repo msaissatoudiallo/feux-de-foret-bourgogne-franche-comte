@@ -76,12 +76,12 @@ Une flèche va de la table qui porte la clé étrangère vers la table qu'elle d
 
 | Table | Une ligne = | Clé primaire | Construite depuis | Questions et hypothèses |
 |---|---|---|---|---|
-| `gold_departement_jour` | un département pour un jour (2012-2025) | (`code_departement`, `date`) | `fait_feu`, `fait_ifm_jour`, `dim_maille`, `fait_mdf_jour` | R3, R4, R5 (H2, H3, H5) |
+| `gold_departement_jour` | un département pour un jour (2015-2025, D021) | (`code_departement`, `date`) | `fait_feu`, `fait_ifm_jour`, `dim_maille`, `fait_mdf_jour` | R3, R4, R5 (H2, H3, H5) |
 | `gold_commune` | une commune de Côte-d'Or | `code_insee` | `dim_commune`, `fait_feu` | R1 (H1, H8) |
 | `gold_ete_departement` | un département pour un été (1997-2026) | (`code_departement`, `annee`) | `fait_ifm_jour`, `dim_maille`, `fait_mdf_jour` | R6 (H9) |
 
-- **`gold_departement_jour`** : nombre de feux, IFM moyen et maximal des mailles du département, classe de danger selon le seuil choisi, niveau de la Météo des forêts (depuis 2024). C'est la base des taux de jours avec feu par classe (H2), des fausses alertes (H3) et des jours de dispositif par seuil (R5).
-- **`gold_commune`** : nombre de feux de 2015-2025, surface de forêt, population, feux par km² de forêt (H1), commune à fort enjeu (H8).
+- **`gold_departement_jour`** : nombre de feux, IFM moyen et maximal des mailles du département, classe de danger selon le seuil choisi, niveau de la Météo des forêts (depuis 2024). C'est la base des taux de jours avec feu par classe (H2), de la part des jours de feu couverts et des jours de dispositif (H3, D021), pour chaque seuil (R5).
+- **`gold_commune`** : nombre de feux de 2015-2025, surface de forêt, population, feux par 100 km² de forêt (H1, D021), commune à fort enjeu (H8).
 - **`gold_ete_departement`** : nombre de jours de danger élevé par été (H9), et jours au niveau 3 ou plus de la Météo des forêts pour le contrôle sur 2024-2026.
 
 Les R2 (mois, jours, heures) se calculent directement depuis `fait_feu` et `dim_date`, sans table gold dédiée.
@@ -106,4 +106,4 @@ Les sources sans code (mailles de l'IFM, stations, zones de forêt) sont rattach
 - **Une maille compte pour le département de son centre**, même si elle déborde sur un voisin.
 - **La forêt est dans son état de 2017**, et seulement pour la Côte-d'Or.
 - **La station météo la plus proche d'un feu ne mesure pas toujours le vent et l'humidité** (9 et 14 stations en Côte-d'Or).
-- **Volume de l'IFM pour la France entière :** environ 1 000 mailles sur la France métropolitaine (550 000 km² pour des mailles d'environ 530 km²) × 5 100 jours (2012-2025), soit environ 5 millions de lignes. C'est supportable par DuckDB, mais le téléchargement depuis Copernicus (compte, file d'attente) est à prévoir.
+- **Volume de l'IFM pour la France entière :** environ 1 000 mailles sur la France métropolitaine (550 000 km² pour des mailles d'environ 530 km²) × 4 000 jours (2015-2025, D021), soit environ 4 millions de lignes. C'est supportable par DuckDB, mais le téléchargement depuis Copernicus (compte, file d'attente) est à prévoir.
