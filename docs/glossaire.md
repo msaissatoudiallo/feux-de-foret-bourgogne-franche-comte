@@ -1,8 +1,8 @@
 # Glossaire — Bourgogne-Franche-Comté
 
-Dernière mise à jour : 2026-11-19
+Dernière mise à jour : 2026-11-23
 
-Version 0. Les termes viennent des termes inconnus des quatre analyses de la commande (`docs/analyse/`), des termes rencontrés en ouvrant les sources (`docs/sources/`) et du cours sur les KPI (19/11/2026). Les entrées sont classées par ordre alphabétique. Un terme écarté est listé à la fin, avec la raison.
+Version 0. Les termes viennent des termes inconnus des quatre analyses de la commande (`docs/analyse/`), des termes rencontrés en ouvrant les sources (`docs/sources/`) et du cours sur les KPI (19/11/2026), puis du schéma de l'entrepôt (`docs/schema-entrepot.md`, ticket #146). Les entrées sont classées par ordre alphabétique. Un terme écarté est listé à la fin, avec la raison.
 
 Statuts : **validé** (définition confirmée par la documentation d'un producteur ou par une décision du groupe consignée dans le journal), **proposé** (définition du groupe, non encore confirmée), **à vérifier** (une information manque), **obsolète**.
 
@@ -18,6 +18,18 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Origine de la définition :** compréhension du groupe, sigle CIS de la plaquette DGSCGC.
 - **Ajouté par :** Aissatou Diallo, Jane, 2026-11-17
 
+## Clé primaire, clé étrangère, clé composée
+
+- **Définition :** la **clé primaire** est la colonne qui identifie chaque ligne d'une table, sans doublon ; la **clé étrangère** est une colonne qui renvoie à la clé primaire d'une autre table, ce qui relie les deux tables ; la **clé composée** est une clé primaire formée de plusieurs colonnes ensemble.
+- **Sources et colonnes :** schéma de l'entrepôt (`docs/schema-entrepot.md`, partie 6 ; `src/schema_silver.sql`).
+- **Divergences :** la BDIFF n'a pas de clé unique : son numéro de feu est réutilisé d'une année à l'autre (12 916 numéros en double sur 2006-2025).
+- **Règle retenue :** la clé de `fait_feu` est `id_feu` = année + numéro (0 doublon vérifié). Les clés sont écrites en texte (`code_departement` sur 2 caractères, `code_insee` sur 5 caractères), et la base vérifie chaque clé étrangère.
+- **Unité ou granularité :** une ligne de table.
+- **Exemple :** clé primaire `2022-13845` (un feu) ; clé étrangère `code_insee` de `fait_feu`, qui renvoie à `dim_commune` ; clé composée (`id_maille`, `date`) dans `fait_ifm_jour`.
+- **Statut :** validé.
+- **Origine de la définition :** vocabulaire des bases de données, appliqué dans le schéma v0 (ticket #41).
+- **Ajouté par :** Aissatou Diallo, 2026-11-23
+
 ## Code INSEE de la commune
 
 - **Définition :** code officiel à 5 caractères qui identifie une commune française, attribué par l'INSEE dans le Code officiel géographique (COG), mis à jour chaque 1er janvier.
@@ -29,6 +41,18 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Statut :** validé.
 - **Origine de la définition :** fiche data.gouv.fr d'Admin Express (Code officiel géographique de l'INSEE).
 - **Ajouté par :** Aissatou Diallo, Audrey, 2026-11-19
+
+## Couches bronze, silver et gold
+
+- **Définition :** les trois étapes par lesquelles passent les données dans l'entrepôt. **Bronze** : les fichiers tels qu'ils ont été téléchargés. **Silver** : les données nettoyées et reliées par les clés. **Gold** : les tables prêtes pour les indicateurs et le tableau de bord.
+- **Sources et colonnes :** bronze : `data/raw/` (hors de Git) ; silver : tables DuckDB `dim_*`, `fait_*` et `passage_commune` ; gold : tables `gold_*` (`docs/schema-entrepot.md`, partie 1).
+- **Divergences :** aucune.
+- **Règle retenue :** le bronze n'est jamais modifié (licence de la BDIFF, D005) ; le silver garde le grain le plus fin de chaque source (D024) ; le gold est recalculé depuis le silver, avec les réglages des indicateurs (seuil, période).
+- **Unité ou granularité :** une couche.
+- **Exemple :** le fichier `Incendies.csv` (bronze) devient la table `fait_feu` (silver), qui sert à `gold_commune` (gold).
+- **Statut :** validé (D018, D024).
+- **Origine de la définition :** architecture dite « médaillon », appliquée dans le schéma v0.
+- **Ajouté par :** Aissatou Diallo, 2026-11-23
 
 ## Danger élevé
 
@@ -77,6 +101,18 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Statut :** validé (définition) ; format à décider.
 - **Origine de la définition :** Code officiel géographique de l'INSEE (fiche Admin Express) ; fiches des sources.
 - **Ajouté par :** Audrey, 2026-11-17
+
+## Dimension et table de faits
+
+- **Définition :** une **table de faits** enregistre des événements ou des mesures (un feu, une valeur d'indice un jour donné) ; une **dimension** décrit ce qui entoure ces mesures (quand, où) et sert à les filtrer et à les regrouper.
+- **Sources et colonnes :** schéma de l'entrepôt, parties 3 et 4 : 6 dimensions (`dim_date`, `dim_departement`, `dim_commune`, `dim_maille`, `dim_station`, `passage_commune`) et 4 faits (`fait_feu`, `fait_ifm_jour`, `fait_mdf_jour`, `fait_meteo_jour`).
+- **Divergences :** `passage_commune` ne commence pas par `dim_`, mais elle est rangée avec les dimensions.
+- **Règle retenue :** les faits ne portent que des clés étrangères vers les dimensions ; les rattachements par la carte (mailles, stations) sont faits une seule fois, dans les dimensions.
+- **Unité ou granularité :** une table.
+- **Exemple :** `fait_feu` renvoie à `dim_date` (le jour de l'alerte) et à `dim_commune` (la commune du feu).
+- **Statut :** validé.
+- **Origine de la définition :** vocabulaire de la modélisation en étoile, appliqué dans le schéma v0.
+- **Ajouté par :** Aissatou Diallo, 2026-11-23
 
 ## Dispositif renforcé
 
@@ -137,6 +173,18 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Statut :** à vérifier (définition exacte de la DGSCGC non lue).
 - **Origine de la définition :** fiche Interventions SDIS ; compréhension du groupe.
 - **Ajouté par :** Melvyn, 2026-11-17
+
+## Grain
+
+- **Définition :** ce que représente une ligne d'une table.
+- **Sources et colonnes :** colonne « Une ligne = » des tableaux du schéma de l'entrepôt (`docs/schema-entrepot.md`).
+- **Divergences :** le mot « maille » est parfois employé dans ce sens ; dans ce projet, « maille » désigne seulement le carré de l'IFM (voir « Maille »).
+- **Règle retenue :** le silver garde le grain le plus fin de chaque source ; les résumés (par département et par jour, par été) sont calculés en gold, pour pouvoir refaire les calculs avec un autre seuil ou une autre période (D024).
+- **Unité ou granularité :** une table.
+- **Exemple :** `fait_feu` : une ligne = un feu ; `fait_ifm_jour` : une ligne = une maille pour un jour.
+- **Statut :** validé (D024).
+- **Origine de la définition :** vocabulaire de la modélisation, appliqué dans le schéma v0.
+- **Ajouté par :** Aissatou Diallo, 2026-11-23
 
 ## Guet
 
@@ -209,6 +257,18 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Statut :** proposé.
 - **Origine de la définition :** cours du 19/11/2026 (KPI, indicateurs et critères RACER).
 - **Ajouté par :** Melvyn, 2026-11-19
+
+## Maille
+
+- **Définition :** carré de 0,25° de côté (environ 530 km² en Côte-d'Or), sur lequel Copernicus calcule une valeur d'IFM chaque jour.
+- **Sources et colonnes :** Copernicus EWDS (`cems-fire-historical-v1`, variable `fwinx`) ; tables `dim_maille` et `fait_ifm_jour`.
+- **Divergences :** une maille ne suit pas les limites des départements et peut déborder sur un département voisin.
+- **Règle retenue :** une maille compte pour le département qui contient son centre ; elle est rattachée une seule fois, par la carte, dans `dim_maille` (département vide si le centre est en mer ou hors de France).
+- **Unité ou granularité :** une maille.
+- **Exemple :** `47.25_5.00` (centre à 47,25° de latitude et 5,00° de longitude).
+- **Statut :** validé.
+- **Origine de la définition :** documentation de Copernicus EWDS ; schéma v0.
+- **Ajouté par :** Aissatou Diallo, 2026-11-23
 
 ## Massif forestier
 
@@ -342,6 +402,18 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Origine de la définition :** commande.
 - **Ajouté par :** Audrey, Jane, 2026-11-17
 
+## Station météo
+
+- **Définition :** poste de mesure de Météo-France, qui enregistre chaque jour la pluie, les températures, le vent et l'humidité.
+- **Sources et colonnes :** Données climatologiques (`NUM_POSTE`, `RR`, `TX`, `TN`, `FFM`, `UN`) ; tables `dim_station` et `fait_meteo_jour`.
+- **Divergences :** toutes les stations ne mesurent pas le vent et l'humidité ; la pluie du jour J est mesurée de J 6 h à J+1 6 h (UTC), et non de minuit à minuit.
+- **Règle retenue :** le département est donné par les 2 premiers chiffres de `NUM_POSTE`, la commune est celle qui contient la station (par la carte) ; les valeurs sont déjà en °C, mm, m/s et % et ne doivent pas être divisées par 10.
+- **Unité ou granularité :** une station ; un jour.
+- **Exemple :** `21056001`, une station de Côte-d'Or.
+- **Statut :** validé.
+- **Origine de la définition :** documentation des Données climatologiques de Météo-France ; schéma v0.
+- **Ajouté par :** Aissatou Diallo, 2026-11-23
+
 ## Surface parcourue
 
 - **Définition :** surface touchée par un feu, détaillée par type de végétation.
@@ -354,17 +426,29 @@ Statuts : **validé** (définition confirmée par la documentation d'un producte
 - **Origine de la définition :** portail BDIFF (page « Définitions »).
 - **Ajouté par :** Audrey, 2026-11-19
 
+## Table de passage des communes fusionnées
+
+- **Définition :** table qui relie chaque ancien code INSEE, disparu après une fusion de communes, au code de la commune actuelle.
+- **Sources et colonnes :** Admin Express 2017 et édition la plus récente ; table `passage_commune` (`code_insee_ancien`, `code_insee_actuel`).
+- **Divergences :** un feu enregistré avec un ancien code ne se relie pas à l'édition récente d'Admin Express (voir « Code INSEE de la commune »).
+- **Règle retenue :** chaque commune de 2017 qui n'existe plus est rattachée à la commune actuelle qui contient un point de son ancien contour (D023) ; `fait_feu` garde le code d'origine (`code_insee_bdiff`) et le code actuel (`code_insee`).
+- **Unité ou granularité :** un ancien code de commune.
+- **Exemple :** 6 codes ont disparu en Côte-d'Or, dont `21213` ; aucun feu de Côte-d'Or n'en porte (vérifié sur 2006-2025), la table sert pour la région et la France.
+- **Statut :** validé (D023).
+- **Origine de la définition :** schéma v0 ; Code officiel géographique de l'INSEE.
+- **Ajouté par :** Aissatou Diallo, 2026-11-23
+
 ## Territoire national
 
 - **Définition :** l'ensemble du territoire français auquel la direction veut comparer la Côte-d'Or.
 - **Sources et colonnes :** commande (« par rapport au reste du territoire national ») ; Météo des forêts (`num_dep`) ; BDIFF ; Interventions SDIS.
 - **Divergences :** la Météo des forêts ne couvre que l'Hexagone et la Corse (96 départements) ; la BDIFF et les Interventions SDIS comprennent aussi l'outre-mer.
-- **Règle retenue :** proposition : la France métropolitaine (Hexagone et Corse), seule emprise commune aux sources de l'indice. À consigner dans le journal.
+- **Règle retenue :** la France métropolitaine (96 départements, Corse comprise) ; l'outre-mer est écarté dès la couche silver (D022). Il faut écrire « France métropolitaine », et non « France », dans les indicateurs et le tableau de bord.
 - **Unité ou granularité :** un département.
 - **Exemple :** 2 632 feux en France sur les étés 2024 et 2025 (BDIFF).
-- **Statut :** proposé.
-- **Origine de la définition :** commande ; fiches des sources.
-- **Ajouté par :** Jane, 2026-11-17
+- **Statut :** validé (D022).
+- **Origine de la définition :** commande ; fiches des sources ; D022.
+- **Ajouté par :** Jane, 2026-11-17 ; mis à jour par Aissatou Diallo, 2026-11-23
 
 ## Termes écartés
 
