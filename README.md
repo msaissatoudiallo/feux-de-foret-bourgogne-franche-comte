@@ -128,6 +128,23 @@ python src/charger_bdiff.py
 - **Choisir les années :** `python src/charger_bdiff.py --debut 2024 --fin 2025`.
 - **Résultat attendu :** 20 fichiers (environ 12 Mo), soit **52 811 incendies**, dont 120 en Côte-d'Or.
 
+### Données climatologiques quotidiennes
+
+```
+python src/charger_climatologie.py
+```
+
+- **Ce que fait le script :** il lit le catalogue de [data.gouv.fr](https://www.data.gouv.fr/datasets/donnees-climatologiques-de-base-quotidiennes) et enregistre dans `data/raw/climatologie/` les mesures des stations de la **Côte-d'Or** (fichiers `Q_21_…`) :
+  - période ancienne (`previous-1950-2024`) et récente (`latest-2025-2026`) ;
+  - pour chaque période, les deux groupes de paramètres : `RR-T-Vent` (pluie, températures, vent) et `autres-parametres` (dont l'humidité) ;
+  - les descriptifs des champs (`Q_descriptif_champs_….csv`) et le descriptif général (PDF).
+- **Les fichiers ne sont jamais décompressés ni modifiés** (`.csv.gz` de Météo-France, Licence Ouverte 2.0). Le fichier « avant 1949 » n'est pas pris.
+- **Le fichier reçu est contrôlé** : taille annoncée par le serveur, gzip lisible jusqu'au bout, colonnes attendues (`NUM_POSTE`, `AAAAMMJJ`…) et stations du bon département. Sinon, rien n'est écrit.
+- **Relancer le script ne crée pas de doublons** : un fichier déjà présent est ignoré. La période récente est mise à jour **chaque jour** par Météo-France : pour la rafraîchir, `python src/charger_climatologie.py --force`.
+- **Changement d'année :** les noms des périodes changent (par exemple `previous-1950-2025` en 2027). Le script prend seul les nouveaux noms et signale les anciens fichiers, à supprimer à la main pour éviter des dates en double.
+- **Un autre département :** `python src/charger_climatologie.py --departement 89`.
+- **Résultat attendu :** 7 fichiers (environ 18 Mo), soit **1 530 067 lignes** de 1950 à 2024 et environ 17 000 lignes depuis 2025 pour `RR-T-Vent`, sur 111 stations.
+
 ## Règles de travail
 
 - Une branche par ticket, nommée `type/courte-description` (ex. `docs/analyse-commande-jane`, `feat/chargement-bdiff`).
