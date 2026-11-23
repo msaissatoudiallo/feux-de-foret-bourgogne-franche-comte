@@ -125,25 +125,31 @@ Toute source utilisée dans l'entrepôt ou l'analyse a une fiche d'identité dan
 | Clé | Format retenu | Sources concernées |
 |---|---|---|
 | Code INSEE de la commune | Texte, 5 caractères (`21329`) | BDIFF, Admin Express |
-| Code du département | Texte, 2 caractères (`01`, `21`, `2A`) | Météo des forêts, Admin Express, Interventions SDIS, SIM2, Données climatologiques |
+| Code du département | Texte, 2 caractères (`01`, `21`, `2A`) | BDIFF, Météo des forêts, Admin Express, Données climatologiques |
 | Date | Date du jour (AAAA-MM-JJ), en heure française | Toutes les sources quotidiennes |
-| Coordonnées | Mailles ou stations à rattacher aux communes ou aux départements par la carte | Copernicus EWDS, SIM2, Données climatologiques, BD Forêt V2 |
+| Coordonnées | Mailles ou stations à rattacher aux communes ou aux départements par la carte | Copernicus EWDS, Données climatologiques, BD Forêt V2 |
 
 Points d'attention : codes de communes disparus après les fusions (6 en Côte-d'Or depuis 2017) ; département écrit sans zéro (`1`) dans le fichier 2025 de la Météo des forêts, et `2a` / `2b` dans les Statistiques des SDIS ; dates en UTC dans la Météo des forêts ; pour un feu du jour J, le niveau de la Météo des forêts se lit dans `niveau_j1` du bulletin de J-1.
 
-### Schéma de l'entrepôt v0 (proposition, à compléter par l'équipe Modélisation, ticket #41)
+### Schéma de l'entrepôt v0
+
+Le schéma complet est dans [`docs/schema-entrepot.md`](schema-entrepot.md) (ticket #41), et le SQL des tables silver dans [`src/schema_silver.sql`](../src/schema_silver.sql). Périmètre : France métropolitaine (D022). Le silver garde le grain le plus fin de chaque source, pour pouvoir faire varier les réglages des KPI (D024).
 
 | Table | Couche | Une ligne = | Clé primaire | Clés étrangères |
 |---|---|---|---|---|
-| `dim_date` | silver | un jour | `date` | — |
-| `dim_departement` | silver | un département | `code_departement` | — |
-| `dim_commune` | silver | une commune (édition COG de l'année) | `code_insee` | `code_departement` |
-| `fait_feu` | silver | un feu de forêt (BDIFF) | `id_feu` (année + numéro) | `date_alerte`, `code_insee`, `code_departement` |
-| `fait_danger_jour` | silver | un département pour un jour | (`code_departement`, `date`) | `code_departement`, `date` |
-| `fait_meteo_jour` | silver | un département pour un jour | (`code_departement`, `date`) | `code_departement`, `date` |
-| tables de KPI | gold | selon le KPI | — | — |
-
-`fait_danger_jour` contiendrait le niveau de la Météo des forêts (depuis 2024), l'IFM moyen et maximal du département (Copernicus EWDS) et la classe de danger EFFIS.
+| `dim_date` | silver | un jour (1997-2026) | `date` | — |
+| `dim_departement` | silver | un département de métropole | `code_departement` | — |
+| `dim_commune` | silver | une commune de métropole, édition récente (D023) | `code_insee` | `code_departement` |
+| `passage_commune` | silver | un ancien code de commune | `code_insee_ancien` | `code_insee_actuel` |
+| `dim_maille` | silver | une maille de l'IFM | `id_maille` | `code_departement` |
+| `dim_station` | silver | une station météo | `num_poste` | `code_departement`, `code_insee` |
+| `fait_feu` | silver | un feu de forêt (BDIFF) | `id_feu` (année-numéro) | `date_alerte`, `code_insee`, `code_departement` |
+| `fait_ifm_jour` | silver | une maille pour un jour | (`id_maille`, `date`) | `id_maille`, `date` |
+| `fait_mdf_jour` | silver | un département pour le jour visé (`niveau_j1` du bulletin de la veille) | (`code_departement`, `date`) | `code_departement`, `date` |
+| `fait_meteo_jour` | silver | une station pour un jour | (`num_poste`, `date`) | `num_poste`, `date` |
+| `gold_departement_jour` | gold | un département pour un jour | (`code_departement`, `date`) | — |
+| `gold_commune` | gold | une commune de Côte-d'Or | `code_insee` | — |
+| `gold_ete_departement` | gold | un département pour un été | (`code_departement`, `annee`) | — |
 
 ## 7. Qualité des données
 
