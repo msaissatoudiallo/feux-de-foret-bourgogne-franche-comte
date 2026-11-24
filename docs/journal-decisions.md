@@ -238,3 +238,53 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** Jane relit davantage de pull requests ; Melvyn n'est plus le deuxième regard sur les nouvelles sources.
 - **Auteurs :** décision du groupe.
 - **Ticket :** #86
+
+---
+
+## D018 – DuckDB pour l'entrepôt plutôt que PostgreSQL
+
+- **Date :** 2026-11-20
+- **Contexte :** l'environnement Python du projet (ticket #38, PR #99) doit fournir un outil pour l'entrepôt, c'est-à-dire les couches silver et gold. Les deux options envisagées étaient PostgreSQL (une base de données avec un serveur) et DuckDB (une base SQL dans un seul fichier, sans serveur).
+- **Décision :** l'entrepôt est une base **DuckDB** :
+  - les couches silver et gold sont des tables DuckDB, construites par les scripts de `src/` à partir des fichiers bruts de `data/raw/` (couche bronze) ;
+  - le fichier de l'entrepôt (`*.duckdb`) est exclu de Git : chaque membre le reconstruit sur son ordinateur en relançant les scripts ;
+  - la version est fixée dans `requirements.txt` (`duckdb==2.0.0`).
+- **Raison :**
+  - pas de serveur à installer ni de mot de passe à gérer sur les quatre ordinateurs ;
+  - DuckDB lit directement les fichiers des sources, y compris les `.csv.gz` de la Météo des forêts ;
+  - les données brutes et l'entrepôt restent hors du dépôt public, ce qui respecte la licence de la BDIFF (D005) ;
+  - tout le monde obtient les mêmes tables à partir des mêmes scripts, ce qui oblige à rendre le pipeline reproductible.
+- **Ce que la décision coûte :** il n'y a pas de base partagée entre les membres : chacun a sa propre copie de l'entrepôt et doit relancer les scripts après chaque changement ; DuckDB est fait pour l'analyse sur un seul ordinateur, pas pour plusieurs utilisateurs qui écrivent en même temps (ce dont le projet n'a pas besoin).
+- **Auteurs :** proposée par Audrey (PR #99), décision du groupe.
+- **Ticket :** #100
+
+---
+
+## D019 – Streamlit pour la dataviz du projet, dans un dossier dataviz/
+
+- **Date :** 2026-11-20
+- **Contexte :** le module de datavisualisation évalue le pipeline, la dataviz et la proposition au client. La dataviz évaluée doit être disponible sur GitHub : l'enseignant clone le dépôt à partir du 6/12 (kit projet HETIC). Aucun outil n'est imposé ; Power BI est l'outil des exercices en cours.
+- **Décision :**
+  - le dashboard du projet est développé avec **Streamlit** (Python), avec **Plotly** pour les graphiques ;
+  - Power BI reste l'outil des exercices du cours : les captures Power BI du 20/11 viennent de ces exercices ;
+  - tout ce qui concerne la dataviz est rangé dans un dossier **`dataviz/`** à la racine du dépôt (code du dashboard, captures, export), comme le conseille le kit ;
+  - `streamlit` et `plotly` seront ajoutés à `requirements.txt` au démarrage de la dataviz.
+- **Raison :** Streamlit lit directement l'entrepôt DuckDB (D018) ; tout est du code dans le dépôt, donc vérifiable en le clonant, alors qu'un fichier Power BI ne s'affiche pas sur GitHub ; il fonctionne sous Windows et Mac ; le pipeline est déjà en Python. Un dossier unique permet à l'enseignant de trouver la dataviz tout de suite.
+- **Ce que la décision coûte :** Streamlit demande plus de temps de prise en main que Power BI, car chaque graphique est codé ; des captures doivent être ajoutées pour que la dataviz soit visible sans lancer le code.
+- **Auteurs :** dossier `dataviz/` proposé par Audrey, décision du groupe.
+- **Ticket :** #103
+
+---
+
+## D020 – Réduction des questions, des hypothèses et des sources
+
+- **Date :** 2026-11-20
+- **Contexte :** les 11 questions du groupe (G1 à G11) sont trop nombreuses pour un tableau de bord, qui doit répondre à 3 questions avec 5 à 7 indicateurs (kit projet HETIC). En cours, il a été conseillé de les réduire par une analyse SWOT.
+- **Décision :** à partir de l'analyse SWOT de `docs/perimetre-retenu.md` :
+  - les 11 questions sont réduites à **6 questions retenues** (R1 à R6) : G1 et G10 fusionnées, G2 et G3 fusionnées, G4, G6 et G8 fusionnées, G5, G7 et G11 gardées, **G9 écartée** faute de données (D010) ;
+  - **H6 est intégrée à H2** (la région et la France deviennent la référence) ; **H7 devient secondaire** ; les autres hypothèses sont gardées ;
+  - **6 sources retenues** : BDIFF, Copernicus EWDS, Météo des forêts, Admin Express, BD Forêt V2, Données climatologiques ; **SIM2 et les Statistiques nationales des SDIS sont écartées** ; les Interventions SDIS servent seulement au contrôle de la complétude de la BDIFF.
+- **Raison :** garder les questions dont les données sont solides et qui éclairent directement les deux décisions de la commande (où concentrer les moyens, à quel seuil déclencher) ; un tableau de bord efficace répond à peu de questions.
+- **Ce que la décision coûte :** les créneaux horaires (G3) et la taille des feux (G6) ne sont plus que des éléments secondaires ; la question du délai des secours (G9) est abandonnée.
+- **Auteurs :** réduction proposée par Aissatou, validée par le groupe.
+- **Ticket :** #104

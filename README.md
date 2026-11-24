@@ -39,6 +39,7 @@ docs/
 ├── analyse/                 # Analyses individuelles de la commande (commande-prenom-nom.md)
 ├── indicateurs/             # Fiches indicateur, une par KPI (fiche-kpi-*.md)
 ├── sources/                 # Fiches d'identité des sources (fiche-*.md), inventaire.md, matrice.md
+├── cadrage_technique.md     # Rendu du cadrage technique : sources prévues, outils, risques (20/11)
 ├── glossaire.md             # Glossaire du projet
 ├── journal-decisions.md     # Journal des décisions du groupe
 └── spec.md                  # Spécification du projet (point d'entrée pour comprendre le projet)
@@ -96,6 +97,7 @@ python -c "import pandas, duckdb, geopandas, xarray; print('ok')"
 | pandas, pyarrow | Lire et préparer les tableaux (CSV de la BDIFF, de la Météo des forêts, des données climatologiques) |
 | DuckDB | L'entrepôt : une base SQL dans un seul fichier, sans serveur, pour les couches silver et gold |
 | geopandas | Les cartes (Admin Express, BD Forêt V2) et les jointures par la position (stations, mailles → communes) |
+| py7zr | Ouvrir et contrôler les archives .7z de la BD Forêt V2 (IGN) |
 | xarray, netCDF4 | Lire les fichiers NetCDF de l'IFM (Copernicus EWDS) |
 | requests | Télécharger les fichiers publiés (data.gouv.fr, Météo-France, BDIFF) |
 | truststore | Vérifier les certificats des sites avec ceux du système (le portail de la BDIFF a une chaîne de certificats incomplète) |
@@ -127,6 +129,19 @@ python src/charger_bdiff.py
 - **Choisir les années :** `python src/charger_bdiff.py --debut 2024 --fin 2025`.
 - **Résultat attendu :** 20 fichiers (environ 12 Mo), soit **52 811 incendies**, dont 120 en Côte-d'Or.
 
+### BD Forêt V2
+
+```
+python src/charger_bd_foret.py
+```
+
+- **Ce que fait le script :** il cherche dans le catalogue de l'IGN ([data.geopf.fr](https://data.geopf.fr/telechargement/resource/BDFORET)) l'édition **V2 de la Côte-d'Or** et enregistre l'archive dans `data/raw/bd_foret/`, sous le nom donné par l'IGN : `BDFORET_2-0__SHP_LAMB93_D021_2017-10-04.7z` (édition de 2017).
+- **L'archive n'est jamais décompressée ni modifiée** : elle garde la carte `FORMATION_VEGETALE` (shapefile, Lambert 93), les métadonnées et le LISEZ-MOI de l'IGN. Elle est ouverte en silver avec `py7zr`.
+- **Le fichier reçu est contrôlé** : taille annoncée par l'IGN, archive intacte (contrôle de chaque fichier) et carte complète (`.shp`, `.shx`, `.dbf`, `.prj`). Sinon, rien n'est écrit.
+- **Relancer le script ne crée pas de doublons** : une archive déjà présente est ignorée. Pour retélécharger : `python src/charger_bd_foret.py --force`.
+- **Un autre département :** `python src/charger_bd_foret.py --departement 89`. Le schéma n'utilise que la Côte-d'Or (D023).
+- **Résultat attendu :** 1 fichier de 32 Mo, soit **25 831 zones de forêt**.
+
 ## Règles de travail
 
 - Une branche par ticket, nommée `type/courte-description` (ex. `docs/analyse-commande-jane`, `feat/chargement-bdiff`).
@@ -136,6 +151,8 @@ python src/charger_bdiff.py
   - `modelisation` pour le schéma de l'entrepôt, le chargement de la BDIFF et la partie 6 de la spec (équipe Modélisation) ;
   - `qualite` pour les profils qualité, le chargement de la Météo des forêts et la partie 7 de la spec (équipe Qualité).
 - Le travail remonte par pull requests : branche de tâche → branche de domaine → `dev` (en fin de semaine) → `main` (aux checkpoints).
+- Pour récupérer le travail arrivé dans `dev`, une branche d'équipe est mise à jour par une pull request `dev` → branche d'équipe (base : `modelisation` ou `qualite`, compare : `dev`). Chaque membre part ensuite de sa branche d'équipe à jour ; une branche de tâche en cours récupère la mise à jour avec `git pull origin <branche d'équipe>`.
+- Les parties techniques du README (environnement, chargement des données) et `requirements.txt` sont modifiées avec le code, sur la branche d'équipe. Pour éviter les conflits entre équipes : une bibliothèque par ligne, ajoutée dans sa rubrique de `requirements.txt`, et chaque équipe écrit dans sa propre partie du README.
 - Chaque pull request est relue et validée par le ou la **responsable du domaine concerné** : Jane pour les sources, Audrey pour le pipeline et le modèle, Melvyn pour la qualité, Aissatou pour la gestion du projet (journal, README, spec). Jane valide en plus chaque nouvelle source, et Melvyn vérifie que les tests ont tourné. Personne ne valide sa propre pull request (voir D015 et D017 dans le [journal des décisions](docs/journal-decisions.md)).
 - Chaque tâche a un ticket, rattaché à un ticket parent et à un milestone (V0, V1, V2), et suivi dans le tableau du projet GitHub (Backlog, In progress, In review, Done).
 - Après la fusion d'une pull request vers `documentation`, `modelisation` ou `qualite`, le ticket est fermé à la main (GitHub ne le fait que pour la branche par défaut, `dev`).
