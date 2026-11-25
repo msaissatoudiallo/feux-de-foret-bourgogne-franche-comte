@@ -159,6 +159,19 @@ python src/charger_bd_foret.py
 - **Un autre département :** `python src/charger_bd_foret.py --departement 89`. Le schéma n'utilise que la Côte-d'Or (D023).
 - **Résultat attendu :** 1 fichier de 32 Mo, soit **25 831 zones de forêt**.
 
+### Météo des forêts
+
+```
+python src/charger_meteo_des_forets.py
+```
+
+- **Ce que fait le script :** il télécharge les archives de la Météo des forêts (Météo-France, jeu « Archives de la Météo des forêts » sur [data.gouv.fr](https://www.data.gouv.fr/datasets/archives-de-la-meteo-des-forets)), **une année par fichier, de 2024 à 2026**, dans `data/raw/meteo_des_forets/mdf_AAAA.csv.gz`.
+- **Les fichiers ne sont jamais modifiés** : ils sont enregistrés compressés, comme ils sont publiés. Les différences entre les années (séparateur, `num_dep` sans zéro en 2024 et 2025, heure en UTC) sont traitées dans la couche silver (`docs/sources/fiche-meteo-des-forets.md`).
+- **Relancer le script ne crée pas de doublons** : une année déjà présente est ignorée. Pour retélécharger : `python src/charger_meteo_des_forets.py --force`.
+- **Pendant la saison des feux**, Météo-France complète chaque jour le fichier de l'année en cours : relancer avec `--force` pour avoir la dernière version (le fichier est remplacé, pas complété).
+- **Choisir les années :** `python src/charger_meteo_des_forets.py --debut 2026 --fin 2026`.
+- **Résultat attendu :** 3 fichiers (environ 130 Ko), soit **35 616 lignes** : 11 520 en 2024 et en 2025 (séparateur `,`), 12 576 en 2026 (séparateur `;`).
+
 ## Règles de travail
 
 - Une branche par ticket, nommée `type/courte-description` (ex. `docs/analyse-commande-jane`, `feat/chargement-bdiff`).

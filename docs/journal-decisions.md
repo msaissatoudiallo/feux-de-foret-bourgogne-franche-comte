@@ -288,3 +288,73 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Ce que la décision coûte :** les créneaux horaires (G3) et la taille des feux (G6) ne sont plus que des éléments secondaires ; la question du délai des secours (G9) est abandonnée.
 - **Auteurs :** réduction proposée par Aissatou, validée par le groupe.
 - **Ticket :** #104
+
+---
+
+## D021 – Les 7 indicateurs du tableau de bord et la règle commune des périodes
+
+- **Date :** 2026-11-20
+- **Contexte :** le kit projet demande 5 à 7 indicateurs, chacun comparé à une référence. Après la réduction (D020), plusieurs KPI de la spec posaient problème : celui de H1 confirmait l'hypothèse quoi qu'il arrive (les 120 feux sont dans 85 communes sur 698), celui de H3 serait proche de 100 % en Côte-d'Or faute de feux, celui de H5 n'avait pas de définition de l'« indice bas », et les périodes changeaient d'un KPI à l'autre.
+- **Décision :** le tableau de bord suit la fiche de cadrage (`docs/fiche-cadrage.md`) :
+  - **7 indicateurs**, chacun rattaché à une des 3 questions du tableau de bord, comparé à une référence et affiché avec le nombre de feux sur lequel il est calculé :
+    1. part des feux hors juin-septembre (R2, H4) ;
+    2. jours de danger élevé du dernier été (R6, H9) ;
+    3. taux de jours avec au moins un feu, par classe d'indice, en Côte-d'Or comparée à la région et à la France (R3, H2) ;
+    4. part des feux partis par indice bas, IFM < 11,2 (R4, H5) ;
+    5. feux par 100 km² de forêt, par commune (R1, H1) ;
+    6. pour chaque seuil d'indice, part des jours de feu couverts et jours de dispositif par saison (R5, H2 et H3) ;
+    7. part des communes à fort enjeu (R1, H8) ;
+  - **règle commune des périodes** : 2015-2025 pour les indicateurs qui comptent des feux (les feux d'avant 2015 sont mal saisis, d'après la fiche BDIFF) ; 1997-2026 pour l'indicateur qui n'utilise que l'indice (30 étés, une normale climatique) ;
+  - les tests statistiques restent dans les fiches indicateur ; le tableau de bord montre une valeur simple et sa référence ;
+  - H7 reste une analyse secondaire.
+- **Raison :** des indicateurs qui peuvent vraiment confirmer ou infirmer les hypothèses, lisibles par le SDIS, et comparables entre eux parce qu'ils portent sur la même période.
+- **Ce que la décision coûte :** les années 2006-2014 ne sont plus utilisées pour les indicateurs principaux ; les fiches indicateur et la spec doivent être mises à jour ; le téléchargement de l'IFM doit couvrir toute l'année et la France (#114).
+- **Auteurs :** liste proposée par Jane dans la fiche de cadrage (PR #123), relue par Melvyn et Aissatou.
+- **Ticket :** #126
+
+---
+
+## D022 – Périmètre de l'entrepôt : la France métropolitaine, sans l'outre-mer
+
+- **Date :** 2026-11-20
+- **Contexte :** l'export de la BDIFF couvre toute la France, outre-mer compris : départements `971`, `972`, `974` et `976`, avec des codes de 3 caractères. La Météo des forêts ne couvre que les 96 départements de métropole, et la spec fixe le code département à 2 caractères. Il fallait décider si l'outre-mer entre dans l'entrepôt (schéma v0, ticket #41).
+- **Décision :**
+  - l'outre-mer est écarté dès la couche silver : il reste dans les fichiers bruts (bronze), mais aucune table silver ou gold ne le contient ;
+  - la « France » de référence des indicateurs (R3, H2) est la **France métropolitaine** (96 départements, Corse comprise) ;
+  - le code département reste du texte de 2 caractères (`01`, `21`, `2A`), et une contrainte de la base le vérifie.
+- **Raison :** la Météo des forêts, qui sert à vérifier la traduction de l'IFM en niveaux (D008), n'existe pas en outre-mer. Les climats tropicaux ne sont pas comparables à la Côte-d'Or. On garde ainsi une seule règle pour le code département.
+- **Ce que la décision coûte :** les feux d'outre-mer ne sont pas comptés dans la comparaison avec la France. Il faut toujours écrire « France métropolitaine » dans les indicateurs et le dashboard, et non « France ».
+- **Auteurs :** proposée par Audrey, validée par Audrey et Aissatou (équipe Modélisation).
+- **Ticket :** #41
+
+---
+
+## D023 – La dimension des communes couvre toute la métropole
+
+- **Date :** 2026-11-20
+- **Contexte :** la table `dim_commune` décrit les communes (code INSEE, population, surface, forêt). La BDIFF contient des feux dans toute la France, mais la BD Forêt V2 n'a été téléchargée que pour la Côte-d'Or. Il fallait choisir entre la Côte-d'Or seule, la région ou toute la métropole.
+- **Décision :**
+  - `dim_commune` contient **toutes les communes de France métropolitaine**, dans l'édition la plus récente d'Admin Express ;
+  - la surface de forêt (`surface_foret_km2`, `part_foret`) n'est remplie que pour la **Côte-d'Or**, et reste vide ailleurs ;
+  - les codes de communes disparus après une fusion passent par la table `passage_commune`, construite en comparant Admin Express 2017 et l'édition récente.
+- **Raison :** chaque feu de la BDIFF doit trouver sa commune, sinon la clé étrangère `code_insee` de `fait_feu` échoue pour la région et la France, alors que ces feux servent de référence (D007). Les questions sur la forêt (R1, H1, H8) ne portent que sur la Côte-d'Or.
+- **Ce que la décision coûte :** il faut télécharger Admin Express pour toute la métropole (environ 35 000 communes), et pas seulement pour la Côte-d'Or. Un indicateur de forêt calculé hors de la Côte-d'Or serait faux : la colonne vide doit l'empêcher.
+- **Auteurs :** proposée par Audrey, validée par Audrey et Aissatou (équipe Modélisation).
+- **Ticket :** #41
+
+---
+
+## D024 – La couche silver garde le grain le plus fin de chaque source
+
+- **Date :** 2026-11-20
+- **Contexte :** la première proposition de la spec (partie 6) ramenait l'IFM et la météo à un département pour un jour dès la couche silver (`fait_danger_jour`, `fait_meteo_jour`). Mais les KPI dépendent de réglages à faire varier pour tester leur solidité : seuil d'IFM (21,3 ou 30), moyenne ou maximum des mailles, période (2006, 2015 ou 2020 à 2025).
+- **Décision :**
+  - en silver, chaque source garde son grain d'origine : **une maille pour un jour** pour l'IFM (`fait_ifm_jour`), **une station pour un jour** pour la météo (`fait_meteo_jour`), **un feu** pour la BDIFF (`fait_feu`) ;
+  - les mailles et les stations sont rattachées aux départements et aux communes **par la carte, une seule fois**, dans les dimensions `dim_maille` et `dim_station` ;
+  - les résumés par département et par jour, et les classes de danger, sont calculés en **gold** (`gold_departement_jour`, `gold_ete_departement`) ;
+  - le décalage de la Météo des forêts (pour un feu du jour J, `niveau_j1` du bulletin de J-1, D008) est fait **une seule fois**, au chargement de `fait_mdf_jour`, et contrôlé par une contrainte de la base.
+- **Raison :** on peut refaire chaque KPI avec d'autres réglages sans recharger les sources, et vérifier que la conclusion tient. On peut aussi retrouver la station la plus proche d'un feu (H5). Faire le décalage de la Météo des forêts une seule fois évite l'erreur la plus facile à faire sur la question du seuil.
+- **Ce que la décision coûte :** le silver est plus volumineux (environ 4 millions de lignes pour l'IFM en métropole sur 2015-2025, période fixée par D021). Il faut une étape gold de plus avant le dashboard. C'est un écart avec la première proposition de la spec, qui a été mise à jour (partie 6).
+- **Auteurs :** proposée par Audrey, validée par Audrey et Aissatou (équipe Modélisation).
+- **Ticket :** #41
+
