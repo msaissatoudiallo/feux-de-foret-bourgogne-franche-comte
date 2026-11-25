@@ -42,13 +42,13 @@ Chaque indicateur est comparé à une référence et affiché **avec le nombre d
 - **H7** (week-end et jours fériés) sort de la liste principale : hypothèse secondaire depuis D020. Sa fiche reste une analyse complémentaire.
 - **Lisibilité** : le tableau de bord montre une valeur simple et sa référence. Les tests statistiques des fiches indicateur (test binomial, test de Fisher, Mann-Kendall) restent dans l'analyse.
 
-### Règle commune de période (proposition, à consigner dans D021)
+### Règle commune de période (D021)
 
 - **2015-2025** pour les indicateurs qui comptent des feux (1, 3, 4, 5, 6) : les feux d'avant 2015 sont mal saisis hors de l'aire méditerranéenne (fiche BDIFF). La prudence demandée par le producteur avant 2020 est rappelée dans les limites.
 - **1997-2026** pour l'indicateur qui n'utilise que l'indice (2) : 30 étés, la durée d'une normale climatique.
 - **Indicateur 7** : pas de période de feux ; forêt dans son état de 2017 (BD Forêt V2), population de l'édition récente d'Admin Express.
 
-Cette règle modifie l'objectif SMART de H4 (2012-2025 dans la spec) et celui de H2-H3 (2012-2025).
+La spec est alignée sur cette règle : les objectifs SMART de H4 et de H2-H3 portent maintenant sur 2015-2025 (PR #138 et #145).
 
 ## Sources
 
@@ -75,6 +75,6 @@ Le kit demande trois niveaux : Synthèse, Pourquoi, Détail.
 
 ## Suite
 
-1. Valider cette liste avec le groupe, puis avec le formateur.
-2. Consigner la liste et la règle de période dans le journal (D021).
-3. Ouvrir un ticket par fiche indicateur manquante (indicateurs 1, 3, 4, 5 et 6), au format du kit (#106). Les indicateurs 2 (H9) et 7 (H8) ont déjà une fiche, à mettre au format du kit.
+1. Valider cette liste avec le groupe, puis avec le formateur. **Validée par le groupe (PR #123) ; validation du formateur en attente.**
+2. Consigner la liste et la règle de période dans le journal (D021). **Fait (PR #138).**
+3. Ouvrir un ticket par fiche indicateur manquante (indicateurs 1, 3, 4, 5 et 6), au format du kit (#106). Les indicateurs 2 (H9) et 7 (H8) ont déjà une fiche, à mettre au format du kit. **Fait : les 7 fiches sont dans `docs/indicateurs/`** (indicateur 1 : `fiche-kpi-h4.md` ; 2 : `fiche-kpi-g11.md` ; 3 : `fiche-kpi-h2.md` ; 4 : `fiche-kpi-h5.md` ; 5 : `fiche-kpi-h1.md` ; 6 : `fiche-kpi-h3.md` ; 7 : `fiche-kpi-g10.md`).
