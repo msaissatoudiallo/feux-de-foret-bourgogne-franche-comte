@@ -15,7 +15,7 @@ Cette fiche suit le modèle « Fiche de cadrage du tableau de bord » du kit HET
 | **La décision** | Avant l'été 2027 : **où concentrer les moyens** contre les départs de feu (communes, période de l'année), et **à partir de quel niveau d'indice déclencher le dispositif renforcé** (patrouilles, guet), pour un nombre de jours compatible avec le budget. Rendu au SDIS : 11/12/2026. |
 | **Question 1 · Où en est-on ?** | Combien de feux en Côte-d'Or, à quelle période de l'année, et le danger augmente-t-il d'un été à l'autre ? (R2, R6) |
 | **Question 2 · Pourquoi ?** | Où partent les feux, et l'indice de danger les annonce-t-il bien, en Côte-d'Or comparée à la région et à la France ? Pourquoi des feux partent-ils quand l'indice est bas ? (R1, R3, R4) |
-| **Question 3 · Que fait-on ?** | Quel seuil retenir, pour combien de jours de dispositif par saison, et quelles communes surveiller en priorité ? (R5, R1) |
+| **Question 3 · Que fait-on ?** | Quel seuil retenir, pour combien de jours de dispositif par an, et quelles communes surveiller en priorité ? (R5, R1) |
 | **5 à 7 indicateurs** | 7 indicateurs, détaillés dans le tableau ci-dessous. |
 | **Sources** | BDIFF, Copernicus EWDS, Météo des forêts, Admin Express, BD Forêt V2, Données climatologiques (détail ci-dessous). |
 | **Validation formateur** | Date : ............ Visa : ............ |
@@ -31,7 +31,7 @@ Chaque indicateur est comparé à une référence et affiché **avec le nombre d
 | 3 | Pourquoi ? | **Taux de jours avec au moins un feu, par classe d'indice** | R3, H2 (H6 intégrée) | Le même taux pour la région et pour la France (IFM téléchargé sur la France, #114) | Côte-d'Or, région, France |
 | 4 | Pourquoi ? | **Part des feux partis par indice bas** (IFM < 11,2, classe « faible » d'EFFIS, D008) | R4, H5 | Part des jours à indice bas sur la même période | Côte-d'Or et région |
 | 5 | Pourquoi ? | **Feux par 100 km² de forêt**, par commune. Calculé seulement pour les communes qui ont au moins 1 km² de forêt (paramètre à tester : 1 ou 5 km²) ; les autres sont regroupées en une seule ligne « petites surfaces de forêt ». Sinon, une commune avec 0,5 km² de forêt et un seul feu atteindrait 200 feux pour 100 km² | R1, H1 | Moyenne de la Côte-d'Or | Côte-d'Or |
-| 6 | Que fait-on ? | **Pour chaque seuil d'indice : part des jours de feu couverts et jours de dispositif par saison**. Un jour de feu est un jour avec au moins un feu (un jour avec 3 feux compte pour 1) ; il est couvert si l'indice atteint le seuil ce jour-là | R5, H2 et H3 | Objectif SMART : au moins 70 % des jours de feu couverts, moins de 30 jours de dispositif par saison (valeurs à ajuster, D009) | Couverture : région ; jours de dispositif : Côte-d'Or |
+| 6 | Que fait-on ? | **Pour chaque seuil d'indice : part des jours de feu couverts et jours de dispositif par an**. Un jour de feu est un jour avec au moins un feu (un jour avec 3 feux compte pour 1) ; il est couvert si l'indice atteint le seuil ce jour-là | R5, H2 et H3 | Objectif SMART : au moins 70 % des jours de feu couverts, moins de 30 jours de dispositif par an, l'année entière comptant car des feux partent au printemps (valeurs à ajuster, D009) | Couverture : région ; jours de dispositif : Côte-d'Or |
 | 7 | Que fait-on ? | **Part des communes à fort enjeu** (à la fois très boisées et habitées) | R1, H8 | 25 % attendus si forêt et population n'avaient aucun lien | Côte-d'Or (698 communes) |
 
 ### Ce qui change par rapport à la spec
@@ -77,4 +77,4 @@ Le kit demande trois niveaux : Synthèse, Pourquoi, Détail.
 
 1. Valider cette liste avec le groupe, puis avec le formateur. **Validée par le groupe (PR #123) ; validation du formateur en attente.**
 2. Consigner la liste et la règle de période dans le journal (D021). **Fait (PR #138).**
-3. Ouvrir un ticket par fiche indicateur manquante (indicateurs 1, 3, 4, 5 et 6), au format du kit (#106). Les indicateurs 2 (H9) et 7 (H8) ont déjà une fiche, à mettre au format du kit. **Fait : les 7 fiches sont dans `docs/indicateurs/`** (indicateur 1 : `fiche-kpi-h4.md` ; 2 : `fiche-kpi-g11.md` ; 3 : `fiche-kpi-h2.md` ; 4 : `fiche-kpi-h5.md` ; 5 : `fiche-kpi-h1.md` ; 6 : `fiche-kpi-h3.md` ; 7 : `fiche-kpi-g10.md`).
+3. Ouvrir un ticket par fiche indicateur manquante (indicateurs 1, 3, 4, 5 et 6), au format commun des fiches indicateur (#106). Les indicateurs 2 (H9) et 7 (H8) ont déjà une fiche, à compléter au même format. **Fait : les 7 fiches sont dans `docs/indicateurs/`** (indicateur 1 : `fiche-kpi-h4.md` ; 2 : `fiche-kpi-g11.md` ; 3 : `fiche-kpi-h2.md` ; 4 : `fiche-kpi-h5.md` ; 5 : `fiche-kpi-h1.md` ; 6 : `fiche-kpi-h3.md` ; 7 : `fiche-kpi-g10.md`).
