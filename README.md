@@ -99,6 +99,7 @@ python -c "import pandas, duckdb, geopandas, xarray; print('ok')"
 | geopandas | Les cartes (Admin Express, BD Forêt V2) et les jointures par la position (stations, mailles → communes) |
 | py7zr | Ouvrir et contrôler les archives .7z de la BD Forêt V2 (IGN) |
 | xarray, netCDF4 | Lire les fichiers NetCDF de l'IFM (Copernicus EWDS) |
+| cdsapi | Demander l'IFM à Copernicus EWDS par programme (avec la clé du fichier `.env`) |
 | requests | Télécharger les fichiers publiés (data.gouv.fr, Météo-France, BDIFF) |
 | truststore | Vérifier les certificats des sites avec ceux du système (le portail de la BDIFF a une chaîne de certificats incomplète) |
 | pytest | Les tests de qualité |
@@ -171,6 +172,41 @@ python src/charger_meteo_des_forets.py
 - **Pendant la saison des feux**, Météo-France complète chaque jour le fichier de l'année en cours : relancer avec `--force` pour avoir la dernière version (le fichier est remplacé, pas complété).
 - **Choisir les années :** `python src/charger_meteo_des_forets.py --debut 2026 --fin 2026`.
 - **Résultat attendu :** 3 fichiers (environ 130 Ko), soit **35 616 lignes** : 11 520 en 2024 et en 2025 (séparateur `,`), 12 576 en 2026 (séparateur `;`).
+
+### Copernicus EWDS (IFM)
+
+**1. Créer la clé (une seule fois par personne) :**
+- créer un compte gratuit sur [ewds.climate.copernicus.eu](https://ewds.climate.copernicus.eu), puis **accepter la licence** du jeu *Fire danger indices historical data* (onglet « Download », en bas de la page) : sans cela, les demandes sont refusées ;
+- copier la clé personnelle (page « Your profile », rubrique « API Token ») ;
+- à la racine du dépôt, copier le modèle puis y coller la clé :
+
+  ```
+  cp .env.exemple .env          # macOS
+  copy .env.exemple .env        # Windows
+  ```
+
+  ```
+  COPERNICUS_EWDS_CLE=votre-clé
+  ```
+
+  Le fichier `.env` est **hors de Git** (`.gitignore`) : la clé n'est jamais publiée. Seul le modèle `.env.exemple`, sans clé, est dans le dépôt.
+
+**2. Lancer le script :**
+
+```
+python src/charger_copernicus.py
+```
+
+- **Ce que fait le script :** il demande à Copernicus l'IFM (variable *Fire weather index*, réanalyse **consolidée**, jeu `cems-fire-historical-v1`, grille 0,25°, NetCDF) et enregistre **un fichier par zone et par année** dans `data/raw/copernicus/` :
+  - `ifm_region_AAAA.nc` : Bourgogne-Franche-Comté, **de 1996 à 2026**, toute l'année (indicateur 2 : étés ; indicateurs 3, 4 et 6 : feux de printemps). 1996 est pris en plus pour pouvoir compter 30 étés complets sur 1996-2025 (D025) ;
+  - `ifm_france_AAAA.nc` : France métropolitaine et Corse, **de 2015 à 2025**, toute l'année (indicateur 3 : comparaison Côte-d'Or, région, France).
+- **Les fichiers ne sont jamais modifiés.** Les deux zones se recouvrent sur 2015-2025 : en silver, on prend l'une **ou** l'autre, sans les empiler (sinon des mailles seraient en double).
+- **Le fichier reçu est contrôlé** : NetCDF lisible, variable `fwinx` présente, un pas de temps pour chaque jour demandé, aucune valeur négative. Sinon, rien n'est écrit.
+- **Relancer le script ne crée pas de doublons** : une année déjà présente est ignorée. Pour la redemander : `--force`.
+- **File d'attente :** chaque année est une demande à Copernicus, qui peut attendre plusieurs minutes. Le premier chargement complet (42 demandes) prend donc du temps : on peut le faire en plusieurs fois, par exemple `python src/charger_copernicus.py --zone region --debut 1996 --fin 2010`.
+- **2026 est incomplète :** la réanalyse consolidée est publiée avec quelques mois de retard (fin août 2026 au catalogue le 28/11/2026), et Copernicus a suspendu ses mises à jour depuis le 16/11/2026. Le script lit les jours disponibles dans le catalogue et ne demande que les mois complets. Pour compléter plus tard : `python src/charger_copernicus.py --zone region --debut 2026 --force`.
+- **Message `WARNING … updates to this dataset will cease` :** c'est l'avertissement de Copernicus sur la suspension des mises à jour, pas une erreur du script.
+- **Résultat attendu :** pour la région, un fichier d'environ 220 Ko par année, avec **209 mailles** (11 latitudes × 19 longitudes) et 365 jours (366 les années bissextiles). Contrôle fait sur 2025 : le 30/07/2025, l'IFM des mailles de Côte-d'Or va de 1,5 à 7,2, comme dans la fiche source.
 
 ## Règles de travail
 
