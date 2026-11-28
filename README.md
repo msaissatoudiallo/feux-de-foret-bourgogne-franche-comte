@@ -49,7 +49,7 @@ Pour comprendre le projet, commencer par la [spécification](docs/spec.md).
 - Des commits atomiques : un commit = un changement cohérent, avec un message clair.
 - Personne ne travaille directement sur `main`, `dev`, `documentation`, `modelisation` ou `qualite`. Chaque branche de tâche part de la branche de son domaine (voir D016) :
   - `documentation` pour les documents (journal, README, glossaire, fiches de sources, fiches indicateur, inventaire, matrice, et la spec sauf ses parties 6 et 7) ;
-  - `modelisation` pour le schéma de l'entrepôt, le chargement de la BDIFF et la partie 6 de la spec (équipe Modélisation) ;
+  - `modelisation` pour le schéma de l'entrepôt, le chargement de la BDIFF, de Copernicus EWDS, de la BD Forêt V2, des Données climatologiques et d'Admin Express, et la partie 6 de la spec (équipe Modélisation) ;
   - `qualite` pour les profils qualité, le chargement de la Météo des forêts et la partie 7 de la spec (équipe Qualité).
 - Le travail remonte par pull requests : branche de tâche → branche de domaine → `dev` (en fin de semaine) → `main` (aux checkpoints).
 - Pour récupérer le travail arrivé dans `dev`, une branche d'équipe est mise à jour par une pull request `dev` → branche d'équipe (base : `modelisation` ou `qualite`, compare : `dev`). Chaque membre part ensuite de sa branche d'équipe à jour ; une branche de tâche en cours récupère la mise à jour avec `git pull origin <branche d'équipe>`.
