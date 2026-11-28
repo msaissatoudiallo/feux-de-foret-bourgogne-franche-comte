@@ -358,3 +358,18 @@ Chaque décision du groupe est consignée ici : date, contexte, décision, perso
 - **Auteurs :** proposée par Audrey, validée par Audrey et Aissatou (équipe Modélisation).
 - **Ticket :** #41
 
+---
+
+## D025 – Les 30 étés de l'indicateur 2 vont de 1996 à 2025
+
+- **Date :** 2026-11-28
+- **Contexte :** D021 fixe la période de l'indicateur 2 (R6, H9) à 1997-2026 : 30 étés, de juin à septembre. Au chargement de l'IFM (#114), le catalogue de Copernicus EWDS montre que la réanalyse **consolidée** s'arrête au **31/08/2026** : septembre 2026 n'existe qu'en version **intermédiaire**, moins contrôlée. De plus, Copernicus a suspendu les mises à jour du jeu depuis le 16/11/2026, jusqu'à nouvel ordre. L'été 2026 est donc incomplet en réanalyse consolidée, et on ne sait pas quand il le sera.
+- **Options étudiées :**
+  - **1997-2026, avec septembre 2026 en version intermédiaire :** garde la période de D021, mais mélange deux versions de l'indice dans la même série, juste sur le dernier été, celui qui pèse le plus dans la tendance ;
+  - **1997-2025 :** que des données consolidées, mais seulement 29 étés, ce qui n'est plus une normale climatique (30 ans, règle de l'Organisation météorologique mondiale) ;
+  - **1996-2025 :** que des données consolidées, et toujours 30 étés.
+- **Décision :** **approximer**. Les 30 étés de l'indicateur 2 vont de **1996 à 2025**, tous en réanalyse consolidée. Le « dernier été » affiché par le tableau de bord est donc l'**été 2025**. Le script de chargement télécharge la région de 1996 à 2026 : 2026 (janvier à août) reste utilisée pour les indicateurs 3, 4 et 6 et pour le contrôle avec la Météo des forêts.
+- **Raison :** on garde la durée d'une normale climatique et une seule version de l'indice sur toute la série. Pour un test de tendance (Mann-Kendall), un changement de version sur le dernier point pourrait créer une hausse ou une baisse artificielle.
+- **Ce que la décision coûte :** l'été 2026 n'est pas dans la tendance ni dans le « dernier été » du tableau de bord, alors que la commande porte sur la saison 2027. Il faut le dire au SDIS : ce manque vient de Copernicus, pas d'un choix de l'équipe. La période 1997-2026 de D021 est remplacée par 1996-2025 pour l'indicateur 2 seulement. La spec (H9) et la fiche indicateur de G11 doivent être mises à jour. Si Copernicus publie septembre 2026 en version consolidée avant le rendu, on pourra revenir à 1997-2026 : il suffira de relancer le chargement de 2026 (`--force`).
+- **Auteurs :** proposée par Audrey (équipe Modélisation), à valider par Aissatou et Melvyn (fiche indicateur de G11).
+- **Ticket :** #114
