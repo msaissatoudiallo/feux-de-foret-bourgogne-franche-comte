@@ -11,6 +11,9 @@ duckdb==2.0.0
 # Cartes : Admin Express, BD Forêt V2, rattachement des stations et des mailles aux communes
 geopandas==1.2.0
 
+# Archives .7z : BD Forêt V2 de l'IGN (contrôle au téléchargement, ouverture en silver)
+py7zr==1.1.4
+
 # Fichiers NetCDF : IFM de Copernicus EWDS
 xarray==2026.9.0
 netCDF4==1.7.5.1.post1

@@ -97,6 +97,7 @@ python -c "import pandas, duckdb, geopandas, xarray; print('ok')"
 | pandas, pyarrow | Lire et préparer les tableaux (CSV de la BDIFF, de la Météo des forêts, des données climatologiques) |
 | DuckDB | L'entrepôt : une base SQL dans un seul fichier, sans serveur, pour les couches silver et gold |
 | geopandas | Les cartes (Admin Express, BD Forêt V2) et les jointures par la position (stations, mailles → communes) |
+| py7zr | Ouvrir et contrôler les archives .7z de la BD Forêt V2 (IGN) |
 | xarray, netCDF4 | Lire les fichiers NetCDF de l'IFM (Copernicus EWDS) |
 | requests | Télécharger les fichiers publiés (data.gouv.fr, Météo-France, BDIFF) |
 | truststore | Vérifier les certificats des sites avec ceux du système (le portail de la BDIFF a une chaîne de certificats incomplète) |
@@ -127,6 +128,36 @@ python src/charger_bdiff.py
 - **Relancer le script ne crée pas de doublons** : une année déjà présente est ignorée. Pour retélécharger : `python src/charger_bdiff.py --force`.
 - **Choisir les années :** `python src/charger_bdiff.py --debut 2024 --fin 2025`.
 - **Résultat attendu :** 20 fichiers (environ 12 Mo), soit **52 811 incendies**, dont 120 en Côte-d'Or.
+
+### Données climatologiques quotidiennes
+
+```
+python src/charger_climatologie.py
+```
+
+- **Ce que fait le script :** il lit le catalogue de [data.gouv.fr](https://www.data.gouv.fr/datasets/donnees-climatologiques-de-base-quotidiennes) et enregistre dans `data/raw/climatologie/` les mesures des stations de la **Côte-d'Or** (fichiers `Q_21_…`) :
+  - période ancienne (`previous-1950-2024`) et récente (`latest-2025-2026`) ;
+  - pour chaque période, les deux groupes de paramètres : `RR-T-Vent` (pluie, températures, vent) et `autres-parametres` (dont l'humidité) ;
+  - les descriptifs des champs (`Q_descriptif_champs_….csv`) et le descriptif général (PDF).
+- **Les fichiers ne sont jamais décompressés ni modifiés** (`.csv.gz` de Météo-France, Licence Ouverte 2.0). Le fichier « avant 1949 » n'est pas pris.
+- **Le fichier reçu est contrôlé** : taille annoncée par le serveur, gzip lisible jusqu'au bout, colonnes attendues (`NUM_POSTE`, `AAAAMMJJ`…) et stations du bon département. Sinon, rien n'est écrit.
+- **Relancer le script ne crée pas de doublons** : un fichier déjà présent est ignoré. La période récente est mise à jour **chaque jour** par Météo-France : pour la rafraîchir, `python src/charger_climatologie.py --force`.
+- **Changement d'année :** les noms des périodes changent (par exemple `previous-1950-2025` en 2027). Le script prend seul les nouveaux noms et signale les anciens fichiers, à supprimer à la main pour éviter des dates en double.
+- **Un autre département :** `python src/charger_climatologie.py --departement 89`.
+- **Résultat attendu :** 7 fichiers (environ 18 Mo), soit **1 530 067 lignes** de 1950 à 2024 et environ 17 000 lignes depuis 2025 pour `RR-T-Vent`, sur 111 stations.
+
+### BD Forêt V2
+
+```
+python src/charger_bd_foret.py
+```
+
+- **Ce que fait le script :** il cherche dans le catalogue de l'IGN ([data.geopf.fr](https://data.geopf.fr/telechargement/resource/BDFORET)) l'édition **V2 de la Côte-d'Or** et enregistre l'archive dans `data/raw/bd_foret/`, sous le nom donné par l'IGN : `BDFORET_2-0__SHP_LAMB93_D021_2017-10-04.7z` (édition de 2017).
+- **L'archive n'est jamais décompressée ni modifiée** : elle garde la carte `FORMATION_VEGETALE` (shapefile, Lambert 93), les métadonnées et le LISEZ-MOI de l'IGN. Elle est ouverte en silver avec `py7zr`.
+- **Le fichier reçu est contrôlé** : taille annoncée par l'IGN, archive intacte (contrôle de chaque fichier) et carte complète (`.shp`, `.shx`, `.dbf`, `.prj`). Sinon, rien n'est écrit.
+- **Relancer le script ne crée pas de doublons** : une archive déjà présente est ignorée. Pour retélécharger : `python src/charger_bd_foret.py --force`.
+- **Un autre département :** `python src/charger_bd_foret.py --departement 89`. Le schéma n'utilise que la Côte-d'Or (D023).
+- **Résultat attendu :** 1 fichier de 32 Mo, soit **25 831 zones de forêt**.
 
 ### Météo des forêts
 
