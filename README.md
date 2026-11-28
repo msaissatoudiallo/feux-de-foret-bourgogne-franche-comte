@@ -208,6 +208,24 @@ python src/charger_copernicus.py
 - **Message `WARNING … updates to this dataset will cease` :** c'est l'avertissement de Copernicus sur la suspension des mises à jour, pas une erreur du script.
 - **Résultat attendu :** pour la région, un fichier d'environ 220 Ko par année, avec **209 mailles** (11 latitudes × 19 longitudes) et 365 jours (366 les années bissextiles). Contrôle fait sur 2025 : le 30/07/2025, l'IFM des mailles de Côte-d'Or va de 1,5 à 7,2, comme dans la fiche source.
 
+### Admin Express
+
+```
+python src/charger_admin_express.py
+```
+
+- **Ce que fait le script :** il demande au service en ligne de l'IGN ([data.geopf.fr/wfs](https://data.geopf.fr/wfs)) les contours d'Admin Express COG, pour les **96 départements de France métropolitaine** (D022, D023), et les enregistre en GeoJSON dans `data/raw/admin_express/` :
+  - `communes_AAAA_DD.geojson` : les communes de l'**édition la plus récente** (AAAA, 2026 au 28/11/2026), un fichier par département (DD : `01`, `21`, `2A`…) ;
+  - `communes_2017_DD.geojson` : les communes de l'**édition 2017**, pour la table de passage des communes fusionnées (D023) ;
+  - `departements_AAAA.geojson` : les contours des 96 départements, pour rattacher les mailles de Copernicus et les stations météo aux départements.
+- **L'édition la plus récente est trouvée seule** dans le catalogue du service, et son année est écrite dans le nom des fichiers : quand l'IGN publiera une nouvelle édition, les fichiers ne seront pas mélangés.
+- **Version précise (COG), pas la version simplifiée (CARTO)** : la surface des communes et leur part de forêt (H1, H8) sont calculées sur ces contours.
+- **Les fichiers ne sont jamais modifiés.** Les noms des colonnes changent selon l'édition (`insee_com` et `insee_dep` en 2017, `code_insee` et `code_insee_du_departement` dans l'édition récente) : c'est traité en silver (`docs/sources/fiche-admin-express.md`).
+- **Le fichier reçu est contrôlé** : GeoJSON lisible, nombre de communes égal au nombre annoncé par l'IGN, toutes du bon département, codes INSEE de 5 caractères sans doublon. Sinon, rien n'est écrit.
+- **Relancer le script ne crée pas de doublons** : un fichier déjà présent est ignoré. Pour retélécharger : `python src/charger_admin_express.py --force`.
+- **Essai sur un seul département :** `python src/charger_admin_express.py --departement 21` (environ 40 secondes).
+- **Résultat attendu :** 193 fichiers (environ 980 Mo, dont 110 Mo pour les départements), soit **34 746 communes** dans l'édition 2026 et **35 287** dans l'édition 2017. Le service de l'IGN en annonce 2 de plus en 2026 : ce sont les communes de Saint-Pierre-et-Miquelon (code de département `NR`), qui sont en outre-mer et donc écartées (D022). Pour la Côte-d'Or : **698 communes** en 2026 et **704** en 2017 ; les 6 codes disparus (21073, 21213, 21486, 21507, 21513, 21621) sont ceux de la fiche source.
+
 ## Règles de travail
 
 - Une branche par ticket, nommée `type/courte-description` (ex. `docs/analyse-commande-jane`, `feat/chargement-bdiff`).
